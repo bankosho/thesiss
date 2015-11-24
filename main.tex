@@ -1,0 +1,102 @@
+% 卒業論文　main.tex
+
+\documentclass[11pt]{jreport}
+
+\usepackage{pifont}
+\usepackage{bachelor}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{tascmac}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage{eclbkbox}
+\usepackage{multirow}
+\usepackage{lscape}
+
+\usepackage{overcite} %Use overcite package (T.Arikuma)
+\renewcommand\citeform[1]{#1)} %Use overcite package (T.Arikuma)
+
+%表の線太く
+\newcolumntype{I}{!{\vrule width 0.8pt}}
+\newcolumntype{J}{!{\vrule width 0.7pt}}
+
+\def\hthick{\noalign{\hrule height 1pt}} %macro for table thick hline (T.Arikuma)
+%\usepackage[dvips]{color,graphicx} % for eps files
+\usepackage[dvipdfmx]{color,graphicx}%png-bbファイル対応
+\usepackage{colortbl}
+\usepackage{fancybox}
+%\usepackage[dvips, dvipdfm]{color,graphicx} % for eps and png files
+%\usepackage[dvipdfm]{graphicx}
+
+%\usepackage{amssymb} % \mathfrak
+%\usepackage{comment} % comment
+\setlength{\oddsidemargin}{-15pt} %左側の余白
+\setlength{\textwidth}{490pt}     % 本文テキスト全体の幅
+\setlength{\topmargin}{0pt}       % 上側の余白
+\setlength{\textheight}{650pt}    % 本文テキスト全体の高さ
+
+%\usepackage{ascmac} 
+
+%\pagestyle{empty}
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+%\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+
+
+\newcommand{\todo}[1]{\textcolor{red}{\bf @todo #1}}
+\newcommand{\memo}[1]{\textcolor{blue}{{\small @memo #1}}}
+\newcommand{\citetodo}[1]{\textcolor{green}{{\small @cite #1}}}
+
+
+%%%%%%    TEXT START    %%%%%%
+\begin{document}
+
+%%============[ 表紙 ]=============================================================================
+%\input{title.tex}
+%\maketitle
+%\clearpage
+% \thispagestyle{empty}
+%　\\
+%\clearpage
+%
+%%============[ 内容梗概 ]=============================================================================
+%\input{abstract.tex}
+%%\clearpage
+%\newpage
+
+%============[ 目次 ]=============================================================================
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+\listoftables
+\pagebreak
+
+%============[ 本文 ]==============================================================================
+
+\pagenumbering{arabic}
+
+\input{1_introduction.tex}
+\input{2_background.tex}
+\input{3_method.tex}
+\input{4_result.tex}
+\input{5_discussion.tex}
+\input{6_conclusion.tex}
+
+%==============[ 謝辞 ]================================================================================
+\newpage
+\input{7_acknowledgment.tex}
+\clearpage
+
+
+%==============[ 参考文献 ]============================================================================
+\input{8_bib.tex}
+
+
+%==============[ 付録 ]================================================================================
+\newpage
+\appendix
+\input{9_appendix.tex}
+%\clearpage
+\end{document}
