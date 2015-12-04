@@ -1,4 +1,20 @@
-\chapter{SBDD}
-Structure-based drug designによるvirtual screeningについて説明。
-また、問題も提起する。
+\chapter{SBVS(Structure-based virtual screening)による創薬}
+\section{SBVSについて}
+\begin{itemize}
+\item SBVSとは
+	\begin{itemize}
+	\item 大量の化合物から薬物のタネとなる化合物（リード化合物）をコンピュータを用いて選別することを指す。
+	\end{itemize}
+\item SBVSにおけるフィルタリングの必要性、および問題点の説明
+	\begin{itemize}
+	\item SBVSは比較的に時間を要する
+	\item したがって、フィルタリングをする必要がある。
+	\item しかし、多くのフィルタリング手法は化合物の構造だけを見てタンパク質の構造を見ていない。
+		この手法は既に阻害剤として知られている化合物がそれなりに知られていないとどうすることもできない
+	\item 一方、粗く、高速なドッキングをすることでフィルタリングを行おうとする手法がある。
+		glideの高速ドッキングモード(HTVS, high throughput virtual screening)がそれにあたる。
+	\end{itemize}
+\end{itemize}
+\subsection{タンパク質-化合物ドッキングシミュレーション}
+\subsection{化合物のフィルタリング}
 glide HTVSの説明も忘れずに。
