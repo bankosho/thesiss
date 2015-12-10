@@ -3,8 +3,17 @@
 
 \section{提案手法へのアイデア}
 \subsection{ドッキング計算における探索自由度の削減}
+
 \begin{itemize}
-\item 化合物の内部自由度を図で示す。
+\item 化合物の内部自由度を図で示す。イメージ図：図\ref{fig:compound_freedom}
+\begin{figure}[htb]
+ \begin{center}
+  \fig[width=0.6\hsize]{./fig/method/化合物内部自由度.jpg}
+  \caption{化合物の内部自由度}
+  \label{fig:compound_freedom}
+ \end{center}
+\end{figure}
+
 \item 探索自由度の削減手法を示す。 図\ref{fig:docking_freedom}的な。
 \begin{figure}[htb]
  \begin{center}
@@ -17,6 +26,8 @@
 \end{itemize}
 
 \subsection{化合物のスコア算出}
+スコア統合のイメージを示す(図\ref{fig:integration_image}的な？これは雑すぎだが)。
+ここでは、計算量をO(n)に抑えることで高速化を目指す、ということを話せばOK。探索などはしない。
 
 \begin{figure}[htb]
  \begin{center}
@@ -57,10 +68,29 @@
 
 \section{部分構造単位のドッキング}
 glide 通常モード(SP)、およびglide 高速モード(HTVS)を用いることを記述。
-\todo{部分構造スコアはベストをとることを図示する。}
+
+
+\todo{部分構造スコアはベストをとることを図示する(図\ref{fig:fragment_result}のような)。}
+\begin{figure}[htp]
+ \begin{center}
+  \fig[width=0.6\hsize]{./fig/method/フラグメントスコア算出方法.jpg}
+  \caption{部分構造スコアの取得}
+  \label{fig:fragment_result}
+ \end{center}
+\end{figure}
 
 \section{部分構造スコアの統合}
-最初に、フラグメントごとのドッキング結果は構造を保持しないことを図で示す。結果の例を見せれば伝わるはず。
+最初に、フラグメントごとのドッキング結果は構造を保持しないことを図で示し、したがってポーズを出力しないことを明記する。
+\todo{図\ref{fig:fragment_docking_result}のようなものを示す。}（なぜか図\ref{fig:fragment_docking_result}が表示されないが、図\ref{fig:fragment_result}と同様に手書きなので無視。）
+\begin{figure}[htp]
+ \begin{center}
+  \fig[width=0.6\hsize]{./fig/method/ドッキング結果構造.png}
+  \caption{統合結果の構造}
+  \label{fig:fragment_docking_result}
+ \end{center}
+\end{figure}
+
+
 \subsection{部分構造スコアの総和}
 score\_sumについて記述。
 numHvyAtom $<=$ 2 のフラグメントを除去している。
