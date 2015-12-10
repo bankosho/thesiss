@@ -5,13 +5,22 @@
 \subsection{ドッキング計算における探索自由度の削減}
 \subsection{化合物のスコア算出}
 
-\section{フラグメント分割}
-実例を図で示す。
+\section{部分構造への分割}
 
-小峰手法\r{ref}
-\section{フラグメント単位のドッキング}
-glide SPを用いることを記述
-\section{スコアの統合}
-\subsection{フラグメントスコアの総和}
-\subsection{フラグメントスコアの最良値}
-\subsection{総和と最良値の融合}
+\begin{itemize}
+\item 分割手法に関しては、小峰のSIGBIOの論文を\r{ref}する。
+\item ここの時点で小さい部分構造は除去する、ということを述べる？\r{要検討、score\_maxの評価をどうするかに依存。}
+\item 分割について、実例を図で示す。
+\item 分割することで発生する、共通部分の存在について述べる。
+\end{itemize}
+
+
+\section{部分構造単位のドッキング}
+glide SPを用いることを記述。
+\section{部分構造スコアの統合}
+\subsection{部分構造スコアの総和}
+score\_sumについて記述。
+\subsection{部分構造スコアの最良値}
+score\_maxについて記述。
+\subsection{総和法と最良値法の線形和}
+maxsumBSについて記述。
