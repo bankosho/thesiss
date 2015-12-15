@@ -1,93 +1,75 @@
 \chapter{提案手法：化合物の部分構造を利用したフィルタリング手法の開発}
 
-\memo{大上先生から指摘あり、ここは構成を大幅に入れ替える。\\
-3.1で（フローチャートを含めた、全体的な？）提案手法のアイデアの概説を示す。\\
-3.2で提案手法の詳細を述べる\\
-3.2.1 自由度削減
-3.2.2 分割方法
-3.2.3 フラグメントドッキング
-3.2.4 スコア算出とスコア統合方法(1)(2)(3)}
-
-
-\section{提案手法へのアイデア}
-\subsection{ドッキング計算における探索自由度の削減}
-
+\section{提案手法へのアイデアの概説}
+ここでは数値的な話は一切しない。こういうアイデアの元でやりますよーという話。
 \begin{itemize}
-\item 化合物の内部自由度を図で示す。イメージ図：図\ref{fig:compound_freedom}
-\begin{figure}[htb]
- \begin{center}
-  \fig[width=0.6\hsize]{./fig/method/化合物内部自由度.jpg}
-  \caption{化合物の内部自由度}
-  \label{fig:compound_freedom}
- \end{center}
-\end{figure}
+\item まず、これから提案する手法の要件を定義する。
+	\begin{itemize}
+	\item フィルタリングにおいて重要なことは計算時間が短いこと
+	\item 逆に、構造は出せなくてもその後の通常ドッキングがやってくれるから構造を出力することに固執しません
+	\end{itemize}
+\item 要件から、提案手法のフローチャートはこのようにしました。（従来手法と提案手法、それぞれのフローチャートを図で示す）
+	\begin{itemize}
+	\item 化合物を分割してからドッキングします。分割によって内部自由度を削減すると、前述の理由によりドッキング計算コストが減少します。\\
+		(backgroundの時点でドッキングの計算量は内部自由度によって増減することを示しておく。)
+	\item 衝突を考慮するなどの構造の再構成はせず、ドッキングで得られたスコアのみに着目して計算を行います。\\
+		図\ref{fig:integration_image}のように化合物数に対して計算が$O(n)$で済むように計算することで、高速に化合物のスコアを得ます。
+		\begin{figure}[htb]
+		 \begin{center}
+		  \fig[width=0.4\hsize]{./fig/method/スコア統合イメージ.eps}
+		  \caption{スコア統合イメージ(暫定版)}
+		  \label{fig:integration_image}
+		 \end{center}
+		\end{figure}
+	\end{itemize}
+\end{itemize}
 
-\item 探索自由度の削減手法を示す。 図\ref{fig:docking_freedom}的な。
-\begin{figure}[htb]
- \begin{center}
-  \fig[width=0.6\hsize]{./fig/method/ドッキングの探索自由度.eps}
-  \caption{探索自由度について}
-  \label{fig:docking_freedom}
- \end{center}
-\end{figure}
+\section{提案手法の詳細の説明}
+すでにフローチャートを示しているので、「化合物の分割」、「部分構造単位でのドッキング」「部分構造のスコアの統合」の3つについて説明する。
+
+\subsection{化合物の分割}
+\begin{itemize}
+\item 分割は基本的に小峰による手法を用い\cite{}、重原子数が2以下のフラグメントは除外することを示す。
+\item 図\ref{fig:ex_decomposition}のような具体例を示し、分割がどのように行われるのか明確にする。
+	必ず「内部自由度を考慮しないドッキングでOK」であることに言及する。
+	\begin{figure}[htp]
+	 \begin{center}
+	  \fig[width=0.6\hsize]{./fig/method/フラグメント分割例.eps}
+	  \caption{フラグメント分割例}
+	  \label{fig:ex_decomposition}
+	 \end{center}
+	\end{figure}
+\item また、この分割によって多数の化合物で共通部分が発生することも示す。共通部分が発生することも図で示す\todo{図の作成}\\
+	これについては、1000万化合物に対して行った実験（図\ref{fig:decomposition_amount}）を説明、結果を示す。
+	\begin{figure}[htp]
+	 \begin{center}
+	  \fig[width=0.6\hsize]{./fig/method/大量decomposition.eps}
+	  \caption{大量の化合物を分割した場合の例}
+	  \label{fig:decomposition_amount}
+	 \end{center}
+	\end{figure}
 
 \end{itemize}
 
-\subsection{化合物のスコア算出}
-スコア統合のイメージを示す(図\ref{fig:integration_image}的な？これは雑すぎだが)。
-ここでは、計算量をO(n)に抑えることで高速化を目指す、ということを話せばOK。探索などはしない。
-
-\begin{figure}[htb]
- \begin{center}
-  \fig[width=0.4\hsize]{./fig/method/スコア統合イメージ.eps}
-  \caption{スコア統合イメージ}
-  \label{fig:integration_image}
- \end{center}
-\end{figure}
-
-\section{部分構造への分割}
-
+\subsection{部分構造単位でのドッキング}
 \begin{itemize}
-\item 分割手法に関しては、小峰のSIGBIOの論文を参照する。\citetodo{}
-\item ここの時点で小さい部分構造は除去する、ということを述べる？\todo{要検討、score\_maxの評価をどうするかに依存。}\\
-たぶんすることになると思う。その場合は分割の実例に除去の例を載せる。
-\item 分割について、実例を図で示す。
-
-\begin{figure}[htp]
- \begin{center}
-  \fig[width=0.6\hsize]{./fig/method/フラグメント分割例.eps}
-  \caption{フラグメント分割例}
-  \label{fig:ex_decomposition}
- \end{center}
-\end{figure}
-
-\item 分割することで発生する、共通部分の存在について述べる。\todo{これも図で示す。}
-\item 大量の化合物を分割した場合に図\ref{fig:decomposition_amount}のようになる、ということを示す。データセットがここで突然出てきてしまうが・・・。
-
-\begin{figure}[htp]
- \begin{center}
-  \fig[width=0.6\hsize]{./fig/method/大量decomposition.eps}
-  \caption{大量の化合物を分割した場合の例}
-  \label{fig:decomposition_amount}
- \end{center}
-\end{figure}
-
+\item 以下の二通りのドッキングで実験を行うことを述べる。
+	\begin{itemize}
+	\item glide の通常ドッキングモード(SP) ＆ 内部自由度を無視するオプション
+	\item glide の高速ドッキングモード(HTVS)
+	\end{itemize}
+\item ドッキング結果として複数の構造が出力される場合があるが、そのときは最良のスコアを取得することを示す(図\ref{fig:fragment_result}のような)。
+	\begin{figure}[htp]
+	 \begin{center}
+	  \fig[width=0.6\hsize]{./fig/method/フラグメントスコア算出方法.jpg}
+	  \caption{部分構造スコアの取得}
+	  \label{fig:fragment_result}
+	 \end{center}
+	\end{figure}
 \end{itemize}
+以下の二通りのドッキングを行う。
 
-\section{部分構造単位のドッキング}
-glide 通常モード(SP)、およびglide 高速モード(HTVS)を用いることを記述。
-
-
-\todo{部分構造スコアはベストをとることを図示する(図\ref{fig:fragment_result}のような)。}
-\begin{figure}[htp]
- \begin{center}
-  \fig[width=0.6\hsize]{./fig/method/フラグメントスコア算出方法.jpg}
-  \caption{部分構造スコアの取得}
-  \label{fig:fragment_result}
- \end{center}
-\end{figure}
-
-\section{部分構造スコアの統合}
+\subsection{部分構造のスコアの統合}
 最初に、フラグメントごとのドッキング結果は構造を保持しないことを図で示し、したがってポーズを出力しないことを明記する。
 \todo{図\ref{fig:fragment_docking_result}のようなものを示す。}（なぜか図\ref{fig:fragment_docking_result}が表示されないが、図\ref{fig:fragment_result}と同様に手書きなので無視。）
 \begin{figure}[htp]
@@ -98,13 +80,11 @@ glide 通常モード(SP)、およびglide 高速モード(HTVS)を用いるこ�
  \end{center}
 \end{figure}
 
-
-\subsection{部分構造スコアの総和}
+ここでは3種類のスコア統合手法について述べる。
+\subsubsection{部分構造スコアの総和}
 score\_sumについて記述。
-numHvyAtom $<=$ 2 のフラグメントを除去している。
-\subsection{部分構造スコアの最良値}
+\subsubsection{部分構造スコアの最良値}
 score\_maxについて記述。
-numHvyAtom $<=$ 2 のフラグメントを除去していない。\todo{除去しても結果はほとんど変わらないはず？}
-\subsection{総和法と最良値法の線形和}
+\subsubsection{総和法と最良値法の線形和}
 maxsumBSについて記述。
-numHvyAtom $<=$ 2 のフラグメントを除去している。
+
