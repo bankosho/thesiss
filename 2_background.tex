@@ -1,41 +1,60 @@
-\chapter{SBVS(Structure-based virtual screening)による創薬}
-\memo{1章でSBVSについては説明を完了させ、ここではドッキングおよびフィルタリングに焦点を当てる。SBVSで用いられる計算手法、というくくりかな？}
-\section{SBVSについて}
-\comment{これについては1章で説明すべきでは？（大上先生）}
-\begin{itemize}
-\item SBVSとは
-	\begin{itemize}
-	\item 大量の化合物から薬物のタネとなる化合物（リード化合物）をコンピュータを用いて選別することを指す。
-	\item ligand-basedの手法に比べて、多様な候補化合物が得られる（要出典）
-	\end{itemize}
-\item SBVSにおけるフィルタリングの必要性、および問題点の説明
-	\begin{itemize}
-	\item SBVSは比較的に時間を要する
-	\item したがって、フィルタリングをする必要がある。
-	\item しかし、多くのフィルタリング手法は化合物の構造だけを見てタンパク質の構造を見ていない。
-		この手法は既に阻害剤として知られている化合物がそれなりに知られていないとどうすることもできない
-	\item 一方、粗く、高速なドッキングをすることでフィルタリングを行おうとする手法がある。
-		glideの高速ドッキングモード(HTVS, high throughput virtual screening)がそれにあたる。
-	\end{itemize}
-\end{itemize}
-\section{タンパク質-化合物ドッキングシミュレーション}
-glide\r{ref}, GOLD\r{ref}, Autodock Vina\r{ref}の3種類は最低でも説明する。
-特にglideに関しては自分の手法でも用いるので詳しく説明する。
+\chapter{化合物-タンパク質ドッキングシミュレーション}
+\todo{ドッキングベースのフィルタリング手法を提案するために、ドッキングシミュレーションの説明をする、という流れは遠回り過ぎる？}
 
-図\ref{fig:docking_freedom}を用いてドッキングの重さについても言及。
-\begin{figure}[htb]
- \begin{center}
-  \fig[width=0.6\hsize]{./fig/background/ドッキングの探索自由度.eps}
-  \caption{探索自由度について}
-  \label{fig:docking_freedom}
- \end{center}
-\end{figure}
+\section{ドッキングシミュレーションの要素}
+\subsection{探索アルゴリズム}
+計算コスト削減の鍵となるので、詳しく説明する。
+\subsection{スコア関数}
+こちらはあまり詳細に踏み込まない。
 
-\section{化合物のフィルタリング}
-\comment{機械学習でフィルタリングしてからだと何故ダメなのか（新規性が云々）。LBDD vs SBDDの議論と混ざらないように注意。（大上先生）}
-\begin{itemize}
-\item Ligand-basedなフィルタリング\\
-	リピンスキー\r{ref}など、タンパク質の構造によらない手法について
-\item Structure-basedなフィルタリング\\
-	glide HTVSのようなドッキングに基づいた手法を説明する。
-\end{itemize}
+\section{現存するドッキングツール}
+\subsection{Glide 通常ドッキングモード (Glide SPモード)}
+\subsection{GOLD}
+\subsection{Autodock}
+
+\section{ドッキングによるフィルタリングツール}
+\subsection{Glide 高速ドッキングモード (Glide HTVSモード)}
+\todo{Glide HTVSをフィルタリングツールと呼んでいいのか？}
+内部でどのような計算の簡略化を行っているのか記述。
+
+%\chapter{SBVS(Structure-based virtual screening)による創薬}
+%\memo{1章でSBVSについては説明を完了させ、ここではドッキングおよびフィルタリングに焦点を当てる。SBVSで用いられる計算手法、というくくりかな？}
+%\section{SBVSについて}
+%\comment{これについては1章で説明すべきでは？（大上先生）}
+%\begin{itemize}
+%\item SBVSとは
+%	\begin{itemize}
+%	\item 大量の化合物から薬物のタネとなる化合物（リード化合物）をコンピュータを用いて選別することを指す。
+%	\item ligand-basedの手法に比べて、多様な候補化合物が得られる（要出典）
+%	\end{itemize}
+%\item SBVSにおけるフィルタリングの必要性、および問題点の説明
+%	\begin{itemize}
+%	\item SBVSは比較的に時間を要する
+%	\item したがって、フィルタリングをする必要がある。
+%	\item しかし、多くのフィルタリング手法は化合物の構造だけを見てタンパク質の構造を見ていない。
+%		この手法は既に阻害剤として知られている化合物がそれなりに知られていないとどうすることもできない
+%	\item 一方、粗く、高速なドッキングをすることでフィルタリングを行おうとする手法がある。
+%		glideの高速ドッキングモード(HTVS, high throughput virtual screening)がそれにあたる。
+%	\end{itemize}
+%\end{itemize}
+%\section{タンパク質-化合物ドッキングシミュレーション}
+%glide\r{ref}, GOLD\r{ref}, Autodock Vina\r{ref}の3種類は最低でも説明する。
+%特にglideに関しては自分の手法でも用いるので詳しく説明する。
+%
+%図\ref{fig:docking_freedom}を用いてドッキングの重さについても言及。
+%\begin{figure}[htb]
+% \begin{center}
+%  \fig[width=0.6\hsize]{./fig/background/ドッキングの探索自由度.eps}
+%  \caption{探索自由度について}
+%  \label{fig:docking_freedom}
+% \end{center}
+%\end{figure}
+%
+%\section{化合物のフィルタリング}
+%\comment{機械学習でフィルタリングしてからだと何故ダメなのか（新規性が云々）。LBDD vs SBDDの議論と混ざらないように注意。（大上先生）}
+%\begin{itemize}
+%\item Ligand-basedなフィルタリング\\
+%	リピンスキー\r{ref}など、タンパク質の構造によらない手法について
+%\item Structure-basedなフィルタリング\\
+%	glide HTVSのようなドッキングに基づいた手法を説明する。
+%\end{itemize}
