@@ -10,6 +10,7 @@
 \end{itemize}
 \section{データセット}
 DUD-E\r{ref}を利用した、だけではなく、inputとoutputを明確にする。
+\memo{基本データセットの時点でdiverse subsetではなくDUD-E全体になるかも。その場合ターゲットなどの説明をどう示す？検討課題。}
 \begin{table}[htb] \centering
 	\caption{DUD-E diverse subsetの詳細}
 	\label{tb:dude_divset}
@@ -26,22 +27,25 @@ DUD-E\r{ref}を利用した、だけではなく、inputとoutputを明確にす
 	kif11						&							&			&			&			&			\\ \hline
 	\end{tabular}
 \end{table}
-\section{評価基準}
-\comment{EFおよびROC-AUCについて示す。できれば数式と算出イメージ図（算出例？）を示す（特にEF）。（大上先生）}
+\section{予測精度の評価基準}
 \subsection{ROC-AUC}
+Receiver Operating Characteristic(ROC)曲線の曲線下面積(Area Under the Curve, AUC)。
+ROC曲線に必要なFP-RateとTP-Rateの数式を示し、算出例を示す。
 \subsection{EF (EnrichmentFactor)}
+数式と算出例を示す。ROC-AUCと同じ例を用いた方が良い？
 \section{計算環境}
 TSUBAME Thinノード
 \section{実験結果}
 \subsection{ドッキングにかかる計算時間}
-CPU時間で示す。
+1化合物あたりの計算時間をCPU時間で示す。
+フラグメントドッキングの場合も、フラグメントの個数でCPU時間を除算せずに化合物数で除算する。
 \memo{ドッキングの計算時間のみを示してよいのか？フラグメント分割やスコア統合の計算時間をどう示すべきか(所要時間：後者$<<$前者$<<$ドッキング計算)}
 \subsection{予測精度}
 ここでは単独手法としての精度を示す。ROC曲線はAppendixとして載せていることを記述
 \comment{ROC曲線も本文に示す。良い/悪いの評価をする際に必要になるため。（大上先生）}
 
 \begin{table}[htb] \centering
-	\caption{フィルタリング手法の予測精度}
+	\caption{提案手法の予測精度}
 	\label{tb:filtering_accuracy}
 	\begin{tabular}{c|c|lllll|}
 	\multirow{2}{*}{手法}				&フラグメント		&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}	\\
@@ -50,7 +54,7 @@ CPU時間で示す。
 									&glide 高速モード	&						&		&		&		&			\\
 	\multirow{2}{*}{最良値(score\_max)}	&glide 通常モード	&						&		&		&		&			\\
 									&glide 高速モード	&						&		&		&		&			\\
-	\multirow{2}{*}{線形和(maxsumBS)}	&glide 通常モード	&						&		&		&		&			\\
+	\multirow{2}{*}{混合(maxsumBS)}		&glide 通常モード	&						&		&		&		&			\\
 									&glide 高速モード	&						&		&		&		&			\\ \hline
 	\multicolumn{2}{c|}{従来手法(glide 高速モード)}			&						&		&		&		&			\\ \hline
 	\end{tabular}

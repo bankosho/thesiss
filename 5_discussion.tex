@@ -2,8 +2,31 @@
 
 \section{提案手法の得手・不得手}
 ターゲットのactive ligandについて、何らかの考察を加えることで提案手法が向くタイプのターゲット、向かないタイプのターゲットを評価する。
+\begin{itemize}
+\item 演繹的な推論
+	\begin{itemize}
+	\item 総和法はフラグメント数と相関があるはず
+	\item 最大値法は化合物フラグメントの最大サイズに相関するはず
+	\end{itemize}
+\item 帰納的な推論
+	\begin{itemize}
+	\item glide SPでのスコア(z-scored)-化合物原子数の散布図と
+		glide HTVSでのスコア(z-scored)-化合物原子数の散布図、
+		提案手法でのスコア(z-scored)-化合物原子数の散布図の比較を元に何か言えないか調べてみる
+	\item glide HTVSと提案手法の精度比較をターゲット別に行い、どういうターゲットでは勝てるかどうかの議論
+	\end{itemize}
+\end{itemize}
+
+\section{フラグメント数と統合スコアの関係}
+\begin{itemize} 
+\item 提案手法では重原子数が2以下の小さなフラグメントを無視した
+\item 分割数とスコアとの相関が強く出てしまうため。
+\item 
+\end{itemize}
+
 
 \section{フラグメントスコア計算式の改善}
+\memo{以下はpending。DUD-Eすべてのターゲットを用いたらhbondやevdwのスコアの良さはなくなり、スコアの修正をする理由がなくなっている。}
 \subsection{各種エネルギースコアの寄与率の評価}
 hbond, evdw, ecoulなど、それぞれ別々に用いた場合の評価がどうなっているのか。
 
