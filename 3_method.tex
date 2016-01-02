@@ -66,19 +66,30 @@
 フローチャートを図\ref{fig:flowchart}に示す。
 
 \subsection{化合物の分割}
+化合物の分割は小峰らによる手法\citetodo{}を用い、フラグメントを生成する。
+実装にはC++を用い、ケモインフォマティクスツールであるOpenBabel\cite{OBoyle2011}, 並列化のためのOpenMPを利用している。
+アルゴリズムを以下に示す。
+\begin{enumerate} 
+\item 
+\end{enumerate}
+この手法による分割例を図\ref{fig:ex_decomposition}に示す。
+\begin{figure}[htp]
+ \begin{center}
+  \fig[width=0.6\hsize]{./fig/method/フラグメント分割例.eps}
+  \caption{化合物のフラグメント分割例}
+  \label{fig:ex_decomposition}
+ \end{center}
+\end{figure}
+この化合物のフラグメントへの分割により、化合物の内部自由度を考慮することなくドッキングシミュレーションを行うことができる。
+
+また、化合物は似た構造を持つことが非常に多く、
+
 \begin{itemize}
-\item 分割は基本的に小峰による手法を用いることを示す\cite{}
+\item 分割は基本的に小峰による手法を用いることを示す\citetodo{}
 \item 重原子数が2以下のフラグメントは除外することを示す。
 	\memo{除外する理由はどこで書くべき？精度評価まで行かないと理由がない。現在は考察で記述する予定}
 \item 図\ref{fig:ex_decomposition}のような具体例を示し、分割がどのように行われるのか明確にする。
 	必ず「内部自由度を考慮しないドッキングでOK」であることに言及する。
-	\begin{figure}[htp]
-	 \begin{center}
-	  \fig[width=0.6\hsize]{./fig/method/フラグメント分割例.eps}
-	  \caption{フラグメント分割例}
-	  \label{fig:ex_decomposition}
-	 \end{center}
-	\end{figure}
 \item また、この分割によって多数の化合物で共通部分が発生することも示す。共通部分が発生することも図で示す\todo{図の作成}\\
 	これについては、1000万化合物に対して行った実験（図\ref{fig:decomposition_amount}）を説明、結果を示す。
 	\begin{figure}[htp]
