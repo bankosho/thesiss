@@ -65,77 +65,91 @@
 \end{enumerate}
 フローチャートを図\ref{fig:flowchart}に示す。
 
-\subsection{化合物の分割}
-化合物の分割は小峰らによる手法\citetodo{}を用い、フラグメントを生成する。
-実装にはC++を用い、ケモインフォマティクスツールであるOpenBabel\cite{OBoyle2011}, 並列化のためのOpenMPを利用している。
-アルゴリズムを以下に示す。
+\subsection{化合物のフラグメントへの分割}
+化合物の分割は小峰らによる手法\cite{Shunta2015}を用い、内部自由度を持たない部分構造であるフラグメントを生成する。
+実装にはC++を用い、ケモインフォマティクスツールであるOpenBabel\cite{OBoyle2011}およびOpenMP、Boostを利用している。
+フラグメント分割のアルゴリズムを以下に示し、このアルゴリズムによるフラグメント分割の進行を図\ref{fig:decomposition}に示す。
 \begin{enumerate} 
-\item 
+\item 元の分子のうち、重原子（水素以外の原子）のみに着目し、原子一つひとつをフラグメントとする。（図\ref{fig:decomposition} 左から２番目）
+\item 回転不可能な単結合以外の結合の両端の２原子を同一フラグメントとする。
+\item 環構造を構成している原子を同一フラグメントとする
+\item 回転可能な単結合を構成する原子ペアのうち、片方にそれ以上原子がつながっていない場合には同一フラグメントとする。
+	これは、片方にそれ以上の原子がつながっていない場合、回転可能な単結合を回転させてもその原子がその場で回転するだけとなり、
+	化合物の原子の位置関係には影響を与えないためである。（図\ref{fig:decomposition} 左から３番目）
+\item ２つの単結合の切断により孤立してしまう原子は、切断された先に存在する２つのフラグメントのどちらかに併合する。
+	なお、３つ以上の単結合の切断により孤立してしまう原子に関してはこの操作を行わない。
+\item 全ての水素原子について、その原子が結合している重原子の属するフラグメントに含める。（図\ref{fig:decomposition} 左から４番目）
 \end{enumerate}
-この手法による分割例を図\ref{fig:ex_decomposition}に示す。
+
 \begin{figure}[htp]
  \begin{center}
-  \fig[width=0.6\hsize]{./fig/method/フラグメント分割例.eps}
-  \caption{化合物のフラグメント分割例}
-  \label{fig:ex_decomposition}
- \end{center}
-\end{figure}
-この化合物のフラグメントへの分割により、化合物の内部自由度を考慮することなくドッキングシミュレーションを行うことができる。
-
-また、化合物は似た構造を持つことが非常に多く、
-
-\begin{itemize}
-\item 分割は基本的に小峰による手法を用いることを示す\citetodo{}
-\item 重原子数が2以下のフラグメントは除外することを示す。
-	\memo{除外する理由はどこで書くべき？精度評価まで行かないと理由がない。現在は考察で記述する予定}
-\item 図\ref{fig:ex_decomposition}のような具体例を示し、分割がどのように行われるのか明確にする。
-	必ず「内部自由度を考慮しないドッキングでOK」であることに言及する。
-\item また、この分割によって多数の化合物で共通部分が発生することも示す。共通部分が発生することも図で示す\todo{図の作成}\\
-	これについては、1000万化合物に対して行った実験（図\ref{fig:decomposition_amount}）を説明、結果を示す。
-	\begin{figure}[htp]
-	 \begin{center}
-	  \fig[width=0.6\hsize]{./fig/method/大量decomposition.eps}
-	  \caption{大量の化合物を分割した場合の例}
-	  \label{fig:decomposition_amount}
-	 \end{center}
-	\end{figure}
-
-\end{itemize}
-
-\subsection{部分構造単位でのドッキング}
-\begin{itemize}
-\item 以下の二通りのドッキングで実験を行うことを述べる。
-	\begin{itemize}
-	\item glide の通常ドッキングモード(SP) ＆ 内部自由度を無視するオプション
-	\item glide の高速ドッキングモード(HTVS)
-	\end{itemize}
-\item ドッキング結果として複数の構造が出力される場合があるが、そのときは最良のスコアを取得することを示す(図\ref{fig:fragment_result}のような)。
-	\begin{figure}[htp]
-	 \begin{center}
-	  \fig[width=0.6\hsize]{./fig/method/フラグメントスコア算出方法.jpg}
-	  \caption{部分構造スコアの取得}
-	  \label{fig:fragment_result}
-	 \end{center}
-	\end{figure}
-\end{itemize}
-以下の二通りのドッキングを行う。
-
-\subsection{部分構造のスコアの統合}
-最初に、フラグメントごとのドッキング結果は構造を保持しないことを図で示し、したがってポーズを出力しないことを明記する。
-\todo{図\ref{fig:fragment_docking_result}のようなものを示す。}（なぜか図\ref{fig:fragment_docking_result}が表示されないが、図\ref{fig:fragment_result}と同様に手書きなので無視。）
-\begin{figure}[htp]
- \begin{center}
-  \fig[width=0.6\hsize]{./fig/method/ドッキング結果構造.png}
-  \caption{統合結果の構造}
-  \label{fig:fragment_docking_result}
+  \fig[width=0.99\hsize]{./fig/method/decomposition.png}
+  \caption{化合物のフラグメント分割アルゴリズム\cite{Shunta2015}}
+  \label{fig:decomposition}
  \end{center}
 \end{figure}
 
-ここでは3種類のスコア統合手法について述べる。
-\subsubsection{部分構造スコアの総和}
-score\_sumについて記述。
-\subsubsection{部分構造スコアの最良値}
-score\_maxについて記述。
-\subsubsection{総和法と最良値法の線形和}
-maxsumBSについて記述。
+この化合物のフラグメントへの分割により、内部自由度を考慮することなくドッキングシミュレーションを行うことができる。
+また、複数の化合物間で部分構造に共通性が見られることが非常に多く、本研究で用いている分割手法によって得られるものの中にも
+多数の共通フラグメントが発生する。例えば、ZINCの"drugs now"データセットに含まれている10,639,555化合物を順次フラグメント分割した
+場合のフラグメントの種類数をプロットすると、図\ref{fig:decomposition_amount}のようになり、わずか20万フラグメントによって1,000万化合物が
+構成されていることが分かる。
+また、プロットの曲線具合からもわかるように、フラグメント分割を行いドッキングを行うという手法は、化合物数が多ければ多いほど化合物単位で
+ドッキングする手法に比べて優位になる。
 
+\begin{figure}[htp]
+ \begin{center}
+  \fig[width=0.6\hsize]{./fig/method/大量decomposition.eps}
+  \caption{大量の化合物を分割した場合の例}
+  \label{fig:decomposition_amount}
+ \end{center}
+\end{figure}
+
+\subsection{フラグメント単位でのドッキングシミュレーション}
+次に、分割されたフラグメントについて、標的タンパク質との結合スコアを求めるためにドッキングシミュレーションを行う。
+本研究では、有償ソフトであるglide\citetodo{}を用いる。glideには高速（HTVS）モード、通常（SP）モード、精密（XP）モードの３種類のモードが
+存在するが、本研究ではSPモードとHTVSモードを利用した場合の評価を行う。
+SPモードはデフォルト設定では内部自由度を考慮したドッキングを行ってしまうため、内部自由度を無視するオプションを追加している。
+また、一般的に１つのタンパク質と１つの化合物とのドッキング結果では複数のタンパク質-フラグメント結合予測構造および
+結合スコアが出力されるが、この後の化合物のフィルタリングスコアの算出ではこのうち最良の結合スコアを利用する（図\ref{fig:fragment_result}）。
+
+\begin{figure}[htp]
+ \begin{center}
+  \fig[width=0.6\hsize]{./fig/method/フラグメントスコア算出方法.jpg}
+  \caption{フラグメントの結合スコアの取得}
+  \label{fig:fragment_result}
+ \end{center}
+\end{figure}
+
+\subsection{化合物のフィルタリングスコアの算出}
+フラグメント単位でのドッキングシミュレーションによって、フラグメントの結合構造およびその結合スコアを得た。続いて、このフラグメント結合スコアから
+化合物のフィルタリングに用いるスコアを算出する。
+本研究では、３種類のスコアの算出方法の実験を行った。
+
+\subsubsection{総和法（score\_sum）}
+フラグメント結合スコアの総和をとり、それを化合物のフィルタリングスコアとする。
+構成する全てのフラグメントがタンパク質と良い結合構造を取れるような化合物が薬物候補化合物として適している、として評価を高くする手法
+である。フラグメント群は化合物に存在する結合という束縛条件を一部緩和したものであるため、一般にこの手法によって得られた
+化合物フィルタリングスコアは化合物そのものの結合スコアよりも高くなる。
+
+\subsubsection{最良値法（score\_max）}
+フラグメント結合スコアの最良値をとり、それを化合物のフィルタリングスコアとする。
+構成するフラグメントの内、１つでもタンパク質と非常に良い結合構造をとれるような化合物が薬物候補化合物として適している、として
+評価を高くする手法である。フラグメント１つの結合スコアが化合物のフィルタリングスコアとなること、ドッキングシミュレーションを行う分子のサイズと
+結合スコアには正の相関がある\cite{Verdonk2004}ことから、総和法とは異なりこの手法によって得られた化合物フィルタリングスコアは
+化合物そのものの結合スコアよりも低くなる。
+
+\subsubsection{総和法と最良値法の値の線形和（maxsumBS）}
+これまでに示した総和法と最良値法はフラグメント結合スコアの全て、もしくはただ一つを見る手法であり両極端であるため、
+これらを統合して用いることで、より良い指標となるのではないかと考えた。
+しかし、総和法の値域が最良値法の値域よりも大きいために単純和では総和法の影響を大きく受けてしまう。
+そこで、二つの手法を適当なバランスで組み合わせるために、フィルタリングを行いたい化合物の総和法によるスコア、最良値法によるスコアを
+それぞれ平均0、分散1にし（すなわちzスコア化し）、変換後のスコアを足し合わせることでバランスよくスコアを統合することを試みた（図\ref{fig:maxsumBS}）。
+\begin{figure}[htp]
+ \begin{center}
+  \fig[width=0.99\hsize]{./fig/method/maxsumBS.eps}
+  \caption{maxsumBSの算出}
+  \label{fig:maxsumBS}
+ \end{center}
+\end{figure}
+なお、総和法によるスコアと最良値法によるスコアのバランスをとったスコア、という意味でmaxsumBS（max-sum Balanced Score）として以下記述する。
