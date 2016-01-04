@@ -1,19 +1,20 @@
 \chapter{実験}
-\comment{現状よりも詳しく記述すべき（大上先生）}
-
-ここで話すことは大きく二つ。
-
-どこかで評価軸の説明をする
-\begin{itemize}
-\item それぞれの手法の単独性能について
-\item それぞれの手法をfiltering手法として用いた場合について
-\end{itemize}
-
+ここでは、提案手法と既存手法との比較実験を行い、提案手法の長所を示す。
 
 \section{データセット}
-本実験では、データセットとしてDirectory of Useful Decoys (DUD-E)\citetodo{}を用いた。DUD-Eは102種類のターゲットについて、それぞれタンパク質・正例化合物・負例化合物を用意している。各ターゲットの詳細、および1つの化合物の平均フラグメント数については付録\ref{appendix:dude}に記載する。\memo{DUD-Eの一部の情報はココに記載する必要あり}
+本実験では、データセットとしてDirectory of Useful Decoys (DUD-E)\cite{Mysinger2012}を用いた。DUD-Eは102種類のターゲットについて、それぞれタンパク質・正例化合物・負例化合物を用意している。表\ref{table:dude}にターゲットごとの化合物数、正例と負例の比率の最小値、最大値、平均値を、図\ref{fig:dude_hist_comp}に総化合物数の分布を示す\todo{ヒストグラム作成}。各ターゲットの詳細については付録\ref{appendix:dude}に記載する。
 
-
+\begin{table}[htb] \centering
+	\caption{DUD-Eのターゲットの化合物}
+	\label {table:dude}
+	\begin{tabular}{c|ll|}
+			&総化合物数	&正/負例の比率	\\ \hline
+	最大値	&			&				\\
+	平均値	&			&				\\
+	最小値	&			&				\\ \hline
+	\end{tabular}
+\end{table}
+	
 \section{予測精度の評価指標}
 バーチャルスクリーニングでは一般的に正例と負例の比が非常に偏っている。
 そのため単純なprecisionやrecallを用いた評価を行うことができず、以下の2種類の評価指標が多く用いられている。
@@ -24,20 +25,46 @@ Receiver Operating Characteristic(ROC)曲線の曲線下面積(Area Under the Cu
 ROC曲線に必要なFP-RateとTP-Rateの数式を示し、算出例を示す。\todo{卒論から文章をひっぱってくる}
 
 \subsection{EF (EnrichmentFactor)}
-数式と算出例を示す。ROC-AUCと同じ例を用いた方が良い？
+数式と算出例を示す。ROC-AUCと同じ例を用いるようにする。
+
 
 
 \section{計算環境}
-TSUBAME Thinノード\todo{先輩の修論の記述をパク…参考にする}
+TSUBAME Thinノード\todo{先輩の修論の記述を参考にする}
+
+
+\section{比較対象}
+本提案手法はドッキングに基づくフィルタリング手法であるため、同様の用途に用いられているglide HTVS（高速）モードを比較対象として用いる。
+また、フィルタリングとしての性能を評価するために、glide SP（通常）モードによる化合物ドッキングシミュレーションと組み合わせた評価も行うため、
+計算時間などの評価に関してはglide SPモードも比較対象とする。
 
 
 \section{実験結果}
 
-
 \subsection{ドッキングにかかる計算時間}
-1化合物あたりの計算時間をCPU時間で示す。
-フラグメントドッキングの場合も、フラグメントの個数でCPU時間を除算せずに化合物数で除算する。
-\memo{ドッキングの計算時間のみを示してよいのか？フラグメント分割やスコア統合の計算時間をどう示すべきか(所要時間：後者$<<$前者$<<$ドッキング計算)}
+はじめに、提案手法の計算速度を評価する。提案手法は\ref{subsec:decomposition}節で述べたように化合物数が多ければ多いほど
+計算コストの削減幅が増幅される手法であるため、DUD-E 102ターゲット全てでの所要計算時間の平均以外に、
+総化合物数が最小である\r{xxx}ターゲット、総化合物数が中央値である\r{xxx}ターゲット、総化合物数が最大である\r{xxx}ターゲット３種類に
+ついては独立して結果を示す。
+
+結果は表\ref{table:calc_time}の通りであり、提案手法は既存手法であるglide HTVSと比べて平均して9倍（SPモード利用時）から
+15倍（HTVSモード利用時）の速度向上を達成している。
+
+\begin{table}[htb] \centering
+	\caption{ドッキング計算時間の比較}
+	\label{table:calc_time}
+	\begin{tabular}{c|rr|rrrr|}
+							&	\multirow{3}{*}{総化合物数}	&\multirow{3}{*}{\shortstack{フラグメント\\種類数}}	&\multicolumn{4}{c|}{計算時間 [CPU sec.]}									\\
+							&							&											&\multicolumn{2}{c}{化合物ドッキング}	&\multicolumn{2}{c|}{フラグメントドッキング}	\\
+							&							&											&glide SP		&glide HTVS		&glide SP 		&glide HTVS			\\ \hline
+全ての平均					&nn							&nn											&236,156			&14,813			&1,673		&987					\\
+\shortstack{最小ターゲット}		&nn							&nn											&nn				&				&				&					\\
+\shortstack{中央値ターゲット}	&nn							&nn											&nn				&				&				&					\\
+\shortstack{最大ターゲット}		&nn							&nn											&nn				&				&				&					\\
+	\end{tabular}
+\end{table}
+
+\r{現在ここまで記述済み}
 
 \subsection{予測精度}
 ここでは単独手法としての精度を示す。ROC曲線はAppendixとして載せていることを記述

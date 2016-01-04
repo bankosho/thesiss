@@ -65,7 +65,7 @@
 \end{enumerate}
 フローチャートを図\ref{fig:flowchart}に示す。
 
-\subsection{化合物のフラグメントへの分割}
+\subsection{化合物のフラグメントへの分割}\label{subsec:decomposition}
 化合物の分割は小峰らによる手法\cite{Shunta2015}を用い、内部自由度を持たない部分構造であるフラグメントを生成する。
 実装にはC++を用い、ケモインフォマティクスツールであるOpenBabel\cite{OBoyle2011}およびOpenMP、Boostを利用している。
 フラグメント分割のアルゴリズムを以下に示し、このアルゴリズムによるフラグメント分割の進行を図\ref{fig:decomposition}に示す。
