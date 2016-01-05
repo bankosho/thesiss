@@ -1,28 +1,97 @@
 \chapter{考察}
 
-\section{提案手法の得手・不得手}
-ターゲットのactive ligandについて、何らかの考察を加えることで提案手法が向くタイプのターゲット、向かないタイプのターゲットを評価する。
-\begin{itemize}
-\item 演繹的な推論
-	\begin{itemize}
-	\item 総和法はフラグメント数と相関があるはず
-	\item 最大値法は化合物フラグメントの最大サイズに相関するはず
-	\end{itemize}
-\item 帰納的な推論
-	\begin{itemize}
-	\item glide SPでのスコア(z-scored)-化合物原子数の散布図と
-		glide HTVSでのスコア(z-scored)-化合物原子数の散布図、
-		提案手法でのスコア(z-scored)-化合物原子数の散布図の比較を元に何か言えないか調べてみる
-	\item glide HTVSと提案手法の精度比較をターゲット別に行い、どういうターゲットでは勝てるかどうかの議論
-	\end{itemize}
-\end{itemize}
+\section{提案手法の得手・不得手の調査}
+\ref{subsec:single_accuracy}節の実験結果より、提案手法は従来手法に比べて平均的に見れば精度が低調に終わることが判明した。
+しかし、一部のターゲットに関しては提案手法が従来手法である glide HTVSモードに優っており（表\ref{table:target_accuracy_good}）、
+この理由がわかればどのようなケースにおいて提案手法によるフィルタリングを用いるべきかを明示的にすることができる。
+同様に提案手法が従来手法より明らかに悪いケース（表\ref{table:target_accuracy_bad}）に関して
+原因が判明すれば、今後の提案手法の改善につながる。
 
-\section{フラグメント数と統合スコアの関係}
+\begin{table}[htb] \centering
+	\caption{提案手法が上手く行ったケース}
+	\label{table:target_accuracy_good}
+	提案手法（score\_sum、score\_max、maxsumBSのいずれか）が従来手法（glide HTVSモード）\\
+	よりもROC-AUCで0.2以上上回ったケースについて、ROC-AUCの差の降順で示している。
+	\begin{tabular}{lc|r|rr|}
+	\multirow{2}{*}{提案手法の種類}	&\multirow{2}{*}{ターゲット名}	&\multirow{2}{*}{ROC-AUC差}	&\multicolumn{2}{c|}{ROC-AUC}	\\
+								&						&							&従来手法	&提案手法		\\ \hline
+	線形和（maxsumBS）			&mcr					&0.319						&0.466		&{\bf 0.785}		\\
+	線形和（maxsumBS）			&akt1					&0.285						&0.539		&{\bf 0.824}		\\
+	最良値（score\_max）			&kith					&0.272						&0.615		&{\bf 0.887}		\\
+	最良値（score\_max）			&akt1					&0.265						&0.539		&{\bf 0.804}		\\
+	最良値（score\_max）			&mcr					&0.257						&0.466		&{\bf 0.723}		\\
+	線形和（maxsumBS）			&gcr						&0.252						&0.528		&{\bf 0.780}		\\
+	最良値（score\_max）			&gcr						&0.242						&0.528		&{\bf 0.770}		\\
+	総和（score\_sum）				&ital						&0.212						&0.529		&{\bf 0.741}		\\
+	総和（score\_sum）				&akt1					&0.209						&0.539		&{\bf 0.748}		\\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[htb] \centering
+	\caption{提案手法が上手く行かないケース}
+	\label{table:target_accuracy_bad}
+	提案手法（score\_sum、score\_max、maxsumBSのいずれか）が従来手法（glide HTVSモード）\\
+	よりもROC-AUCで-0.45以上下回ったケースについて、ROC-AUCの差の昇順で示している。
+	\begin{tabular}{lc|r|rr|}
+	\multirow{2}{*}{提案手法の種類}	&\multirow{2}{*}{ターゲット名}	&\multirow{2}{*}{ROC-AUC差}	&\multicolumn{2}{c|}{ROC-AUC}	\\
+								&						&							&従来手法	&提案手法		\\ \hline
+	最良値（score\_max）			&lkha4					&-0.572						&{\bf 0.880}	&0.308			\\
+	最良値（score\_max）			&xiap					&-0.506						&{\bf 0.802}	&0.296			\\
+	総和（score\_sum）				&def						&-0.495						&{\bf 0.733}	&0.238			\\
+	総和（score\_sum）				&wee1					&-0.487						&{\bf 0.933}	&0.446			\\
+	総和（score\_sum）				&hs90a					&-0.464						&{\bf 0.761}	&0.297			\\
+	線形和（maxsumBS）			&hs90a					&-0.460						&{\bf 0.761}	&0.301			\\
+	線形和（maxsumBS）			&xiap					&-0.460						&{\bf 0.802}	&0.342			\\ \hline
+	\end{tabular}
+\end{table}
 
-\begin{itemize} 
-\item 提案手法では重原子数が2以下の小さなフラグメントを無視した
-\item これは、フラグメント分割数とスコアとの相関が強く出てしまうためである。
-\item 
-\end{itemize}
+\subsection{提案手法が得意なターゲット}
+\todo{akt1, gcr, ital, kith, mcrの5種類について、ROC曲線を示し、フラグメント数などからの説明を試みる。}
+\subsection{提案手法が不得意なターゲット}
+\todo{def, hs90a, lkha4, wee1, xiapの5種類について、ROC曲線を示し、フラグメント数などからの説明を試みる。
+タンパク質のポケットが大きいと苦手とか、そういう可能性はあるのかな・・？}
 
 
+
+\section{提案手法のユースケース}
+\ref{subsubsec:filtering_comparison}節の結果より、提案手法は精度より速度を重視したいケースにおいて有用であることは先に述べた。
+ここではDUD-Eのターゲットの内、総化合物数が25,000以上である20ターゲットを用いて、フィルタリングにおける化合物の通過率がより少ない場合や、
+さらに小さな割合におけるEFの評価を行い、大規模化合物ライブラリを利用する場合のユースケースを示す。
+\todo{score\_sum, score\_max, maxsumBS, glide HTVSを用いたフィルタリングで0.5, 1, 2, 5\%に化合物を削減した場合について、
+計算時間およびEF0.1, 0.2, 0.5, 1, 2\%を求め、結果を示し、この結果をもとに提案手法をどのように用いるのが有意義か、というユースケースを示す。}
+
+
+%filtering時に何\%の化合物を残すか、などの議論と合わせて、精度と速度のバランスを示す。
+%\comment{トレードオフを示すのについて、フィルタリングのパーセンテージをもっと振るべきでは？5, 10, 20, 30, 40, 50\%のように。（大上先生）}
+%\begin{figure}[htp]
+% \begin{center}
+%  \fig[width=0.99\hsize]{./fig/result/性能vs時間.eps}
+%  \caption{計算時間と精度のトレードオフ}
+%  \label{fig:trade_off}
+% \end{center}
+%\end{figure}
+
+%\todo{以下はメモ。どうまとめるか検討。}
+%フラグメント数と統合スコアの関係
+%
+%\begin{itemize} 
+%\item 提案手法では重原子数が2以下の小さなフラグメントを無視した
+%\item これは、フラグメント分割数とスコアとの相関が強く出てしまうためである。
+%\item 
+%\end{itemize}
+%
+%
+%ターゲットのactive ligandについて、何らかの考察を加えることで提案手法が向くタイプのターゲット、向かないタイプのターゲットを評価する。
+%\begin{itemize}
+%\item 演繹的な推論
+%	\begin{itemize}
+%	\item 総和法はフラグメント数と相関があるはず
+%	\item 最大値法は化合物フラグメントの最大サイズに相関するはず
+%	\end{itemize}
+%\item 帰納的な推論
+%	\begin{itemize}
+%	\item glide SPでのスコア-化合物原子数の散布図と
+%		glide HTVSでのスコア-化合物原子数の散布図、
+%		提案手法でのスコア-化合物原子数の散布図の比較を元に何か言えないか調べてみる
+%	\item glide HTVSと提案手法の精度比較をターゲット別に行い、どういうターゲットでは勝てるかどうかの議論
+%	\end{itemize}
+%\end{itemize}

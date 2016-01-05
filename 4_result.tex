@@ -1,32 +1,67 @@
 \chapter{実験}
 ここでは、提案手法と既存手法との比較実験を行い、提案手法の長所を示す。
 
+
 \section{データセット}
-本実験では、データセットとしてDirectory of Useful Decoys (DUD-E)\cite{Mysinger2012}を用いた。DUD-Eは102種類のターゲットについて、それぞれタンパク質・正例化合物・負例化合物を用意している。表\ref{table:dude}にターゲットごとの化合物数、正例と負例の比率の最小値、最大値、平均値を、図\ref{fig:dude_hist_comp}に総化合物数の分布を示す\todo{ヒストグラム作成}。各ターゲットの詳細については付録\ref{appendix:dude}に記載する。
+本実験では、データセットとしてDirectory of Useful Decoys (DUD-E)\cite{Mysinger2012}を用いた。DUD-Eは102種類のターゲットについて、
+それぞれタンパク質・正例化合物・負例化合物を用意している。表\ref{table:dude}にターゲットごとの化合物数、正例と負例の比率の
+最小値、最大値、平均値を、図\ref{fig:dude_hist_comp}に総化合物数の分布を示す\todo{ヒストグラム作成}。
+各ターゲットの詳細については付録\ref{appendix:dude}に記載する。なお、DUD-Eのターゲットのうちfgfr1およびfa10は
+記載されている負例数とデータセットに実際に含まれている負例数が大きく異なっているが、そのまま扱うこととする。
 
 \begin{table}[htb] \centering
 	\caption{DUD-Eのターゲットの化合物}
 	\label {table:dude}
-	\begin{tabular}{c|ll|}
-			&総化合物数	&正/負例の比率	\\ \hline
-	最大値	&			&				\\
-	平均値	&			&				\\
-	最小値	&			&				\\ \hline
+	\begin{tabular}{c|rr|}
+			&総化合物数		&正/負例の比率	\\ \hline
+	最大値	&52,022 (fnta)		&1:104 (fnta)		\\
+	平均値	&13,881			&1:60			\\
+	最小値	&472 (fgfr1)		&1:2.4 (fgfr1)		\\ \hline
 	\end{tabular}
 \end{table}
+
 	
 \section{予測精度の評価指標}
-バーチャルスクリーニングでは一般的に正例と負例の比が非常に偏っている。
-そのため単純なprecisionやrecallを用いた評価を行うことができず、以下の2種類の評価指標が多く用いられている。
-本実験においても、この2種類を予測精度の評価指標として用いる。
+バーチャルスクリーニングでは、計算機による選別を通過して活性実験が行われる化合物数が母数に比べて非常に少なく
+また化合物ライブラリの中で実際に標的タンパク質に結合し、活動を阻害するのは1000個に1個などとも言われており\citetodo{これどこで言われてるの？}、正例と負例の比が非常に偏っている。
+そのためこの分野における予測精度の評価指標は以下の2種類が多く用いられている。
 
-\subsection{ROC-AUC}
-Receiver Operating Characteristic(ROC)曲線の曲線下面積(Area Under the Curve, AUC)。
-ROC曲線に必要なFP-RateとTP-Rateの数式を示し、算出例を示す。\todo{卒論から文章をひっぱってくる}
+\begin{description}
+\item[ROC-AUC]
+	Receiver Operating Characteristic（ROC）曲線は、正例/負例の閾値を変化させながら、縦軸にTrue Positive（TP）率、横軸にFalse Positive（FP）率をとった曲線である。
+	TP率とはデータセット中の正例の中で正しく正例と判別されたものの割合であり、FP率とはデータセット中の負例の中で誤って正例と判別されたものの割合である。
+	TP率、FP率はそれぞれ以下の式で求められる。
+	\begin{eqnarray}
+	{\rm TP率}	&=&	\frac{\rm \#TP}{\rm \#TP+\#FN} \\
+	{\rm FP率}	&=&	\frac{\rm \#FP}{\rm \#FP+\#TN}
+	\end{eqnarray}
+	この方法によって描かれたROC曲線の曲線下面積（Area Under the Curve, AUC）を用いた評価指標がROC-AUCである。
+	具体例を図\ref{fig:roc_example}に示す。
+\item[Enrichment Factor]
+	Enrichment Factor（EF）とは、予測結果の上位のみを取り出したときに、元々のデータセットからどれだけ正例が「濃縮されたか」を表す指標である。具体例を図\ref{fig:ef_example}に示す。
+	上位どのくらいを取り出すかによって値が異なり、上位x\%取り出したときの集合の正例率を正例率（x\%）、EFをEF (x\%)と表記することにすると、これらは以下の式で求められる。
+	\begin{eqnarray}
+	{\rm 正例率（x\%）}	&=& \frac{\rm 正例数（x\%）}{\rm 正例数（x\%）+負例数（x\%）} \\
+	{\rm EF（x\%）} 	&=& \frac{\rm 正例率（x\%）}{\rm 正例率（100\%）}
+	\end{eqnarray}
+\end{description}
 
-\subsection{EF (EnrichmentFactor)}
-数式と算出例を示す。ROC-AUCと同じ例を用いるようにする。
+\begin{figure}[htp]
+ \begin{center}
+  \fig[width=0.99\hsize]{./fig/result/roc計算例.eps}
+  \caption{ROC-AUC計算例}
+  \label{fig:roc_example}
+ \end{center}
+\end{figure}
+\begin{figure}[htp]
+ \begin{center}
+  \fig[width=0.99\hsize]{./fig/result/ef計算例.eps}
+  \caption{EF計算例}
+  \label{fig:ef_example}
+ \end{center}
+\end{figure}
 
+本研究においては、ROC-AUC、EF（1\%）、EF（2\%）、EF（5\%）、EF（10\%）の5つの指標を用いて手法の評価を行う。
 
 
 \section{計算環境}
@@ -38,61 +73,135 @@ TSUBAME Thinノード\todo{先輩の修論の記述を参考にする}
 また、フィルタリングとしての性能を評価するために、glide SP（通常）モードによる化合物ドッキングシミュレーションと組み合わせた評価も行うため、
 計算時間などの評価に関してはglide SPモードも比較対象とする。
 
+\section{評価実験}
 
-\section{実験結果}
+\subsection{フラグメント分割}
+\todo{フラグメント分割の結果について述べる節をドッキング速度の評価から独立させる。化合物数とフラグメント種類数の2軸の平面でプロット
+	を行うことで化合物数が多いほどフラグメント分割は有用であることを再度確認する。}
 
-\subsection{ドッキングにかかる計算時間}
-はじめに、提案手法の計算速度を評価する。提案手法は\ref{subsec:decomposition}節で述べたように化合物数が多ければ多いほど
+\subsection{ドッキング速度の評価}\label{subsec:single_calc_time}
+はじめに、フィルタリング手法の計算速度を評価する。提案手法は\ref{subsec:decomposition}節で述べたように化合物数が多ければ多いほど
 計算コストの削減幅が増幅される手法であるため、DUD-E 102ターゲット全てでの所要計算時間の平均以外に、
-総化合物数が最小である\r{xxx}ターゲット、総化合物数が中央値である\r{xxx}ターゲット、総化合物数が最大である\r{xxx}ターゲット３種類に
+総化合物数が最小であるターゲット fgfr1、総化合物数が平均値に最も近いターゲット andr、総化合物数が最大であるターゲット fntaの3種類に
 ついては独立して結果を示す。
 
-結果は表\ref{table:calc_time}の通りであり、提案手法は既存手法であるglide HTVSと比べて平均して9倍（SPモード利用時）から
-15倍（HTVSモード利用時）の速度向上を達成している。
+結果は表\ref{table:calc_time}の通りであり、提案手法は既存手法であるglide HTVSと比べて平均して約9倍（SPモード利用時）から
+約15倍（HTVSモード利用時）の速度向上を達成している。\todo{表に倍数を載せるべき。どこに置くか考えなければ}
 
 \begin{table}[htb] \centering
 	\caption{ドッキング計算時間の比較}
 	\label{table:calc_time}
 	\begin{tabular}{c|rr|rrrr|}
-							&	\multirow{3}{*}{総化合物数}	&\multirow{3}{*}{\shortstack{フラグメント\\種類数}}	&\multicolumn{4}{c|}{計算時間 [CPU sec.]}									\\
+	\multirow{3}{*}{ターゲット名}	&\multirow{3}{*}{総化合物数}	&\multirow{3}{*}{\shortstack{フラグメント\\種類数}}	&\multicolumn{4}{c|}{計算時間 [CPU sec.]}									\\
 							&							&											&\multicolumn{2}{c}{化合物ドッキング}	&\multicolumn{2}{c|}{フラグメントドッキング}	\\
 							&							&											&glide SP		&glide HTVS		&glide SP 		&glide HTVS			\\ \hline
-全ての平均					&nn							&nn											&236,156			&14,813			&1,673		&987					\\
-\shortstack{最小ターゲット}		&nn							&nn											&nn				&				&				&					\\
-\shortstack{中央値ターゲット}	&nn							&nn											&nn				&				&				&					\\
-\shortstack{最大ターゲット}		&nn							&nn											&nn				&				&				&					\\
+	fgfr1						&472						&166										&3,523			&566			&164			&140				\\
+	andr						&14,612						&5,030										&42,165			&5,498			&2,401			&1,396				\\
+	fnta						&52,022						&7,767										&1,770,967		&98,665			&4,149			&2,549				\\ \hline
+	全ての平均				&13,881						&3,231										&236,156			&14,813			&1,673			&987				\\ \hline
 	\end{tabular}
 \end{table}
 
-\r{現在ここまで記述済み}
-
-\subsection{予測精度}
-ここでは単独手法としての精度を示す。ROC曲線はAppendixとして載せていることを記述
-\comment{ROC曲線も本文に示す。良い/悪いの評価をする際に必要になるため。（大上先生）}
+\subsection{予測精度の評価}\label{subsec:single_accuracy}
+次に、提案手法の予測精度の評価を行う。提案手法は2つのドッキングモード（SPモードおよびHTVSモード）、
+3つのフィルタリングスコア算出方法が存在するため合計6通りを示す。
 
 \begin{table}[htb] \centering
 	\caption{提案手法の予測精度}
-	\label{tb:filtering_accuracy}
-	\begin{tabular}{c|c|lllll|}
-	\multirow{2}{*}{手法}				&フラグメント		&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}	\\
-									&ドッキング		&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	\\ \hline
-	\multirow{2}{*}{総和(score\_sum)}		&glide 通常モード	&						&		&		&		&			\\
-									&glide 高速モード	&						&		&		&		&			\\
-	\multirow{2}{*}{最良値(score\_max)}	&glide 通常モード	&						&		&		&		&			\\
-									&glide 高速モード	&						&		&		&		&			\\
-	\multirow{2}{*}{混合(maxsumBS)}		&glide 通常モード	&						&		&		&		&			\\
-									&glide 高速モード	&						&		&		&		&			\\ \hline
-	\multicolumn{2}{c|}{従来手法(glide 高速モード)}			&						&		&		&		&			\\ \hline
+	\label{table:single_accuracy}
+	\begin{tabular}{c|c|rrrrr|}
+	\multirow{2}{*}{手法}				&フラグメント		&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c|}{Enrichment Factor}	\\
+									&ドッキング		&						&EF(1\%)		&EF(2\%)		&EF(5\%)		&EF(10\%)	\\ \hline
+	\multirow{2}{*}{総和(score\_sum)}		&glide SPモード	&0.624					&5.08		&4.14		&3.02		&2.34		\\
+									&glide HTVSモード	&						&			&			&			&			\\
+	\multirow{2}{*}{最良値(score\_max)}	&glide SPモード	&0.627					&6.78		&5.47		&3.58		&2.43		\\
+									&glide HTVSモード	&						&			&			&			&			\\
+	\multirow{2}{*}{線形和(maxsumBS)}	&glide SPモード	&0.679					&6.03		&5.03		&3.96		&3.00		\\
+									&glide HTVSモード	&0.665					&5.98		&4.84		&3.58		&2.82		\\ \hline
+	\multicolumn{2}{c|}{従来手法(glide HTVSモード)}			&{\bf 0.705}				&{\bf 16.67}	&{\bf 11.18}	&{\bf 6.38}	&{\bf 4.11}	\\ \hline
 	\end{tabular}
 \end{table}
 
-\subsection{filteringと通常のドッキングとを合わせた場合の計算時間および精度}
-filtering時に何\%の化合物を残すか、などの議論と合わせて、精度と速度のバランスを示す。
-\comment{トレードオフを示すのについて、フィルタリングのパーセンテージをもっと振るべきでは？5, 10, 20, 30, 40, 50\%のように。（大上先生）}
+結果は表\ref{table:single_accuracy}の通りである。なお、各手法を用いた場合のターゲットごとのROC曲線は付録\ref{appendix:roc}に記載している。
+この結果から、単体での予測精度に関しては、どの評価指標においても従来手法が勝っていることが分かる。
+また、フラグメントドッキングについてはglide SPモードを利用した方が精度がよくなっている。
+速度については\ref{subsec:single_calc_time}で述べたようにglide SPモードを利用したフラグメントドッキングの場合でも
+9倍近く従来手法に比べて高速であるため、予測精度を重要視し以下の実験ではglide SPモードを用いることとする。
+
+\subsection{フィルタリング手法としての性能評価実験}
+\ref{subsec:single_calc_time}節および\ref{subsec:single_accuracy}節では、フィルタリング手法を単体で用いた場合の性能を評価し、
+速度では提案手法が勝っているものの、精度では従来手法に後塵を拝する結果となった。
+しかし、本研究で提案した手法はフィルタリングを想定したものであり、その次に行われる
+通常のドッキングシミュレーション手法と組み合わせた場合の速度や精度の評価はより重要となる。
+
+この節では通常のドッキングシミュレーションであるglide SPモードとの組み合わせを通した評価を行う。
+なお、ROC曲線は評価対象全てにスコアがつく必要があるが、フィルタリングの結果glide SPモードで評価されない
+化合物にはスコアがつかないため、ROC-AUCを求めることはできない。そのため、評価指標はEFのみを用いることとする。
+
+\subsubsection{提案手法間の精度比較}\label{subsubsec:filtering_proposal}
+まず、提案手法間の精度比較を行う。
+フィルタリング手法で2\%、5\%、10\%の3通りまで化合物を削減し、残った化合物を通常のドッキングシミュレーション（glide SPモード）で
+再評価、その順位に従いEF（1\%）およびEF（2\%）を求める（図\ref{fig:filtering_image}）。
+なお、フィルタリング手法を用いて2\%まで削減し、そこでEF（2\%）を求める場合、再評価の結果に関わらずフィルタリングで残った全ての化合物を
+用いてEnrichment Factorを計算することになるため、「\textendash」表記とし数値を出さないようにしている。
+
 \begin{figure}[htp]
  \begin{center}
-  \fig[width=0.99\hsize]{./fig/result/性能vs時間.eps}
-  \caption{計算時間と精度のトレードオフ}
-  \label{fig:trade_off}
+  \fig[width=0.99\hsize]{./fig/result/filtering_image.png}
+  \caption{EF（1\%）、EF（2\%）算出までの流れ}
+  \label{fig:filtering_image}
  \end{center}
 \end{figure}
+
+結果は表\ref{table:filtering_proposal}のようになり、どのようなケースにおいても、
+フィルタリングスコア算出方法は総和法と最良値法の線形和であるmaxsumBSを用いるのが最適であることが分かった。
+
+\begin{table}[htb] \centering
+	\caption{フィルタリング手法としての提案手法間の精度評価}
+	\label{table:filtering_proposal}
+	\begin{tabular}{lc|rr|r|}
+	\multicolumn{2}{c|}{フィルタリング}	&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&\multirow{2}{*}{合計計算時間 [CPU sec.]}	\\
+	\multicolumn{1}{c}{手法}	&通過率	&						&						&									\\ \hline
+	総和（score\_sum）		&		&6.84					&\textendash				&									\\
+	最良値（score\_max）	&2\%	&8.59					&\textendash				&6,396								\\
+	線形和（maxsumBS）	&		&\textbf{8.75}				&\textendash				&									\\ \hline
+	総和（score\_sum）		&		&9.61					&5.92					&									\\
+	最良値（score\_max）	&5\%	&10.36					&6.99					&13,481								\\
+	線形和（maxsumBS）	&		&\textbf{12.92}			&\textbf{7.99}				&									\\ \hline
+	総和（score\_sum）		&		&12.41					&7.67					&									\\
+	最良値（score\_max）	&10\%	&11.58					&7.92					&25,289								\\
+	線形和（maxsumBS）	&		&\textbf{15.46}			&\textbf{10.00}			&									\\ \hline
+	\end{tabular}
+\end{table}
+
+
+\subsubsection{予測精度の従来手法との比較}\label{subsubsec:filtering_comparison}
+続いて、提案手法と従来手法との比較を行う。\ref{subsubsec:filtering_proposal}節の実験より、
+提案手法のフィルタリングスコア算出法はmaxsumBSが最も良いことが示されたので、
+ここではmaxsumBSと従来手法（glide HTVSモード）を用いて2\%、5\%、10\%までフィルタリングを行い、
+フィルタリングを通過した化合物を通常のドッキングシミュレーション（glide SPモード）で再評価した場合の
+速度および精度の評価を行う。
+
+\begin{table}[htb] \centering
+	\caption{フィルタリング手法としての提案手法と従来手法の比較}
+	\label{table:filtering_proposal}
+	\begin{tabular}{lc|rr|r|}
+	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&\multirow{2}{*}{合計計算時間 [CPU sec.]}	\\
+	\multicolumn{1}{c}{手法}		&通過率				&						&						&									\\ \hline
+	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&8.75					&\textendash				&6,396								\\
+	従来手法（glide HTVSモード）	&					&17.85					&\textendash				&19,536								\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{5\%}	&12.92					&7.99					&13,481								\\
+	従来手法（glide HTVSモード）	&					&18.97					&12.50					&26,621								\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{10\%}	&15.46					&10.00					&25,289								\\
+	従来手法（glide HTVSモード）	&					&19.60					&12.92					&38,429								\\ \hline
+	\multicolumn{2}{l|}{通常ドッキング（glide SPモード）}	&21.54					&14.68					&236,156								\\ \hline
+	\end{tabular}
+\end{table}
+
+表\ref{table:filtering_proposal}に結果を示す。\label{subsec:single_accuracy}節で示した単体での性能評価と同様に、glide HTVSモードを
+フィルタリングに用いる場合でも提案手法よりも精度が良くなっている。
+一方、計算速度について、フィルタリングで元の化合物群の2\%を通過させる場合、提案手法と通常ドッキング計算の合計必要時間が
+従来のフィルタリング手法であるglide HTVSモードよりも少なくなっており、従来手法では達成できなかった速度での化合物の選別が可能に
+なっていることがこの結果からわかる。この利点はフィルタを通過させる化合物の割合を高めるほど薄れて行く。これは、
+通常のドッキングシミュレーションの計算時間が支配的となるため、提案しているフィルタリング手法の計算時間的な利点が押しつぶされてしまう
+ためである。
