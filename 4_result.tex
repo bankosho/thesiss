@@ -65,7 +65,12 @@
 
 
 \section{計算環境}
-TSUBAME Thinノード\todo{先輩の修論の記述を参考にする}
+本研究では、東京工業大学のスーパーコンピュータであるTSUBAME2.5のThinノードを利用した。
+利用した計算環境を表\ref{table:computer_node}に示す。
+
+CPU: Intel Xeon X5670, 2.93 GHz (6 cores) $\times$2
+Memory: 54 GB
+
 
 
 \section{比較対象}
@@ -75,15 +80,37 @@ TSUBAME Thinノード\todo{先輩の修論の記述を参考にする}
 
 \section{評価実験}
 
-\subsection{フラグメント分割}
-\todo{フラグメント分割の結果について述べる節をドッキング速度の評価から独立させる。化合物数とフラグメント種類数の2軸の平面でプロット
-	を行うことで化合物数が多いほどフラグメント分割は有用であることを再度確認する。}
+\subsection{フラグメント分割}\label{subsec:result_decomposition}
+まず、今回用いる複数のターゲットについて、フラグメント分割を行うことでドッキングの必要数をどの程度減らせるのかを示す。
+それぞれターゲットにフラグメント分割を適用した場合における化合物数とフラグメント種類数の推移は図\ref{fig:dude_decomposition}の通り
+となり、平均するとフラグメント種類数は化合物数の4分の1に抑えられている。化合物数が多いほど
+化合物数に対するフラグメント種類数が抑えられる傾向にあることも確認された。（表\ref{table:dude_decomposition}）。
+
+\begin{figure}[htp]
+ \begin{center}
+  \fig[width=0.99\hsize]{./fig/result/ターゲットに対するフラグメント数.eps}
+  \caption{DUD-Eターゲットにおける化合物数とフラグメント種類数の関係}
+  \label{fig:dude_decomposition}
+ \end{center}
+\end{figure}
+\begin{table}[htb] \centering
+	\caption{フラグメント１種類あたりの化合物数}
+	\label{table:dude_decomposition}
+	\begin{tabular}{c|rr|}
+								&\multirow{2}{*}{ターゲット数}	&フラグメント1種類		\\
+								&						&あたりの化合物数		\\ \hline
+	全ターゲット					&102		&4.00							\\
+	化合物数1万未満のターゲット		&53			&3.17							\\
+	化合物数１万以上のターゲット	&49			&4.91							\\ \hline
+	\end{tabular}
+\end{table}
+
 
 \subsection{ドッキング速度の評価}\label{subsec:single_calc_time}
-はじめに、フィルタリング手法の計算速度を評価する。提案手法は\ref{subsec:decomposition}節で述べたように化合物数が多ければ多いほど
-計算コストの削減幅が増幅される手法であるため、DUD-E 102ターゲット全てでの所要計算時間の平均以外に、
-総化合物数が最小であるターゲット fgfr1、総化合物数が平均値に最も近いターゲット andr、総化合物数が最大であるターゲット fntaの3種類に
-ついては独立して結果を示す。
+つづいて、フィルタリング手法の計算速度を評価する。\ref{subsec:result_decomposition}で述べたように、一つのターゲットに含まれる化合物数
+が多ければ多いほどフラグメント数は相対的に少なくなり提案手法の計算コストの削減が増幅されるため、
+DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総化合物数が最小であるターゲット fgfr1、
+総化合物数が平均値に最も近いターゲット andr、総化合物数が最大であるターゲット fntaの3種類について独立して結果を示す。
 
 結果は表\ref{table:calc_time}の通りであり、提案手法は既存手法であるglide HTVSと比べて平均して約9倍（SPモード利用時）から
 約15倍（HTVSモード利用時）の速度向上を達成している。\todo{表に倍数を載せるべき。どこに置くか考えなければ}
@@ -113,9 +140,9 @@ TSUBAME Thinノード\todo{先輩の修論の記述を参考にする}
 	\multirow{2}{*}{手法}				&フラグメント		&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c|}{Enrichment Factor}	\\
 									&ドッキング		&						&EF(1\%)		&EF(2\%)		&EF(5\%)		&EF(10\%)	\\ \hline
 	\multirow{2}{*}{総和(score\_sum)}		&glide SPモード	&0.624					&5.08		&4.14		&3.02		&2.34		\\
-									&glide HTVSモード	&						&			&			&			&			\\
+									&glide HTVSモード	&0.618					&4.84		&3.97		&2.99		&2.29		\\
 	\multirow{2}{*}{最良値(score\_max)}	&glide SPモード	&0.627					&6.78		&5.47		&3.58		&2.43		\\
-									&glide HTVSモード	&						&			&			&			&			\\
+									&glide HTVSモード	&0.616					&6.60		&4.93		&2.98		&2.40		\\
 	\multirow{2}{*}{線形和(maxsumBS)}	&glide SPモード	&0.679					&6.03		&5.03		&3.96		&3.00		\\
 									&glide HTVSモード	&0.665					&5.98		&4.84		&3.58		&2.82		\\ \hline
 	\multicolumn{2}{c|}{従来手法(glide HTVSモード)}			&{\bf 0.705}				&{\bf 16.67}	&{\bf 11.18}	&{\bf 6.38}	&{\bf 4.11}	\\ \hline
@@ -184,7 +211,7 @@ TSUBAME Thinノード\todo{先輩の修論の記述を参考にする}
 
 \begin{table}[htb] \centering
 	\caption{フィルタリング手法としての提案手法と従来手法の比較}
-	\label{table:filtering_proposal}
+	\label{table:filtering_proposal_glide}
 	\begin{tabular}{lc|rr|r|}
 	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&\multirow{2}{*}{合計計算時間 [CPU sec.]}	\\
 	\multicolumn{1}{c}{手法}		&通過率				&						&						&									\\ \hline
@@ -198,10 +225,13 @@ TSUBAME Thinノード\todo{先輩の修論の記述を参考にする}
 	\end{tabular}
 \end{table}
 
-表\ref{table:filtering_proposal}に結果を示す。\label{subsec:single_accuracy}節で示した単体での性能評価と同様に、glide HTVSモードを
-フィルタリングに用いる場合でも提案手法よりも精度が良くなっている。
-一方、計算速度について、フィルタリングで元の化合物群の2\%を通過させる場合、提案手法と通常ドッキング計算の合計必要時間が
-従来のフィルタリング手法であるglide HTVSモードよりも少なくなっており、従来手法では達成できなかった速度での化合物の選別が可能に
-なっていることがこの結果からわかる。この利点はフィルタを通過させる化合物の割合を高めるほど薄れて行く。これは、
-通常のドッキングシミュレーションの計算時間が支配的となるため、提案しているフィルタリング手法の計算時間的な利点が押しつぶされてしまう
-ためである。
+表\ref{table:filtering_proposal_glide}の結果より、以下のことが言える。
+\begin{itemize}
+\item \ref{subsec:single_accuracy}節で示した単体での性能評価と同様に、glide HTVSモードをフィルタリングに用いる場合でも
+	提案手法よりも精度が良くなっている。
+\item 一方、計算速度について、フィルタリングで元の化合物群の2\%を通過させる場合、提案手法と通常ドッキング計算の
+	合計必要時間が従来のフィルタリング手法であるglide HTVSモードよりも少なくなっており、従来手法では達成できなかった速度での
+	化合物の選別が可能になっていることがこの結果からわかる。この利点はフィルタを通過させる化合物の割合を高めるほど薄れて行く。
+	これは、通常のドッキングシミュレーションの計算時間が支配的となるため、
+	提案しているフィルタリング手法の計算時間的な利点が押しつぶされてしまうためである。
+\end{itemize}
