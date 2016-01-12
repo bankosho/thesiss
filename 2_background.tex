@@ -17,7 +17,14 @@ LBVS(Ligand-based Virtual Screening)と比べて
 SBVSにおける化合物の評価には化合物-タンパク質ドッキングシミュレーションが一般に用いられる。
 ドッキングシミュレーションは、1つのタンパク質の立体構造と1つの化合物の立体構造を入力として、化合物がタンパク質中でどのような構造をとると
 エネルギー的に最も安定であるかという最適化問題を解き、最安定であると考えられる化合物の構造とその時のスコアを
-出力する（図\ref{fig:docking}）。\todo{dockingを説明する図を作成}
+出力する（図\ref{fig:docking}）。
+\begin{figure}[tb]
+ \begin{center}
+  \fig[width=0.9\hsize]{./fig/background/docking_image.eps}
+  \caption{ドッキングシミュレーションのイメージ}
+  \label{fig:docking}
+ \end{center}
+\end{figure}
 SBVSにおける複数の化合物の選別にはドッキングシミュレーションによって得られたスコアを直接用いるか、もしくは得られたスコアを何らかの形で
 変換し、評価値がより良かった化合物を薬物候補化合物として残す。
 
@@ -40,6 +47,15 @@ SBVSの薬物候補化合物の選別はドッキングシミュレーション�
 この際、探索しなければならない空間は化合物の並進運動および回転運動の6次元に加え、化合物の内部に回転可能な結合を持つため
 化合物の内部自由度を考慮しなければならない（図\ref{fig:docking_freedom}）。
 この内部自由度はZINC Drug Database に登録されている2924個の薬剤化合物で平均4.61と少ない数ではなく、計算量に大きな影響を及ぼす。
+
+\begin{figure}[tb]
+ \begin{center}
+  \fig[width=0.9\hsize]{./fig/background/internal_freedom.eps}
+  \caption{化合物の内部自由度}
+  \label{fig:docking_freedom}
+ \end{center}
+\end{figure}
+
 
 \subsubsection{探索アルゴリズム}
 前述のように探索空間の広さのために大域最適解を求めることは困難であるため、より良い局所最適解を求めるための
