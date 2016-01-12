@@ -12,7 +12,8 @@
 \begin{table}[htb] \centering
 	\caption{DUD-Eのターゲットの化合物}
 	\label {table:dude}
-	\begin{tabular}{c|rr|}
+	\begin{tabular}{c|rr}
+	\hline
 			&総化合物数		&正/負例の比率	\\ \hline
 	最大値	&52,022 (fnta)		&1:104 (fnta)		\\
 	平均値	&13,881			&1:60			\\
@@ -46,7 +47,7 @@
 	\end{eqnarray}
 \end{description}
 
-\begin{figure}[htp]
+\begin{figure}[tb]
  \begin{center}
   \fig[width=0.99\hsize]{./fig/result/roc計算例.eps}
   \caption{ROC-AUC計算例}
@@ -101,7 +102,8 @@
 \begin{table}[htb] \centering
 	\caption{フラグメント１種類あたりの化合物数}
 	\label{table:dude_decomposition}
-	\begin{tabular}{c|rr|}
+	\begin{tabular}{c|rr}
+	\hline
 								&\multirow{2}{*}{ターゲット数}	&フラグメント1種類		\\
 								&						&あたりの化合物数		\\ \hline
 	全ターゲット					&102		&4.00							\\
@@ -118,19 +120,20 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 総化合物数が平均値に最も近いターゲット andr、総化合物数が最大であるターゲット fntaの3種類について独立して結果を示す。
 
 結果は表\ref{table:calc_time}の通りであり、提案手法は既存手法であるglide HTVSと比べて平均して約9倍（SPモード利用時）から
-約15倍（HTVSモード利用時）の速度向上を達成している。\todo{表に倍数を載せるべき。どこに置くか考えなければ}
+約15倍（HTVSモード利用時）の速度向上を達成している。
 
 \begin{table}[htb] \centering
 	\caption{ドッキング計算時間の比較}
 	\label{table:calc_time}
-	\begin{tabular}{c|rr|rrrr|}
-	\multirow{3}{*}{ターゲット名}	&\multirow{3}{*}{総化合物数}	&\multirow{3}{*}{\shortstack{フラグメント\\種類数}}	&\multicolumn{4}{c|}{計算時間 [CPU sec.]}									\\
-							&							&											&\multicolumn{2}{c}{化合物ドッキング}	&\multicolumn{2}{c|}{フラグメントドッキング}	\\
-							&							&											&glide SP		&glide HTVS		&glide SP 		&glide HTVS			\\ \hline
-	fgfr1						&472						&166										&3,523			&566			&164			&140				\\
-	andr						&14,612						&5,030										&42,165			&5,498			&2,401			&1,396				\\
-	fnta						&52,022						&7,767										&1,770,967		&98,665			&4,149			&2,549				\\ \hline
-	全ての平均				&13,881						&3,231										&236,156			&14,813			&1,673			&987				\\ \hline
+	\begin{tabular}{c|rr|rrrr}
+	\hline
+	\multirow{3}{*}{ターゲット名}	&\multirow{3}{*}{総化合物数}	&\multirow{3}{*}{\shortstack{フラグメント\\種類数}}	&\multicolumn{4}{c}{計算時間 [CPU sec.]}										\\
+							&							&											&\multicolumn{2}{c}{化合物ドッキング}		&\multicolumn{2}{c}{フラグメントドッキング}	\\
+							&							&											&glide SP		&glide HTVS			&glide SP 			&glide HTVS		\\ \hline
+	fgfr1						&472						&166										&3,523			&566(x1.0)			&164(x3.5)			&140(x4.0)		\\
+	andr						&14,612						&5,030										&42,165			&5,498(x1.0)			&2,401(x2.3)			&1,396(x3.9)		\\
+	fnta						&52,022						&7,767										&1,770,967		&98,665(x1.0)			&4,149(x24.0)			&2,549(x38.7)		\\ \hline
+	全ての平均				&13,881						&3,231										&236,156			&14,813(x1.0)			&1,673(x8.9)			&987(x15.0)		\\ \hline
 	\end{tabular}
 \end{table}
 
@@ -141,16 +144,17 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 \begin{table}[htb] \centering
 	\caption{提案手法の予測精度}
 	\label{table:single_accuracy}
-	\begin{tabular}{c|c|rrrrr|}
-	\multirow{2}{*}{手法}				&フラグメント		&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c|}{Enrichment Factor}	\\
-									&ドッキング		&						&EF(1\%)		&EF(2\%)		&EF(5\%)		&EF(10\%)	\\ \hline
-	\multirow{2}{*}{総和(score\_sum)}		&glide SPモード	&0.624					&5.08		&4.14		&3.02		&2.34		\\
-									&glide HTVSモード	&0.618					&4.84		&3.97		&2.99		&2.29		\\
-	\multirow{2}{*}{最良値(score\_max)}	&glide SPモード	&0.627					&6.78		&5.47		&3.58		&2.43		\\
-									&glide HTVSモード	&0.616					&6.60		&4.93		&2.98		&2.40		\\
-	\multirow{2}{*}{線形和(maxsumBS)}	&glide SPモード	&0.679					&6.03		&5.03		&3.96		&3.00		\\
-									&glide HTVSモード	&0.665					&5.98		&4.84		&3.58		&2.82		\\ \hline
-	\multicolumn{2}{c|}{従来手法(glide HTVSモード)}			&{\bf 0.705}				&{\bf 16.67}	&{\bf 11.18}	&{\bf 6.38}	&{\bf 4.11}	\\ \hline
+	\begin{tabular}{l|l|rrrrr}
+	\hline
+	\multicolumn{1}{c|}{\multirow{2}{*}{手法}}	&\multicolumn{1}{c|}{フラグメント}		&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}	\\
+										&\multicolumn{1}{c|}{ドッキング}		&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	\\ \hline
+	\multirow{2}{*}{総和(score\_sum)}			&glide SPモード					&0.624					&5.08	&4.14	&3.02	&2.34		\\
+										&glide HTVSモード					&0.618					&4.84	&3.97	&2.99	&2.29		\\
+	\multirow{2}{*}{最良値(score\_max)}		&glide SPモード					&0.627					&6.78	&5.47	&3.58	&2.43		\\
+										&glide HTVSモード					&0.616					&6.60	&4.93	&2.98	&2.40		\\
+	\multirow{2}{*}{線形和(maxsumBS)}		&glide SPモード					&0.679					&6.03	&5.03	&3.96	&3.00		\\
+										&glide HTVSモード					&0.665					&5.98	&4.84	&3.58	&2.82		\\ \hline
+	\multicolumn{2}{l|}{従来手法(glide HTVSモード)}							&0.705					&16.67	&11.18	&6.38	&4.11		\\ \hline
 	\end{tabular}
 \end{table}
 
@@ -191,7 +195,8 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 \begin{table}[htb] \centering
 	\caption{フィルタリング手法としての提案手法間の精度評価}
 	\label{table:filtering_proposal}
-	\begin{tabular}{lc|rr|r|}
+	\begin{tabular}{lc|rr|r}
+	\hline
 	\multicolumn{2}{c|}{フィルタリング}	&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
 	\multicolumn{1}{c}{手法}	&通過率	&						&						&[CPU sec.]		\\ \hline
 	総和（score\_sum）		&		&6.84					&\textendash				&				\\
@@ -217,7 +222,8 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 \begin{table}[htb] \centering
 	\caption{フィルタリング手法としての提案手法と従来手法の比較}
 	\label{table:filtering_proposal_glide}
-	\begin{tabular}{lc|rr|r|}
+	\begin{tabular}{lc|rr|r}
+	\hline
 	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
 	\multicolumn{1}{c}{手法}		&通過率				&						&						&[CPU sec.]		\\ \hline
 	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&8.75					&\textendash				&6,396			\\
