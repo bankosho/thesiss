@@ -24,14 +24,15 @@
 	フラグメント数に対して線形なペナルティを課すことでフラグメント数に依存しないフィルタリングスコアとなることが想定される。
 \end{description}
 この2つのペナルティ手法を個別に利用した場合の予測精度は表\ref{table:omit}および表\ref{table:penalty}のようになり、
-総合すると本研究で提案している重原子数2以下のフラグメントの結合スコアを無視することが最も精度を高めている。
-\todo{CAUTION! 重原子数3以下のフラグメントの結合スコアを無視することが最も精度を高めているので、本論でもそのように修正！！}
+総合すると重原子数3以下のフラグメントの結合スコアを無視することが最も精度を高めている。
+\todo{CAUTION! 重原子数3以下のフラグメントの結合スコアを無視することが最も精度を高めているので、本論でもそのように修正すべき！！}
 
-\begin{table}[htb] \centering
+\begin{table}[t] \centering
 	\caption{小さなフラグメントを無視することによる精度の変化}
 	\label{table:omit}
-	\begin{tabular}{c|rrrrr|}
-	\multirow{2}{*}{無視するフラグメントのサイズ}	&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c|}{Enrichment Factor}				\\
+	\begin{tabular}{c|rrrrr}
+	\hline
+	\multirow{2}{*}{無視するフラグメントのサイズ}	&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}				\\
 										&						&EF(1\%)		&EF(2\%)		&EF(5\%)		&EF(10\%)	\\ \hline
 	全てのフラグメントを利用					&0.545					&3.46		&2.76		&2.01		&1.63		\\
 	重原子数1							&0.557					&2.38		&2.16		&1.85		&1.66		\\
@@ -42,11 +43,13 @@
 	重原子数6以下						&0.537					&2.20		&1.86		&1.53		&1.43		\\ \hline
 	\end{tabular}
 \end{table}
-\begin{table}[htb] \centering
+
+\begin{table}[hp] \centering
 	\caption{フラグメント数に対する線形ペナルティによる精度の変化}
 	\label{table:penalty}
-	\begin{tabular}{c|rrrrr|}
-	フラグメント1つあたりの	&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c|}{Enrichment Factor}				\\
+	\begin{tabular}{c|rrrrr}
+	\hline
+	フラグメント1つあたりの	&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}				\\
 	ペナルティ$c$			&						&EF(1\%)		&EF(2\%)		&EF(5\%)		&EF(10\%)	\\ \hline
 	ペナルティなし			&0.545					&3.46		&2.76		&2.01		&1.63		\\
 	$c=1$				&0.559					&3.81		&2.98		&2.18		&1.77		\\
@@ -57,9 +60,6 @@
 	\end{tabular}
 \end{table}
 
-
-\todo{score\_sum手法における評価を実施。何もしなかった場合と、ペナルティの重さを変えながら実験を繰り返す。無視するサイズを1~4、
-	線形ペナルティは1~5の１刻みの合計10通りの結果を示す。}
 
 \section{提案手法の得手・不得手の調査}
 \ref{subsec:single_accuracy}節の実験結果より、提案手法は従来手法に比べて平均的に見れば精度が低調に終わることが判明した。
@@ -73,8 +73,9 @@
 	\label{table:target_accuracy_good}
 	提案手法（score\_sum、score\_max、maxsumBSのいずれか）が従来手法（glide HTVSモード）\\
 	よりもROC-AUCで0.2以上上回ったケースについて、ROC-AUCの差の降順で示している。
-	\begin{tabular}{lc|r|rr|}
-	\multirow{2}{*}{提案手法の種類}	&\multirow{2}{*}{ターゲット名}	&\multirow{2}{*}{ROC-AUC差}	&\multicolumn{2}{c|}{ROC-AUC}	\\
+	\begin{tabular}{lc|r|rr}
+	\hline
+	\multirow{2}{*}{提案手法の種類}	&\multirow{2}{*}{ターゲット名}	&\multirow{2}{*}{ROC-AUC差}	&\multicolumn{2}{c}{ROC-AUC}	\\
 								&						&							&従来手法	&提案手法		\\ \hline
 	線形和（maxsumBS）			&mcr					&0.319						&0.466		&{\bf 0.785}		\\
 	線形和（maxsumBS）			&akt1					&0.285						&0.539		&{\bf 0.824}		\\
@@ -92,8 +93,9 @@
 	\label{table:target_accuracy_bad}
 	提案手法（score\_sum、score\_max、maxsumBSのいずれか）が従来手法（glide HTVSモード）\\
 	よりもROC-AUCで-0.45以上下回ったケースについて、ROC-AUCの差の昇順で示している。
-	\begin{tabular}{lc|r|rr|}
-	\multirow{2}{*}{提案手法の種類}	&\multirow{2}{*}{ターゲット名}	&\multirow{2}{*}{ROC-AUC差}	&\multicolumn{2}{c|}{ROC-AUC}	\\
+	\begin{tabular}{lc|r|rr}
+	\hline
+	\multirow{2}{*}{提案手法の種類}	&\multirow{2}{*}{ターゲット名}	&\multirow{2}{*}{ROC-AUC差}	&\multicolumn{2}{c}{ROC-AUC}	\\
 								&						&							&従来手法	&提案手法		\\ \hline
 	最良値（score\_max）			&lkha4					&-0.572						&{\bf 0.880}	&0.308			\\
 	最良値（score\_max）			&xiap					&-0.506						&{\bf 0.802}	&0.296			\\
@@ -106,10 +108,51 @@
 \end{table}
 
 \subsection{提案手法が得意なターゲット}
-表\ref{target_accuracy_good}より、提案手法が従来手法であるglide HTVSモードに明らかに優っているケースは
-akt1, gcr, ital, kith, mcr各ターゲットである。これらのターゲットについて、正例化合物、および負例化合物の分割数、
+表\ref{table:target_accuracy_good}より、提案手法が従来手法であるglide HTVSモードに明らかに優っているケースは
+akt1, gcr, ital, kith, mcr各ターゲットである。
+これらのターゲットについて、化合物の持つフラグメント数の平均、小さなフラグメントを削減した後のフラグメント数の平均、
+sitemapによって計算された各タンパク質の結合部位のサイズを表\ref{table:good_property}にまとめた。
+\begin{table}[htb] \centering
+	\caption{提案手法が得意なターゲットの性質}
+	\label{table:good_property}
+	\begin{tabular}{c|rrrrrrr}
+	\hline
+	\multirow{2}{*}{ターゲット}	&\multicolumn{3}{c}{\multirow{2}{*}{フラグメント数の平均}}	&\multicolumn{3}{c}{重原子数2以下の}		&\multirow{2}{*}{結合部位のサイズ [$Å^3$]}	\\
+							&		&		&								&\multicolumn{3}{c}{フラグメント数の平均}	&										\\
+							&全体	&正例	&負例							&全体	&正例		&負例			&										\\ \hline
+	akt1						&7.98	&6.94	&8.00							&4.64	&3.08		&4.66			&637									\\
+	gcr						&5.93	&5.33	&5.94							&2.68	&2.00		&2.69			&471									\\
+	ital						&7.63	&7.72	&7.62							&3.58	&2.74		&3.59			&198									\\
+	kith						&7.58	&6.70	&7.60							&3.94	&3.72		&3.95			&648									\\
+	mcr						&5.90	&5.43	&5.91							&2.67	&2.06		&2.68			&179									\\ \hline
+	全102ターゲット平均		&7.22	&7.43	&7.21							&3.83	&3.78		&3.83			&										\\ \hline
+	\end{tabular}
+\end{table}
+結合部位のサイズや個々のフラグメント数の正例/負例間の比較による傾向は見受けられなかったが、
+重原子数が2以下のフラグメント数が5つのターゲット全てにおいて正例よりも負例の方が上回っていることが分かる。
+例えば、図\ref{fig:ZINC02599970}のような環構造と環構造の間の距離が遠い化合物に比べて、
+図\ref{fig:ZINC03782818}のような環と環との間をつなぐ部分が短い化合物は重原子数が2以下となるフラグメント数は少なくなる。
+ターゲットが前者の化合物を好むのか、後者の化合物を好むのかを前もって判定することができれば、
+この手法を用いるべきか否かを判定することができると考えられる。
 
-\todo{akt1, gcr, ital, kith, mcrの5種類について、ROC曲線を示し、フラグメント数などからの説明を試みる。}
+\begin{figure}[bt]
+\begin{minipage}{0.5\hsize}
+ \begin{center}
+  \fig[width=0.9\hsize]{./fig/discussion/ZINC02599970.eps}
+  \caption{小さなフラグメントが大量に発生する例}
+  \label{fig:ZINC02599970}
+ \end{center}
+\end{minipage}
+\begin{minipage}{0.5\hsize}
+ \begin{center}
+  \fig[width=0.7\hsize]{./fig/discussion/ZINC03782818.eps}
+  \caption{小さなフラグメントがあまり発生しない例}
+  \label{fig:ZINC03782818}
+ \end{center}
+\end{minipage}
+\end{figure}
+
+
 \subsection{提案手法が不得意なターゲット}
 \todo{def, hs90a, lkha4, wee1, xiapの5種類について、ROC曲線を示し、フラグメント数などからの説明を試みる。
 タンパク質のポケットが大きいと苦手とか、そういう可能性はあるのかな・・？}
@@ -119,45 +162,53 @@ akt1, gcr, ital, kith, mcr各ターゲットである。これらのターゲッ
 
 \section{提案手法のユースケース}
 \ref{subsubsec:filtering_comparison}節の結果より、提案手法は精度より速度を重視したいケースにおいて有用であることは先に述べた。
-ここではDUD-Eのターゲットの内、総化合物数が25,000以上である20ターゲットを用いて、フィルタリングにおける化合物の通過率がより少ない場合や、
-さらに小さな割合におけるEFの評価を行い、大規模化合物ライブラリを利用する場合のユースケースを示す。
-\todo{score\_sum, score\_max, maxsumBS, glide HTVSを用いたフィルタリングで0.5, 1, 2, 5\%に化合物を削減した場合について、
-計算時間およびEF0.1, 0.2, 0.5, 1, 2\%を求め、結果を示し、この結果をもとに提案手法をどのように用いるのが有意義か、というユースケースを示す。}
+ここではDUD-Eのターゲットの内、総化合物数が10,000以上である49ターゲットを用いて、フィルタリングにおける化合物の通過率がより少ない場合や、
+さらに小さな割合におけるEFの評価（表\ref{table:usecase_accuracy}）および提案手法や従来手法のドッキング
+所要時間（表\ref{table:usecase_speed}）を用い、大規模化合物ライブラリを利用する場合のユースケースを示す。
+なお、総化合物数が10,000以上である49ターゲットの平均化合物数は22,259, 平均フラグメント種類数は4,588である。
+
+\begin{landscape}
+\begin{table}[p] \centering
+	\caption{総化合物数が1万以上存在するDUD-Eのターゲットに対する評価実験}
+	\label{table:usecase_accuracy}
+	\begin{tabular}{lc|rrrrr|r}
+	\hline
+	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（0.1\%）}	&\multirow{2}{*}{EF（0.2\%）}	&\multirow{2}{*}{EF（0.5\%）}	&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
+	\multicolumn{1}{c}{手法}	&通過率					&						&						&						&						&						&[CPU sec.]		\\ \hline
+	提案手法（maxsumBS）		&\multirow{2}{*}{0.5\%}	&14.33					&9.39					&\textendash				&\textendash				&\textendash				&3,280			\\
+	従来手法（glide HTVSモード）	&					&35.16					&29.97					&\textendash				&\textendash				&\textendash				&25,452			\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{1\%}	&20.26					&13.91					&7.14					&\textendash				&\textendash				&5,180			\\
+	従来手法（glide HTVSモード）	&					&35.36					&31.17					&22.19					&\textendash				&\textendash				&27,352			\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&24.87					&19.14					&10.57					&6.32					&\textendash				&8,979			\\
+	従来手法（glide HTVSモード）	&					&35.54					&31.69					&23.10					&15.50					&\textendash				&31,151			\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{5\%}	&29.24					&25.04					&16.80					&10.51					&6.29					&20,378			\\
+	従来手法（glide HTVSモード）	&					&35.54					&31.40					&23.56					&16.28					&10.59					&42,550			\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{10\%}	&31.94					&27.48					&19.68					&13.58					&8.36					&39,377			\\
+	従来手法（glide HTVSモード）	&					&35.70					&31.78					&23.80					&16.89					&11.07					&61,549			\\ \hline
+	\multicolumn{2}{l|}{通常ドッキング（glide SPモード）}	&35.98					&32.82					&25.57					&18.96					&12.82					&379,965			\\ \hline
+	\end{tabular}
+\end{table}
+\end{landscape}
+
+\begin{table}[htbp] \centering
+	\caption{ドッキングシミュレーションに要する計算時間}
+	\label{table:usecase_speed}
+	\begin{tabular}{l|rrr}
+	\hline
+	\multirow{2}{*}{ドッキングの種類}		&ドッキングが			&総計算時間	&1構造あたり計算時間	\\ 
+									&必要な構造数		&[CPU sec.]			&[CPU sec.]			\\ \hline
+	フラグメントドッキング glide SPモード		&4,588				&1,380				&0.30				\\
+	通常ドッキング glide HTVSモード		&\multirow{2}{*}{22,259}	&23,552				&1.06				\\
+	通常ドッキング glide SPモード			&					&379,965				&17.07				\\ \hline
+	\end{tabular}
+\end{table}
 
 
-
-%filtering時に何\%の化合物を残すか、などの議論と合わせて、精度と速度のバランスを示す。
-%\comment{トレードオフを示すのについて、フィルタリングのパーセンテージをもっと振るべきでは？5, 10, 20, 30, 40, 50\%のように。（大上先生）}
-%\begin{figure}[htp]
-% \begin{center}
-%  \fig[width=0.99\hsize]{./fig/result/性能vs時間.eps}
-%  \caption{計算時間と精度のトレードオフ}
-%  \label{fig:trade_off}
-% \end{center}
-%\end{figure}
-
-%\todo{以下はメモ。どうまとめるか検討。}
-%フラグメント数と統合スコアの関係
-%
-%\begin{itemize} 
-%\item 提案手法では重原子数が2以下の小さなフラグメントを無視した
-%\item これは、フラグメント分割数とスコアとの相関が強く出てしまうためである。
-%\item 
-%\end{itemize}
-%
-%
-%ターゲットのactive ligandについて、何らかの考察を加えることで提案手法が向くタイプのターゲット、向かないタイプのターゲットを評価する。
-%\begin{itemize}
-%\item 演繹的な推論
-%	\begin{itemize}
-%	\item 総和法はフラグメント数と相関があるはず
-%	\item 最大値法は化合物フラグメントの最大サイズに相関するはず
-%	\end{itemize}
-%\item 帰納的な推論
-%	\begin{itemize}
-%	\item glide SPでのスコア-化合物原子数の散布図と
-%		glide HTVSでのスコア-化合物原子数の散布図、
-%		提案手法でのスコア-化合物原子数の散布図の比較を元に何か言えないか調べてみる
-%	\item glide HTVSと提案手法の精度比較をターゲット別に行い、どういうターゲットでは勝てるかどうかの議論
-%	\end{itemize}
-%\end{itemize}
+\begin{description}
+\item[超高速な化合物全体の評価]
+	表\ref{table:usecase_accuracy}によると、提案手法で0.5\%の化合物をフィルタリングし、それらを通常のドッキングシミュレーションで再評価
+	することでglide HTVSモードを用いる場合の約8分の1の計算時間で評価を完了させることができる。例えば1,000万化合物を評価する場合、
+	今回のケースの500倍程度の計算時間を要するとすればglide HTVSモードは1 CPU換算で4か月程度を要してしまう。
+	一方、提案手法と通常ドッキングであるglide SPモードの組み合わせでは1 CPUでも半月程度で済む計算となる。この差は非常に大きく、
+	提案手法は有用であると言える。
+\end{description}
