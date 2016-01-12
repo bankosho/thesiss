@@ -38,15 +38,6 @@
 フラグメントの結合スコアから化合物のフィルタリングスコアを算出するのに計算が$O(n)$で済むようなスコアの統合を行うことで、
 高速な化合物の評価を達成する。
 
-
-\begin{figure}[htb]
- \begin{center}
-  \fig[width=0.4\hsize]{./fig/method/スコア統合イメージ.eps}
-  \caption{スコア統合イメージ(暫定版)}
-  \label{fig:integration_image}
- \end{center}
-\end{figure}
-
 \section{提案手法の詳細の説明}
 前節で用いる2つのアイデアを示したが、それを用いてどのようにフィルタリングを実現しているのかをこの節で詳説する。
 
@@ -58,7 +49,15 @@
 \item フラグメントの結合スコアから化合物のフィルタリングスコアを算出する
 \item フィルタリングスコアの上位N\%をフィルタを通過した化合物として出力する
 \end{enumerate}
-フローチャートを図\ref{fig:flowchart}に示す。
+ワークフローを図\ref{fig:workflow}に示す。
+
+\begin{figure}[p]
+ \begin{center}
+  \fig[width=0.6\hsize]{./fig/method/proposal_workflow.eps}
+  \caption{提案手法の手順}
+  \label{fig:workflow}
+ \end{center}
+\end{figure}
 
 \subsection{化合物のフラグメントへの分割}\label{subsec:decomposition}
 化合物の分割は小峰らによる手法\cite{Shunta2015}を用い、内部自由度を持たない部分構造であるフラグメントを生成する。
