@@ -5,7 +5,7 @@
 \section{データセット}
 本実験では、データセットとしてDirectory of Useful Decoys (DUD-E)\cite{Mysinger2012}を用いた。DUD-Eは102種類のターゲットについて、
 それぞれタンパク質・正例化合物・負例化合物を用意している。表\ref{table:dude}にターゲットごとの化合物数、正例と負例の比率の
-最小値、最大値、平均値を、図\ref{fig:dude_hist_comp}に総化合物数の分布を示す\todo{ヒストグラム作成}。
+最小値、最大値、平均値を示す。
 各ターゲットの詳細については付録\ref{appendix:dude}に記載する。なお、DUD-Eのターゲットのうちfgfr1およびfa10は
 記載されている負例数とデータセットに実際に含まれている負例数が大きく異なっているが、そのまま扱うこととする。
 
@@ -68,10 +68,15 @@
 本研究では、東京工業大学のスーパーコンピュータであるTSUBAME2.5のThinノードを利用した。
 利用した計算環境を表\ref{table:computer_node}に示す。
 
-CPU: Intel Xeon X5670, 2.93 GHz (6 cores) $\times$2
-Memory: 54 GB
-
-
+\begin{table}[htb] \centering
+	\caption{利用した計算環境}
+	\label{table:computer_node}
+	\begin{tabular}{cc}
+	\hline
+	CPU		&Intel Xeon X5670, 2.93 GHz (6 cores) $\times2$ \\
+	Memory	& 54 GB RAM \\ \hline 
+	\end{tabular}
+\end{table}
 
 \section{比較対象}
 本提案手法はドッキングに基づくフィルタリング手法であるため、同様の用途に用いられているglide HTVS（高速）モードを比較対象として用いる。
@@ -187,17 +192,17 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 	\caption{フィルタリング手法としての提案手法間の精度評価}
 	\label{table:filtering_proposal}
 	\begin{tabular}{lc|rr|r|}
-	\multicolumn{2}{c|}{フィルタリング}	&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&\multirow{2}{*}{合計計算時間 [CPU sec.]}	\\
-	\multicolumn{1}{c}{手法}	&通過率	&						&						&									\\ \hline
-	総和（score\_sum）		&		&6.84					&\textendash				&									\\
-	最良値（score\_max）	&2\%	&8.59					&\textendash				&6,396								\\
-	線形和（maxsumBS）	&		&\textbf{8.75}				&\textendash				&									\\ \hline
-	総和（score\_sum）		&		&9.61					&5.92					&									\\
-	最良値（score\_max）	&5\%	&10.36					&6.99					&13,481								\\
-	線形和（maxsumBS）	&		&\textbf{12.92}			&\textbf{7.99}				&									\\ \hline
-	総和（score\_sum）		&		&12.41					&7.67					&									\\
-	最良値（score\_max）	&10\%	&11.58					&7.92					&25,289								\\
-	線形和（maxsumBS）	&		&\textbf{15.46}			&\textbf{10.00}			&									\\ \hline
+	\multicolumn{2}{c|}{フィルタリング}	&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
+	\multicolumn{1}{c}{手法}	&通過率	&						&						&[CPU sec.]		\\ \hline
+	総和（score\_sum）		&		&6.84					&\textendash				&				\\
+	最良値（score\_max）	&2\%	&8.59					&\textendash				&6,396			\\
+	線形和（maxsumBS）	&		&\textbf{8.75}				&\textendash				&				\\ \hline
+	総和（score\_sum）		&		&9.61					&5.92					&				\\
+	最良値（score\_max）	&5\%	&10.36					&6.99					&13,481			\\
+	線形和（maxsumBS）	&		&\textbf{12.92}			&\textbf{7.99}				&				\\ \hline
+	総和（score\_sum）		&		&12.41					&7.67					&				\\
+	最良値（score\_max）	&10\%	&11.58					&7.92					&25,289			\\
+	線形和（maxsumBS）	&		&\textbf{15.46}			&\textbf{10.00}			&				\\ \hline
 	\end{tabular}
 \end{table}
 
@@ -213,15 +218,15 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 	\caption{フィルタリング手法としての提案手法と従来手法の比較}
 	\label{table:filtering_proposal_glide}
 	\begin{tabular}{lc|rr|r|}
-	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&\multirow{2}{*}{合計計算時間 [CPU sec.]}	\\
-	\multicolumn{1}{c}{手法}		&通過率				&						&						&									\\ \hline
-	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&8.75					&\textendash				&6,396								\\
-	従来手法（glide HTVSモード）	&					&17.85					&\textendash				&19,536								\\
-	提案手法（maxsumBS）		&\multirow{2}{*}{5\%}	&12.92					&7.99					&13,481								\\
-	従来手法（glide HTVSモード）	&					&18.97					&12.50					&26,621								\\
-	提案手法（maxsumBS）		&\multirow{2}{*}{10\%}	&15.46					&10.00					&25,289								\\
-	従来手法（glide HTVSモード）	&					&19.60					&12.92					&38,429								\\ \hline
-	\multicolumn{2}{l|}{通常ドッキング（glide SPモード）}	&21.54					&14.68					&236,156								\\ \hline
+	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
+	\multicolumn{1}{c}{手法}		&通過率				&						&						&[CPU sec.]		\\ \hline
+	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&8.75					&\textendash				&6,396			\\
+	従来手法（glide HTVSモード）	&					&17.85					&\textendash				&19,536			\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{5\%}	&12.92					&7.99					&13,481			\\
+	従来手法（glide HTVSモード）	&					&18.97					&12.50					&26,621			\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{10\%}	&15.46					&10.00					&25,289			\\
+	従来手法（glide HTVSモード）	&					&19.60					&12.92					&38,429			\\ \hline
+	\multicolumn{2}{l|}{通常ドッキング（glide SPモード）}	&21.54					&14.68					&236,156			\\ \hline
 	\end{tabular}
 \end{table}
 
