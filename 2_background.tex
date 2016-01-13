@@ -28,7 +28,7 @@ SBVSにおける化合物の評価には化合物-タンパク質ドッキング
 この得られたスコアを直接、あるいは何らかの形で変換を行った評価値を用いて複数の化合物の選別を行う。
 
 この化合物-タンパク質ドッキングシミュレーションを行うツールは
-Glide\cite{Friesner2004}, eHiTS\citetodo{}などの有償ソフトウェア、AutoDock\citetodo{}などのオープンソースウェアを始めとして、
+Glide\cite{Friesner2004}, eHiTS\cite{Zsoldos2007}などの有償ソフトウェア、AutoDock\cite{Morris2009}などのオープンソースウェアを始めとして、
 有償無償問わず様々開発されている。
 
 \subsection{ドッキングシミュレーションの要素}\label{subsec:docking_elements}
@@ -77,7 +77,7 @@ SBVSの薬物候補化合物の選別はドッキングシミュレーション�
 \begin{figure}[htb]
  \begin{center}
   \fig[width=0.4\hsize]{./fig/background/glide.png}
-  \caption{Glideのワークフロー}
+  \caption{Glideのワークフロー\cite{Friesner2004}}
   \label{fig:glide_flowchart}
  \end{center}
 \end{figure}
@@ -105,7 +105,7 @@ SBVSの薬物候補化合物の選別はドッキングシミュレーション�
 \subsection{ドッキングシミュレーションの問題点}\label{subsec:docking_problem}
 \ref{subsec:docking_elements}節に述べたように、ドッキングシミュレーションツールはそれぞれ高速化のための工夫を凝らしているが、
 それでも不十分であるのが現状である。
-例えば、1コアを用いて１つの化合物を評価するのにGlideで0.2-2.4分程度\citetodo{glide1}、eHiTSは最速で数秒\citetodo{eHiTS}を要すると
+例えば、1コアを用いて１つの化合物を評価するのにGlideで0.2-2.4分程度\cite{Friesner2004}、eHiTSは最速で数秒\cite{Zsoldos2007}を要すると
 述べられている。この速度で1,000万化合物を選別しようとすると10秒で１つの化合物を評価できたとしても1,200 CPU daysもの時間を必要とする。
 このような場合に一般的に用いられる手段である大規模計算化に関しても、GlideやeHiTSはライセンス式の有償ソフトウらェアであるために、
 大量のライセンスを購入する必要があり現実的ではない。
@@ -123,7 +123,7 @@ SBVSの薬物候補化合物の選別はドッキングシミュレーション�
 既存のフィルタリング手法は大きく分けて化合物の物理的特徴に基づくフィルタリング、化合物の構造に基づくフィルタリング、ドッキングベースのフィルタリングの3種類が存在している。
 \subsubsection{化合物の物理的特徴に基づくフィルタリング}
 化合物の分子量や水溶性か油溶性かを示す分配係数（LogP）などの値は創薬において有用な情報である。
-これらの物理化学的な値を用いて、経口薬として優れた薬物の特徴を４つの法則にまとめたリピンスキーの法則\citetodo{Lipinski1997}や、
+これらの物理化学的な値を用いて、経口薬として優れた薬物の特徴を４つの法則にまとめたリピンスキーの法則\cite{Lipinski1997}や、
 これを発展させ既存の薬剤の物理化学的な値からヒストグラムを作成し化合物の薬物らしさ（Druglikeness）のスコアを付ける
 QED\cite{Bickerton2012}などのフィルタリング手法が存在している。
 \subsubsection{化合物の構造に基づくフィルタリング}

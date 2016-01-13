@@ -7,7 +7,7 @@
 \begin{itemize}
 \item タンパク質や化合物の立体構造を用いた手法 (Structure-Based Virtual Screening, SBVS)
 	\begin{itemize}
-	\item タンパク質-化合物ドッキングシミュレーション\citetodo{Glide, eHiTS, Autodock}
+	\item タンパク質-化合物ドッキングシミュレーション\cite{Friesner2004, Zsoldos2007, Morris2009}
 	\end{itemize}
 \item 既知の薬剤・タンパク質の活動を阻害する化合物(阻害剤)の情報を用いた手法（Ligand-Based Virtual Screening, LBVS）
 	\begin{itemize}
@@ -24,10 +24,10 @@
 非常に有用な方法である。また、既知の薬剤や阻害剤から法則性を見つけ出すなど帰納的な手法であるLBVS等に比べて
 既知の薬剤や阻害剤と大きく性質の異なる、「新規の構造を持った」薬剤候補化合物を発見する能力が高いことも
 ドッキングシミュレーションによるSBVSのメリットである。
-ドッキングシミュレーションはGlide\citetodo{}, eHiTS\citetodo{}, Autodock\citetodo{}を始めとして多様なツールが開発されており、
-その中でもGlideは予測精度が高く\citetodo{比較論文}、比較的広く利用されている。
+ドッキングシミュレーションはGlide\cite{Friesner2004}, eHiTS\cite{Zsoldos2007}, Autodock\cite{Morris2009}を始めとして
+多様なツールが開発されており、その中でもGlideは予測精度が高く\citetodo{比較論文}、比較的広く利用されている。
 しかし、ドッキングシミュレーションはタンパク質と化合物との結合構造という非常に複雑な探索空間の中での最適化問題を解くため、
-計算コストが非常に高い。これを解決するためにドッキング手法の高速化の研究\citetodo{AutodockのGPU実装, BUDE, Autodock Vina}
+計算コストが非常に高い。これを解決するためにドッキング手法の高速化の研究\cite{Kannan2010}\citetodo{BUDE, Autodock Vina}
 が行われているが、速度的、もしくは精度的に未だ不十分であり、例えば購入可能な化合物の立体構造データベースを公開しているZINC
 \citetodo{}に存在する22,724,825件の化合物を一斉にドッキングシミュレーションで予測することは困難というのが現状である。
 
