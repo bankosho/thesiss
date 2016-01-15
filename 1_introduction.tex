@@ -11,12 +11,12 @@
 	\end{itemize}
 \item 既知の薬剤・タンパク質の活動を阻害する化合物(阻害剤)の情報を用いた手法（Ligand-Based Virtual Screening, LBVS）
 	\begin{itemize}
-	\item 構造活性相関 (Quantitative Structure-Activity Relationship, QSAR)を用いた手法\citetodo{}
-	\item 機械学習による分類手法\citetodo{}
-	\item 化合物の官能基の性質を用いたファーマコフォアモデルに基づく化合物分類手法\citetodo{}
+	\item 構造活性相関 (Quantitative Structure-Activity Relationship, QSAR)を用いた手法\cite{Hansch1964}
+	\item 機械学習による分類手法\cite{Ivanciuc2007}
+	\item 化合物の官能基の性質を用いたファーマコフォアモデルに基づく化合物分類手法\cite{Wolber2008}
 	\end{itemize}
 \item タンパク質と薬剤との2部グラフなどのネットワークを構築し、類似度から予測を行う創薬手法 
-	(Chemical Genomics-Based Virtual Screening, CGBVS)\citetodo{Brown \& Okuno (2012)}
+	(Chemical Genomics-Based Virtual Screening, CGBVS)\cite{Brown2012}
 \end{itemize}
 
 このうち、タンパク質-化合物ドッキングシミュレーションによるSBVSは物理的なエネルギーを計算する演繹的な手法であり、
@@ -27,16 +27,16 @@
 ドッキングシミュレーションはGlide\cite{Friesner2004}, eHiTS\cite{Zsoldos2007}, Autodock\cite{Morris2009}を始めとして
 多様なツールが開発されており、その中でもGlideは予測精度が高く\citetodo{比較論文}、比較的広く利用されている。
 しかし、ドッキングシミュレーションはタンパク質と化合物との結合構造という非常に複雑な探索空間の中での最適化問題を解くため、
-計算コストが非常に高い。これを解決するためにドッキング手法の高速化の研究\cite{Kannan2010}\citetodo{BUDE, Autodock Vina}
+計算コストが非常に高い。これを解決するためにドッキング手法の高速化の研究\cite{Kannan2010, McIntosh-Smith2014, Trott2010}
 が行われているが、速度的、もしくは精度的に未だ不十分であり、例えば購入可能な化合物の立体構造データベースを公開しているZINC
-\citetodo{}に存在する22,724,825件の化合物を一斉にドッキングシミュレーションで予測することは困難というのが現状である。
+\cite{Irwin2005}に存在する22,724,825件の化合物を一斉にドッキングシミュレーションで予測することは困難というのが現状である。
 
 以上の理由から、SBVSを用いた創薬研究ではドッキングシミュレーションを行う前に化合物を選別する、
-フィルタリングが行われることが多い\citetodo{実例を示す}。しかし、このフィルタリング手法の多くはLBVSのように、
+フィルタリングが行われることが多い\cite{Nilakantan1993, Parenti2003}。しかし、このフィルタリング手法の多くはLBVSのように、
 既知の薬剤などの化合物情報を用いるものであり、前述したSBVSの長所である「既知の薬剤や阻害剤と大きく性質の異なる
 薬剤候補化合物」をフィルタリングで落としてしまうことが多く、ドッキングシミュレーションとは相性が悪い。
 また、Glideの簡易ドッキングモードであるHTVSモードを用いてフィルタリングを行うこともあり
-\citetodo{Glide HTVSをフィルタリング手法に用いている論文}、この手法を用いればSBVSの長所を損なうことなくフィルタリングを行うことが
+\cite{Fujimoto2008}、この手法を用いればSBVSの長所を損なうことなくフィルタリングを行うことが
 できるが、前述したような数千万単位の化合物数ではGlide HTVSモードですら計算量が膨大になってしまう。
 また、Glideは計算に利用するコア数に応じてライセンスを購入しなければならない形式の商用ソフトであり、
 TSUBAME2.5などのスーパーコンピュータの大規模利用による高速化を行うことができない。
