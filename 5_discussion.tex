@@ -8,7 +8,7 @@
 一つずつ緩和することに対応する。このため、フラグメント分割がされればされるほどスコアが良くなってしまうのである。
 \begin{figure}[b]
  \begin{center}
-  \fig[width=0.5\hsize]{./fig/discussion/no_omit_score.eps}
+  \fig[width=0.56\hsize]{./fig/discussion/no_omit_score.eps}
   \caption{ターゲットfntaの全ての化合物のうち重原子数32の化合物の単純加算スコア}
   \label{fig:no_omit_score_graph}
  \end{center}
@@ -128,7 +128,9 @@
 	最良値（score\_max）			&akt1					&0.265						&0.539		&{\bf 0.804}		\\
 	最良値（score\_max）			&mcr					&0.257						&0.466		&{\bf 0.723}		\\
 	線形和（maxsumBS）			&gcr						&0.252						&0.528		&{\bf 0.780}		\\
+	最良値（score\_max）			&def						&0.250						&0.733		&{\bf 0.983}		\\
 	最良値（score\_max）			&gcr						&0.242						&0.528		&{\bf 0.770}		\\
+	最良値（score\_max）			&hdac8					&0.231						&0.613		&{\bf 0.844}		\\
 	総和（score\_sum）				&ital						&0.212						&0.529		&{\bf 0.741}		\\
 	総和（score\_sum）				&akt1					&0.209						&0.539		&{\bf 0.748}		\\ \hline
 	\end{tabular}
@@ -177,26 +179,24 @@ sitemapによって計算された各タンパク質の結合部位のサイズ�
 重原子数が2以下のフラグメント数が5つのターゲット全てにおいて正例よりも負例の方が上回っていることが分かる。
 例えば、図\ref{fig:ZINC02599970}のような環構造と環構造の間の距離が遠い化合物に比べて、
 図\ref{fig:ZINC03782818}のような環と環との間をつなぐ部分が短い化合物は重原子数が2以下となるフラグメント数は少なくなる。
-ターゲットが前者の化合物を好むのか、後者の化合物を好むのかを前もって判定することができれば、
-この手法を用いるべきか否かを判定することができると考えられる。
-
-\begin{figure}[bt]
+\begin{figure}[b]
 \begin{minipage}{0.5\hsize}
  \begin{center}
-  \fig[width=0.9\hsize]{./fig/discussion/ZINC02599970.eps}
+  \fig[width=0.8\hsize]{./fig/discussion/ZINC02599970.eps}
   \caption{小さなフラグメントが大量に発生する例}
   \label{fig:ZINC02599970}
  \end{center}
 \end{minipage}
 \begin{minipage}{0.5\hsize}
  \begin{center}
-  \fig[width=0.7\hsize]{./fig/discussion/ZINC03782818.eps}
+  \fig[width=0.77\hsize]{./fig/discussion/ZINC03782818.eps}
   \caption{小さなフラグメントがあまり発生しない例}
   \label{fig:ZINC03782818}
  \end{center}
 \end{minipage}
 \end{figure}
-
+ターゲットが前者の化合物を好むのか、後者の化合物を好むのかを前もって判定することができれば、
+この手法を用いるべきか否かを判定することができると考えられる。
 
 \subsection{提案手法が不得意なターゲット}
 \todo{def, hs90a, lkha4, wee1, xiapの5種類について、ROC曲線を示し、フラグメント数などからの説明を試みる。
@@ -259,16 +259,23 @@ sitemapによって計算された各タンパク質の結合部位のサイズ�
 	しかしいくつかのケースについては、化合物ライブラリのサイズを変えることで同程度の所要時間の中で精度を高めることができる。
 	例えば、100万化合物を従来手法で10\%にフィルタリングし、glideSPでリランキングした場合、上位1万化合物の濃縮率(EF 1\%に相当する)は16.89、この時の推定必要計算時間は32.0 CPU daysとなる。
 	一方、1,000万化合物を提案手法で1\%にフィルタリングし、glide SPでリランキングした場合、上位1万化合物の濃縮率(EF 0.1\%に相当する)は20.26、この時の推定必要計算時間は26.9 CPU daysとなり、
-	速度を向上させつつ、予測精度を高めることができる。このようなケースは複数存在しており（表\ref{table:win_proposal_case}）、これらの場合においては提案手法が従来手法に明らかに勝っている。
+	速度を向上させつつ、予測精度を高めることができる。このようなケースは複数存在しており（表\ref{table:win_proposal_case}）、これらの場合においては提案手法を利用すべきであると言える。
 \begin{table}[htbp] \centering
 	\caption{提案手法が従来手法に速度・精度ともに勝る例}
-	\label{table:win_propsal_case}
+	\label{table:win_proposal_case}
 	\begin{tabular}{l|rrr}
 	\hline
-												&\multirow{2}{*}{化合物ライブラリサイズ}	&上位1万化合物の		&計算時間		\\
+												&\multirow{2}{*}{化合物ライブラリサイズ}	&上位1万化合物の		&推定計算時間	\\
 												&														&濃縮率(EF)				&[CPU days]		\\ \hline
-	提案手法で1\%フィルタリング		&1,000万										&20.26 (EF 0.1\%)		&26.9				\\
-	従来手法で10\%フィルタリング	&100万											&16.89 (EF 1\%)			&32.0				\\ \hline
+	提案手法で1\%フィルタリング		&1,000万											&20.26 (EF 0.1\%)		&26.9				\\
+	従来手法で10\%フィルタリング	&100万												&16.89 (EF 1\%)			&32.0				\\ \hline
+	提案手法で1\%フィルタリング		&500万												&13.91 (EF 0.2\%)		&13.5				\\
+	従来手法で10\%フィルタリング	&50万												&11.07 (EF 2\%)			&16.0				\\ \hline
+	提案手法で2\%フィルタリング		&1,000万											&24.87 (EF 0.1\%)		&46.7				\\
+	従来手法で10\%フィルタリング	&200万												&23.80 (EF 0.5\%)		&64.0				\\ \hline
+	提案手法で5\%フィルタリング		&200万												&16.80 (EF 0.5\%)		&21.2				\\
+	従来手法で5\%フィルタリング		&100万												&16.28 (EF 1\%)			&22.1				\\ \hline
+	
 
 	\end{tabular}
 \end{table}

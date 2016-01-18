@@ -45,9 +45,11 @@
 	{\rm 正例率（x\%）}	&=& \frac{\rm 正例数（x\%）}{\rm 正例数（x\%）+負例数（x\%）} \\
 	{\rm EF（x\%）} 	&=& \frac{\rm 正例率（x\%）}{\rm 正例率（100\%）}
 	\end{eqnarray}
+
+
 \end{description}
 
-\begin{figure}[tb]
+\begin{figure}[p]
  \begin{center}
   \fig[width=0.99\hsize]{./fig/result/roc計算例.eps}
   \caption{ROC-AUC計算例}
@@ -90,11 +92,11 @@
 まず、今回用いる複数のターゲットについて、フラグメント分割を行うことでドッキングの必要数をどの程度減らせるのかを示す。
 それぞれターゲットにフラグメント分割を適用した場合における化合物数とフラグメント種類数の推移は図\ref{fig:dude_decomposition}の通り
 となり、平均するとフラグメント種類数は化合物数の4分の1に抑えられている。化合物数が多いほど
-化合物数に対するフラグメント種類数が抑えられる傾向にあることも確認された。（表\ref{table:dude_decomposition}）。
+化合物数に対するフラグメント種類数が抑えられる傾向にあることも確認された（表\ref{table:dude_decomposition}）。
 
-\begin{figure}[htp]
+\begin{figure}[bhtp]
  \begin{center}
-  \fig[width=0.99\hsize]{./fig/result/ターゲットに対するフラグメント数.eps}
+  \fig[width=0.75\hsize]{./fig/result/ターゲットに対するフラグメント数.eps}
   \caption{DUD-Eターゲットにおける化合物数とフラグメント種類数の関係}
   \label{fig:dude_decomposition}
  \end{center}
@@ -151,11 +153,11 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 										&\multicolumn{1}{c|}{ドッキング}		&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	\\ \hline
 	\multirow{2}{*}{総和(score\_sum)}			&glide SPモード					&0.624					&5.08	&4.14	&3.02	&2.34		\\
 										&glide HTVSモード					&0.618					&4.84	&3.97	&2.99	&2.29		\\
-	\multirow{2}{*}{最良値(score\_max)}		&glide SPモード					&0.627					&6.78	&5.47	&3.58	&2.43		\\
-										&glide HTVSモード					&0.616					&6.60	&4.93	&2.98	&2.40		\\
+	\multirow{2}{*}{最良値(score\_max)}		&glide SPモード					&0.637					&6.78	&5.65	&3.81	&2.60		\\
+										&glide HTVSモード					&0.627					&6.94	&5.55	&3.32	&2.55		\\
 	\multirow{2}{*}{線形和(maxsumBS)}		&glide SPモード					&0.679					&6.03	&5.03	&3.96	&3.00		\\
 										&glide HTVSモード					&0.665					&5.98	&4.84	&3.58	&2.82		\\ \hline
-	\multicolumn{2}{l|}{従来手法(glide HTVSモード)}							&0.705					&16.67	&11.18	&6.38	&4.11		\\ \hline
+	\multicolumn{2}{l|}{従来手法(glide HTVSモード)}								&0.705					&16.67	&11.18	&6.38	&4.11		\\ \hline
 	\end{tabular}
 \end{table}
 
@@ -171,16 +173,17 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 しかし、本研究で提案した手法はフィルタリングを想定したものであり、その次に行われる
 通常のドッキングシミュレーション手法と組み合わせた場合の速度や精度の評価はより重要となる。
 
-この節では通常のドッキングシミュレーションであるglide SPモードとの組み合わせを通した評価を行う。
-なお、ROC曲線は評価対象全てにスコアがつく必要があるが、フィルタリングの結果glide SPモードで評価されない
-化合物にはスコアがつかないため、ROC-AUCを求めることはできない。そのため、評価指標はEFのみを用いることとする。
 
-\subsubsection{提案手法間の精度比較}\label{subsubsec:filtering_proposal}
-まず、提案手法間の精度比較を行う。
-フィルタリング手法で2\%、5\%、10\%の3通りまで化合物を削減し、残った化合物を通常のドッキングシミュレーション（glide SPモード）で
-再評価、その順位に従いEF（1\%）およびEF（2\%）を求める（図\ref{fig:filtering_image}）。
-なお、フィルタリング手法を用いて2\%まで削減し、そこでEF（2\%）を求める場合、再評価の結果に関わらずフィルタリングで残った全ての化合物を
-用いてEnrichment Factorを計算することになるため、「\textendash」表記とし数値を出さないようにしている。
+この節では通常のドッキングシミュレーションであるglide SPモードとの組み合わせを通した評価を行う。
+組み合わせを通した評価は
+\begin{enumerate}
+\item フィルタリング手法で2\%, 5\%, 10\%まで化合物を削減
+\item 残った化合物を通常のドッキングシミュレーション（glide SPモード）で再計算
+\item 再計算の結果の上位1\%および上位2\%の濃縮率(EF (1\%), EF (2\%))を評価
+\end{enumerate}
+という手順を用いる。
+なおフィルタリング手法を用いて2\%まで削減した場合、EF (2\%)はフィルタリング手法単体の性能と変わらなくなるため、
+「\textendash」と表記する。
 
 \begin{figure}[htp]
  \begin{center}
@@ -190,7 +193,9 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
  \end{center}
 \end{figure}
 
-結果は表\ref{table:filtering_proposal}のようになり、どのようなケースにおいても、
+\subsubsection{提案手法間の精度比較}\label{subsubsec:filtering_proposal}
+まず提案手法間の精度比較を行い、化合物フィルタリングスコアの算出方法を検討した。
+結果は表\ref{table:filtering_proposal}のようになり、多くの場合
 フィルタリングスコア算出方法は総和法と最良値法の線形和であるmaxsumBSを用いるのが最適であることが分かった。
 
 \begin{table}[htb] \centering
@@ -201,14 +206,14 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 	\multicolumn{2}{c|}{フィルタリング}	&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
 	\multicolumn{1}{c}{手法}	&通過率	&						&						&[CPU sec.]		\\ \hline
 	総和（score\_sum）		&		&6.84					&\textendash				&				\\
-	最良値（score\_max）	&2\%	&8.59					&\textendash				&6,396			\\
-	線形和（maxsumBS）	&		&\textbf{8.75}				&\textendash				&				\\ \hline
+	最良値（score\_max）	&2\%	&\textbf{9.09}				&\textendash				&6,396			\\
+	線形和（maxsumBS）	&		&8.75					&\textendash				&				\\ \hline
 	総和（score\_sum）		&		&9.61					&5.92					&				\\
-	最良値（score\_max）	&5\%	&10.36					&6.99					&13,481			\\
+	最良値（score\_max）	&5\%	&10.93					&7.49					&13,481			\\
 	線形和（maxsumBS）	&		&\textbf{12.92}			&\textbf{7.99}				&				\\ \hline
 	総和（score\_sum）		&		&12.41					&7.67					&				\\
-	最良値（score\_max）	&10\%	&11.58					&7.92					&25,289			\\
-	線形和（maxsumBS）	&		&\textbf{15.46}			&\textbf{10.00}			&				\\ \hline
+	最良値（score\_max）	&10\%	&11.85					&8.24					&25,289			\\
+	線形和（maxsumBS）	&		&\textbf{15.45}			&\textbf{10.00}			&				\\ \hline
 	\end{tabular}
 \end{table}
 
@@ -216,9 +221,7 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 \subsubsection{予測精度の従来手法との比較}\label{subsubsec:filtering_comparison}
 続いて、提案手法と従来手法との比較を行う。\ref{subsubsec:filtering_proposal}節の実験より、
 提案手法のフィルタリングスコア算出法はmaxsumBSが最も良いことが示されたので、
-ここではmaxsumBSと従来手法（glide HTVSモード）を用いて2\%、5\%、10\%までフィルタリングを行い、
-フィルタリングを通過した化合物を通常のドッキングシミュレーション（glide SPモード）で再評価した場合の
-速度および精度の評価を行う。
+ここではmaxsumBSと従来手法（glide HTVSモード）を用いて速度および精度の評価を行う。
 
 \begin{table}[htb] \centering
 	\caption{フィルタリング手法としての提案手法と従来手法の比較}
