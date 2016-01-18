@@ -1,13 +1,15 @@
 \appendix
 \chapter{DUD-Eの詳細}\label{appendix:dude}
+\memo{以下のテーブルが102ターゲットについて続く。}
 \begin{table}[htb] \centering
 	\caption{DUD-Eの詳細}
 	\label{tb:dude_description}
-	\begin{tabular}{c|c|c|rr|rr|}
-	\multirow{2}{*}{ターゲット名}	&\multirow{2}{*}{PDBID}	&\multirow{2}{*}{タンパク質詳細}	&\multicolumn{2}{c|}{正例}	&\multicolumn{2}{c|}{負例}	\\
-							&					&							&化合物数	&平均分割数	&化合物数	&平均分割数	\\ \hline
-	aa2ar					&3EML				&Adenosine A2a receptor		&nnn		&nnn		&nnn		&nnn		\\
-	kif11						&					&							&			&			&			&			\\ \hline
+	\begin{tabular}{c|c|p{5cm}|rr|rr}
+	\hline
+	\multirow{2}{*}{ターゲット名}	&\multirow{2}{*}{PDBID}	&\multicolumn{1}{c|}{\multirow{2}{*}{タンパク質詳細}}	&\multicolumn{2}{c|}{化合物数}	&\multicolumn{2}{c}{平均フラグメント数}		\\
+							&					&											&正例	&負例				&正例	&負例						\\ \hline
+	aa2ar					&3EML				&Adenosine A2a receptor						&482	&31,498				&6.26	&7.04						\\
+	abl1						&2HZI				&Tyrosine-protein kinase ABL					&182	&10,746				&7.08	&7.33						\\ \hline
 	\end{tabular}
 \end{table}
 
