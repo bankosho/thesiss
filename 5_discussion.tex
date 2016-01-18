@@ -107,12 +107,12 @@
 
 \newpage
 
-\section{提案手法の得手・不得手の調査}
-\ref{subsec:single_accuracy}節の実験結果より、提案手法は従来手法に比べて平均的に見れば精度が低調に終わることが判明した。
-しかし、一部のターゲットに関しては提案手法が従来手法である glide HTVSモードに優っており（表\ref{table:target_accuracy_good}）、
-この理由がわかればどのようなケースにおいて提案手法によるフィルタリングを用いるべきかを明示的にすることができる。
-同様に提案手法が従来手法より明らかに悪いケース（表\ref{table:target_accuracy_bad}）に関して
-原因が判明すれば、今後の提案手法の改善につながる。
+\section{提案手法が得意とするケースの調査}
+\ref{subsec:single_accuracy}節の実験結果より、提案手法は従来手法に比べて平均的に見れば精度が低調に終わることが判明している。
+しかし、一部のターゲットに関しては提案手法が従来手法であるglide HTVSモードよりも精度が良く（表\ref{table:target_accuracy_good}）、
+このようなケースが発生する原因が判明すれば、どのようなターゲットの場合に提案手法による
+フィルタリングを用いるべきかを明示的にすることができる。
+
 \begin{table}[b] \centering
 	\caption{提案手法が上手く行ったケース}
 	\label{table:target_accuracy_good}
@@ -135,28 +135,9 @@
 	総和（score\_sum）				&akt1					&0.209						&0.539		&{\bf 0.748}		\\ \hline
 	\end{tabular}
 \end{table}
-\begin{table}[htb] \centering
-	\caption{提案手法が上手く行かないケース}
-	\label{table:target_accuracy_bad}
-	提案手法（score\_sum、score\_max、maxsumBSのいずれか）が従来手法（glide HTVSモード）\\
-	よりもROC-AUCで-0.45以上下回ったケースについて、ROC-AUCの差の昇順で示している。
-	\begin{tabular}{lc|r|rr}
-	\hline
-	\multirow{2}{*}{提案手法の種類}	&\multirow{2}{*}{ターゲット名}	&\multirow{2}{*}{ROC-AUC差}	&\multicolumn{2}{c}{ROC-AUC}	\\
-								&						&							&従来手法	&提案手法		\\ \hline
-	最良値（score\_max）			&lkha4					&-0.572						&{\bf 0.880}	&0.308			\\
-	最良値（score\_max）			&xiap					&-0.506						&{\bf 0.802}	&0.296			\\
-	総和（score\_sum）				&def						&-0.495						&{\bf 0.733}	&0.238			\\
-	総和（score\_sum）				&wee1					&-0.487						&{\bf 0.933}	&0.446			\\
-	総和（score\_sum）				&hs90a					&-0.464						&{\bf 0.761}	&0.297			\\
-	線形和（maxsumBS）			&hs90a					&-0.460						&{\bf 0.761}	&0.301			\\
-	線形和（maxsumBS）			&xiap					&-0.460						&{\bf 0.802}	&0.342			\\ \hline
-	\end{tabular}
-\end{table}
 
-\subsection{提案手法が得意なターゲット}
-表\ref{table:target_accuracy_good}より、提案手法が従来手法であるglide HTVSモードに明らかに優っているケースは
-akt1, gcr, ital, kith, mcr各ターゲットである。
+表\ref{table:target_accuracy_good}より、提案手法が従来手法であるglide HTVSモードよりもかなり優れているケースは
+akt1, def, hdac8, gcr, ital, kith, mcr各ターゲットである。
 これらのターゲットについて、化合物の持つフラグメント数の平均、小さなフラグメントを削減した後のフラグメント数の平均、
 sitemapによって計算された各タンパク質の結合部位のサイズを表\ref{table:good_property}にまとめた。
 \begin{table}[htb] \centering
@@ -168,6 +149,8 @@ sitemapによって計算された各タンパク質の結合部位のサイズ�
 							&		&		&								&\multicolumn{3}{c}{フラグメント数の平均}	&										\\
 							&全体	&正例	&負例							&全体	&正例		&負例			&										\\ \hline
 	akt1						&7.98	&6.94	&8.00							&4.64	&3.08		&4.66			&637									\\
+	def						&5.93	&5.33	&5.94							&2.68	&2.00		&2.69			&471									\\
+	hdac8					&5.93	&5.33	&5.94							&2.68	&2.00		&2.69			&471									\\
 	gcr						&5.93	&5.33	&5.94							&2.68	&2.00		&2.69			&471									\\
 	ital						&7.63	&7.72	&7.62							&3.58	&2.74		&3.59			&198									\\
 	kith						&7.58	&6.70	&7.60							&3.94	&3.72		&3.95			&648									\\
@@ -197,12 +180,6 @@ sitemapによって計算された各タンパク質の結合部位のサイズ�
 \end{figure}
 ターゲットが前者の化合物を好むのか、後者の化合物を好むのかを前もって判定することができれば、
 この手法を用いるべきか否かを判定することができると考えられる。
-
-\subsection{提案手法が不得意なターゲット}
-\todo{def, hs90a, lkha4, wee1, xiapの5種類について、ROC曲線を示し、フラグメント数などからの説明を試みる。
-タンパク質のポケットが大きいと苦手とか、そういう可能性はあるのかな・・？}
-
-\memo{wee1, xiapは非常に柔らかい化合物がpositiveである模様。典型的なligandを表示して、cutした場合の例も示す。それによって、現在の手法ではスコアがどうしても低くなってしまうことを述べる。}
 
 
 \section{提案手法のユースケース}
