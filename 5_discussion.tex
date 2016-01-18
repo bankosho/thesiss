@@ -109,37 +109,30 @@
 
 \section{提案手法が得意とするケースの調査}
 \ref{subsec:single_accuracy}節の実験結果より、提案手法は従来手法に比べて平均的に見れば精度が低調に終わることが判明している。
-しかし、一部のターゲットに関しては提案手法が従来手法であるglide HTVSモードよりも精度が良く（表\ref{table:target_accuracy_good}）、
-このようなケースが発生する原因が判明すれば、どのようなターゲットの場合に提案手法による
-フィルタリングを用いるべきかを明示的にすることができる。
+しかし、本研究で用いた102ターゲット中46ターゲットに関しては提案手法が従来手法であるglide HTVSモードよりも精度が良く、
+ROC-AUCで0.2以上上回っているケースも表\ref{table:target_accuracy_good}に示す通り3例存在している。
 
-\begin{table}[b] \centering
+どのような場合において提案手法が有用であるかを調べるため、この3つのターゲットについて
+化合物の持つフラグメント数の平均、小さなフラグメントを削減した後のフラグメント数の平均、
+sitemap\cite{Halgren2009}によって計算された各タンパク質の結合部位のサイズを求めた。
+その結果、結合部位のサイズやデータセット全体を通してのフラグメント数などに傾向は見受けられなかったが、
+化合物の持つフラグメント数の平均、そのうち重原子数が2以下のフラグメント数の平均どちらも正例より負例が上回っているということが判明した
+（表\ref{table:good_property}）。
+
+\begin{table}[hb] \centering
 	\caption{提案手法が上手く行ったケース}
 	\label{table:target_accuracy_good}
-	提案手法（score\_sum、score\_max、maxsumBSのいずれか）が従来手法（glide HTVSモード）\\
-	よりもROC-AUCで0.2以上上回ったケースについて、ROC-AUCの差の降順で示している。
+	提案手法（maxsumBS）が従来手法（glide HTVSモード）よりもROC-AUCで\\
+	0.2以上上回ったケースについて、ROC-AUCの差の降順で示している。
 	\begin{tabular}{lc|r|rr}
 	\hline
 	\multirow{2}{*}{提案手法の種類}	&\multirow{2}{*}{ターゲット名}	&\multirow{2}{*}{ROC-AUC差}	&\multicolumn{2}{c}{ROC-AUC}	\\
 								&						&							&従来手法	&提案手法		\\ \hline
 	線形和（maxsumBS）			&mcr					&0.319						&0.466		&{\bf 0.785}		\\
 	線形和（maxsumBS）			&akt1					&0.285						&0.539		&{\bf 0.824}		\\
-	最良値（score\_max）			&kith					&0.272						&0.615		&{\bf 0.887}		\\
-	最良値（score\_max）			&akt1					&0.265						&0.539		&{\bf 0.804}		\\
-	最良値（score\_max）			&mcr					&0.257						&0.466		&{\bf 0.723}		\\
-	線形和（maxsumBS）			&gcr						&0.252						&0.528		&{\bf 0.780}		\\
-	最良値（score\_max）			&def						&0.250						&0.733		&{\bf 0.983}		\\
-	最良値（score\_max）			&gcr						&0.242						&0.528		&{\bf 0.770}		\\
-	最良値（score\_max）			&hdac8					&0.231						&0.613		&{\bf 0.844}		\\
-	総和（score\_sum）				&ital						&0.212						&0.529		&{\bf 0.741}		\\
-	総和（score\_sum）				&akt1					&0.209						&0.539		&{\bf 0.748}		\\ \hline
+	線形和（maxsumBS）			&gcr						&0.252						&0.528		&{\bf 0.780}		\\ \hline
 	\end{tabular}
 \end{table}
-
-表\ref{table:target_accuracy_good}より、提案手法が従来手法であるglide HTVSモードよりもかなり優れているケースは
-akt1, def, hdac8, gcr, ital, kith, mcr各ターゲットである。
-これらのターゲットについて、化合物の持つフラグメント数の平均、小さなフラグメントを削減した後のフラグメント数の平均、
-sitemapによって計算された各タンパク質の結合部位のサイズを表\ref{table:good_property}にまとめた。
 \begin{table}[htb] \centering
 	\caption{提案手法が得意なターゲットの性質}
 	\label{table:good_property}
@@ -149,44 +142,43 @@ sitemapによって計算された各タンパク質の結合部位のサイズ�
 							&		&		&								&\multicolumn{3}{c}{フラグメント数の平均}	&										\\
 							&全体	&正例	&負例							&全体	&正例		&負例			&										\\ \hline
 	akt1						&7.98	&6.94	&8.00							&4.64	&3.08		&4.66			&637									\\
-	def						&5.93	&5.33	&5.94							&2.68	&2.00		&2.69			&471									\\
-	hdac8					&5.93	&5.33	&5.94							&2.68	&2.00		&2.69			&471									\\
 	gcr						&5.93	&5.33	&5.94							&2.68	&2.00		&2.69			&471									\\
-	ital						&7.63	&7.72	&7.62							&3.58	&2.74		&3.59			&198									\\
-	kith						&7.58	&6.70	&7.60							&3.94	&3.72		&3.95			&648									\\
 	mcr						&5.90	&5.43	&5.91							&2.67	&2.06		&2.68			&179									\\ \hline
-	全102ターゲット平均		&7.22	&7.43	&7.21							&3.83	&3.78		&3.83			&\todo{算出}								\\ \hline
+	全102ターゲット平均		&7.22	&7.43	&7.21							&3.83	&3.78		&3.83			&437									\\ \hline
 	\end{tabular}
 \end{table}
-結合部位のサイズや個々のフラグメント数の正例/負例間の比較による傾向は見受けられなかったが、
-重原子数が2以下のフラグメント数が5つのターゲット全てにおいて正例よりも負例の方が上回っていることが分かる。
-例えば、図\ref{fig:ZINC02599970}のような環構造と環構造の間の距離が遠い化合物に比べて、
-図\ref{fig:ZINC03782818}のような環と環との間をつなぐ部分が短い化合物は重原子数が2以下となるフラグメント数は少なくなる。
-\begin{figure}[b]
+
+\newpage
+
+例えば、ホルモテロール（図\ref{fig:ZINC02599970}）とカンデサルタン（図\ref{fig:ZINC03782818}）はそれぞれ薬剤として
+認められている化合物だが、このうち後者のような化合物が結合するタンパク質を対象としたフィルタリングには提案手法を、
+前者のような化合物が結合するタンパク質を対象としたフィルタリングには従来手法を用いると良いと考えられる。
+
+\begin{figure}[t]
 \begin{minipage}{0.5\hsize}
  \begin{center}
-  \fig[width=0.8\hsize]{./fig/discussion/ZINC02599970.eps}
-  \caption{小さなフラグメントが大量に発生する例}
+  \fig[width=0.82\hsize]{./fig/discussion/ZINC02599970.eps}
+  \caption{ホルモテロール}
   \label{fig:ZINC02599970}
  \end{center}
 \end{minipage}
 \begin{minipage}{0.5\hsize}
  \begin{center}
-  \fig[width=0.77\hsize]{./fig/discussion/ZINC03782818.eps}
-  \caption{小さなフラグメントがあまり発生しない例}
+  \fig[width=0.70\hsize]{./fig/discussion/ZINC03782818.eps}
+  \caption{カンデサルタン}
   \label{fig:ZINC03782818}
  \end{center}
 \end{minipage}
+\begin{center}
+どちらも切断面を示し、重原子2以下のフラグメントになってしまう部分を青く表示している
+\end{center}
 \end{figure}
-ターゲットが前者の化合物を好むのか、後者の化合物を好むのかを前もって判定することができれば、
-この手法を用いるべきか否かを判定することができると考えられる。
 
 
 \section{提案手法のユースケース}
 \ref{subsubsec:filtering_comparison}節の結果より、提案手法は精度より速度を重視したいケースにおいて有用であることは先に述べた。
 ここではDUD-Eのターゲットの内、総化合物数が10,000以上である49ターゲットを用いて、フィルタリングにおける化合物の通過率がより少ない場合や、
-さらに小さな割合におけるEFの評価（表\ref{table:usecase_accuracy}）および提案手法や従来手法のドッキング
-所要時間（表\ref{table:usecase_speed}）を用い、大規模化合物ライブラリを利用する場合のユースケースを示す。
+さらに小さな割合におけるEFの評価（表\ref{table:usecase_accuracy}）を用い、大規模化合物ライブラリを利用する場合のユースケースを示す。
 なお、総化合物数が10,000以上である49ターゲットの平均化合物数は22,259, 平均フラグメント種類数は4,588である。
 
 \begin{landscape}
