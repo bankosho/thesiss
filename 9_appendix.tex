@@ -1,6 +1,15 @@
 \appendix
 \chapter{DUD-Eの詳細}\label{appendix:dude}
-\memo{以下のテーブルが102ターゲットについて続く。}
+DUD-E（A Database of Useful Decoys: Enhanced）はMysingerらによって作成されたドッキングシミュレーションツールを評価するための
+データセットである\cite{Mysinger2012}。ターゲットは多様性を考慮して102種類が選択されており、
+それぞれに対して
+\begin{itemize}
+\item 代表タンパク質構造
+\item 正例となる既知の薬剤・阻害剤
+\item 負例となるデコイ（実験は行われていないが、既知の薬剤・阻害剤と構造が似ていないためターゲットを阻害しないと
+	考えられる化合物）および実験によってターゲットを阻害しないことが知られている化合物
+\end{itemize}
+が用意されている。
 \begin{table}[htb] \centering
 	\caption{DUD-Eの詳細}
 	\label{tb:dude_description}
@@ -12,12 +21,19 @@
 	abl1						&2HZI				&Tyrosine-protein kinase ABL					&182	&10,746				&7.08	&7.33						\\ \hline
 	\end{tabular}
 \end{table}
+\todo{以下作成中。スクリプト書いて完成させねば}
 
-\chapter{ROC曲線}\label{appendix:roc}
+\chapter{各手法を単体で用いた場合のROC曲線}\label{appendix:roc}
+総和法（score\_sum）、最良値法（score\_max）、総和法と最良値法の値の線形和（maxsumBS）の3つの提案手法
+およびglide HTVSモードをそれぞれ単体で用いた場合のROC曲線を示す。
+3つの提案手法についてはフラグメントの結合スコア算出をglide SPモード/glide HTVSモードで行った場合がそれぞれ示されている。
+例えば、「score\_max\_SP」とはフラグメントの結合スコアをglide SPモードで求め、そのフラグメントスコアの最良値をとった場合の精度が
+ROC曲線で示されている。
+\memo{
 DUD-Eの102ターゲットそれぞれについて、7通りの手法のROC曲線を記載する。
 図\ref{fig:roc:1}のようなものがターゲットを変えながら102個並ぶ。
 2×3＝6が1ページで、それが18ページ続く形になることを想像している。
-
+}
 \begin{figure}[tb]
  \begin{minipage}{0.5\hsize}
   \begin{center}

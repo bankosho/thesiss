@@ -27,8 +27,8 @@
 また化合物ライブラリの中で実際に標的タンパク質に結合し、活動を阻害するのは1000個に1個などとも言われており\citetodo{これどこで言われてるの？}、正例と負例の比が非常に偏っている。
 そのためこの分野における予測精度の評価指標は以下の2種類が多く用いられている。
 
-\begin{description}
-\item[ROC-AUC]
+\begin{itemize}
+\item \b{ROC-AUC}\\
 	Receiver Operating Characteristic（ROC）曲線は、正例/負例の閾値を変化させながら、縦軸にTrue Positive（TP）率、横軸にFalse Positive（FP）率をとった曲線である。
 	TP率とはデータセット中の正例の中で正しく正例と判別されたものの割合であり、FP率とはデータセット中の負例の中で誤って正例と判別されたものの割合である。
 	TP率、FP率はそれぞれ以下の式で求められる。
@@ -38,16 +38,14 @@
 	\end{eqnarray}
 	この方法によって描かれたROC曲線の曲線下面積（Area Under the Curve, AUC）を用いた評価指標がROC-AUCである。
 	具体例を図\ref{fig:roc_example}に示す。
-\item[Enrichment Factor]
+\item \b{Enrichment Factor}\\
 	Enrichment Factor（EF）とは、予測結果の上位のみを取り出したときに、元々のデータセットからどれだけ正例が「濃縮されたか」を表す指標である。具体例を図\ref{fig:ef_example}に示す。
 	上位どのくらいを取り出すかによって値が異なり、上位x\%取り出したときの集合の正例率を正例率（x\%）、EFをEF (x\%)と表記することにすると、これらは以下の式で求められる。
 	\begin{eqnarray}
 	{\rm 正例率（x\%）}	&=& \frac{\rm 正例数（x\%）}{\rm 正例数（x\%）+負例数（x\%）} \\
 	{\rm EF（x\%）} 	&=& \frac{\rm 正例率（x\%）}{\rm 正例率（100\%）}
 	\end{eqnarray}
-
-
-\end{description}
+\end{itemize}
 
 \begin{figure}[p]
  \begin{center}
@@ -91,13 +89,14 @@
 \subsection{フラグメント分割}\label{subsec:result_decomposition}
 まず、今回用いる複数のターゲットについて、フラグメント分割を行うことでドッキングの必要数をどの程度減らせるのかを示す。
 それぞれターゲットにフラグメント分割を適用した場合における化合物数とフラグメント種類数の推移は図\ref{fig:dude_decomposition}の通り
-となり、平均するとフラグメント種類数は化合物数の4分の1に抑えられている。化合物数が多いほど
+となり、DUD-Eターゲット全体で平均するとフラグメント種類数は化合物数の約4分の1に抑えられている。化合物数が多いほど
 化合物数に対するフラグメント種類数が抑えられる傾向にあることも確認された（表\ref{table:dude_decomposition}）。
 
 \begin{figure}[bhtp]
  \begin{center}
   \fig[width=0.75\hsize]{./fig/result/ターゲットに対するフラグメント数.eps}
   \caption{DUD-Eターゲットにおける化合物数とフラグメント種類数の関係}
+	\comment{フラグメント種類数：化合物数＝１：４の線分を補助線として引く}
   \label{fig:dude_decomposition}
  \end{center}
 \end{figure}
@@ -149,22 +148,30 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 	\begin{tabular}{l|l|rrrrr}
 	\hline
 	\multicolumn{1}{c|}{\multirow{2}{*}{手法}}	&\multicolumn{1}{c|}{フラグメント}		&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}	\\
-										&\multicolumn{1}{c|}{ドッキング}		&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	\\ \hline
-	\multirow{2}{*}{総和(score\_sum)}			&glide SPモード					&0.624					&5.08	&4.14	&3.02	&2.34		\\
-										&glide HTVSモード					&0.618					&4.84	&3.97	&2.99	&2.29		\\
-	\multirow{2}{*}{最良値(score\_max)}		&glide SPモード					&0.637					&6.78	&5.65	&3.81	&2.60		\\
-										&glide HTVSモード					&0.627					&6.94	&5.55	&3.32	&2.55		\\
-	\multirow{2}{*}{線形和(maxsumBS)}		&glide SPモード					&0.679					&6.03	&5.03	&3.96	&3.00		\\
-										&glide HTVSモード					&0.665					&5.98	&4.84	&3.58	&2.82		\\ \hline
-	\multicolumn{2}{l|}{従来手法(glide HTVSモード)}								&0.705					&16.67	&11.18	&6.38	&4.11		\\ \hline
+																	&\multicolumn{1}{c|}{ドッキング}		&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	\\ \hline
+	\multirow{2}{*}{総和(score\_sum)}		&glide SPモード								&0.624					&5.08	&4.14	&3.02	&2.34		\\
+																	&glide HTVSモード							&0.618					&4.84	&3.97	&2.99	&2.29		\\
+	\multirow{2}{*}{最良値(score\_max)}		&glide SPモード								&0.637					&6.78	&5.65	&3.81	&2.60		\\
+																	&glide HTVSモード							&0.627					&6.94	&5.55	&3.32	&2.55		\\
+	\multirow{2}{*}{線形和(maxsumBS)}		&glide SPモード								&0.679					&6.03	&5.03	&3.96	&3.00		\\
+																	&glide HTVSモード							&0.665					&5.98	&4.84	&3.58	&2.82		\\ \hline
+	\multicolumn{2}{l|}{従来手法(glide HTVSモード)}											&0.705					&16.67	&11.18	&6.38	&4.11		\\ \hline
 	\end{tabular}
 \end{table}
 
 結果は表\ref{table:single_accuracy}の通りである。なお、各手法を用いた場合のターゲットごとのROC曲線は付録\ref{appendix:roc}に記載している。
-この結果から、単体での予測精度に関しては、どの評価指標においても従来手法が勝っていることが分かる。
-また、フラグメントドッキングについてはglide SPモードを利用した方が精度がよくなっている。
-速度については\ref{subsec:single_calc_time}で述べたようにglide SPモードを利用したフラグメントドッキングの場合でも
-9倍近く従来手法に比べて高速であるため、予測精度を重要視し以下の実験ではglide SPモードを用いることとする。
+この結果から、単体での予測精度に関しては、どの評価指標においても従来手法が高速性を重視した本研究の提案手法よりも
+勝っていることが分かる。
+
+また、提案手法間の比較を行うことで以下のことが言える。
+\begin{itemize}
+\item タンパク質とフラグメントとのドッキングにglide SPモードを利用した方がどの手法を用いた場合についても
+	ほぼすべての評価指標で予測精度が良くなる。
+\item ROC-AUCはmaxsumBSが他の2つの提案手法に比べて良い結果が出ているが、EF (1\%)やEF (2\%)に関してはscore\_maxが
+	maxsumBSを上回っている。
+\end{itemize}
+\ref{subsec:single_calc_time}で述べたように提案手法の速度はglide SPモードを利用したフラグメントドッキングの場合でも
+9倍近く従来手法に比べて高速である。そのため、予測精度を高めるべく以下の実験ではglide SPモードを用いることとする。\memo{日本語あやしい？}
 
 \subsection{フィルタリング手法としての性能評価実験}
 \ref{subsec:single_calc_time}節および\ref{subsec:single_accuracy}節では、フィルタリング手法を単体で用いた場合の性能を評価し、
