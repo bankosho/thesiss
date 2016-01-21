@@ -4,7 +4,7 @@
 \section{SBVS（Structure-Based Virtual Screening）とは}
 バーチャルスクリーニング（Virtual Screening, VS）とは、コンピュータを用い、データベースに存在する化合物について、
 創薬標的となっているタンパク質の活性部位への結合のしやすさを仮想的に（Virtual）評価、選別（Screening）することを指す。
-化合物の評価・選別を創薬標的のタンパク質や化合物の立体構造に基づいて行う手法のことをSBVSと呼ぶ。
+化合物の評価・選別を創薬標的のタンパク質や化合物の立体構造に基づいて行う手法のことをSBVS（Structure-Based Virtual Screening）と呼ぶ。
 このSBVSは、化合物の評価・選別を既知の創薬標的タンパク質へ結合する化合物（リガンド, ligand）を用いて行う
 LBVS（Ligand-Based Virtual Screening）と比べて
 \begin{itemize}
@@ -16,7 +16,7 @@ LBVS（Ligand-Based Virtual Screening）と比べて
 \section{化合物-タンパク質ドッキングシミュレーション}
 SBVSにおける化合物の評価には化合物-タンパク質ドッキングシミュレーションが一般に用いられる。
 ドッキングシミュレーションは、1つのタンパク質の立体構造と1つの化合物の立体構造を入力として、化合物がタンパク質中でどのような構造をとると
-エネルギー的に最も安定であるかという最適化問題を解き、最安定であると考えられる化合物の構造とその時のスコアを
+エネルギー的に最も安定であるかという最適化問題を解き、最安定構と考えられる化合物の構造とその時のスコアを近似的に求め
 出力する（図\ref{fig:docking}）。
 \begin{figure}[tb]
  \begin{center}
@@ -134,15 +134,15 @@ SBVSの薬物候補化合物の選別はドッキングシミュレーション�
 	スコア関数なども作成されている\cite{Seifert2009}。
 \end{enumerate}
 
-それぞれの具体的なスコア関数名、もしくはドッキングシミュレーションソフトウェア名を表\ref{table:scoring_function}に示す。
-\todo{table:scoring\_function, Cheng2012の表をこちらに作成する}
-\begin{figure}[h]
- \begin{center}
-  \fig[width=0.8\hsize]{./fig/background/scoring_functions.png}
-  \caption{作成する表(Cheng {\it et al.}, 2012より)}
-  \label{fig:scoring_function}
- \end{center}
-\end{figure}
+%それぞれの具体的なスコア関数名、もしくはドッキングシミュレーションソフトウェア名を表\ref{table:scoring_function}に示す。
+%\todo{table:scoring\_function, Cheng2012の表をこちらに作成する}
+%\begin{figure}[h]
+% \begin{center}
+%  \fig[width=0.8\hsize]{./fig/background/scoring_functions.png}
+%  \caption{作成する表(Cheng {\it et al.}, 2012より)}
+%  \label{fig:scoring_function}
+% \end{center}
+%\end{figure}
 
 \subsection{ドッキングシミュレーションの問題点}\label{subsec:docking_problem}
 \ref{subsec:docking_elements}節に述べたように、ドッキングシミュレーションツールはそれぞれ高速化のための工夫を凝らしているが、
@@ -195,7 +195,7 @@ SBVSの薬物候補化合物の選別はドッキングシミュレーション�
 	\begin{itemize}
 	\item \b{フィンガープリント（fingerprint）を用いたフィルタリング\cite{Nilakantan1993}}\\
 		化合物の分子構造式を数百～数千のあらかじめ定めた局所構造が存在するか否かのバイナリである
-		フィンガープリントに落とし、これを用いて既知の薬剤やタンパク質の阻害剤にどれほど近いかを判定する手法
+		フィンガープリントに変換し、これを用いて既知の薬剤やタンパク質の阻害剤にどれほど近いかを判定する手法
 	\item \b{ファーマコフォア（pharmacophore）を用いたフィルタリング\cite{Parenti2003}}\\
 		分子の構造式のみではなく、化合物の立体構造も用いて化合物の類似性を評価する手法
 	\end{itemize}
@@ -213,7 +213,7 @@ SBVSの薬物候補化合物の選別はドッキングシミュレーション�
 \begin{itemize}
 \item 化合物の物理的特徴や化合物の構造に基づくフィルタリング手法は帰納的な手法であり、
 	標的タンパク質を狙った既知の薬剤や阻害剤が必須となる。さらに既知の薬剤や阻害剤を利用できたとしても、
-	化合物の類似性を利用する手法であるために既知の化合物に似てしまうという問題がある。	
+	化合物の類似性を利用する手法であるためにフィルタリング結果の化合物が既知の化合物に似てしまうという問題がある。	
 \item Glideの高速ドッキングモードはドッキングシミュレーションとしては高速であるが、それでも1化合物1秒程度を要する。
 	1,000万件の化合物のフィルタリングを行う場合1 CPU利用で4か月程度の期間を要してしまうため、この速度は十分とは言えない。
 \end{itemize}

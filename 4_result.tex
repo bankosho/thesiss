@@ -148,12 +148,12 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 	\hline
 	\multicolumn{1}{c|}{\multirow{2}{*}{手法}}	&\multicolumn{1}{c|}{フラグメント}		&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}	\\
 																	&\multicolumn{1}{c|}{ドッキング}		&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	\\ \hline
-	\multirow{2}{*}{総和(score\_sum)}		&Glide SPモード								&0.624					&5.08	&4.14	&3.02	&2.34		\\
-																	&Glide HTVSモード							&0.618					&4.84	&3.97	&2.99	&2.29		\\
-	\multirow{2}{*}{最良値(score\_max)}		&Glide SPモード								&0.637					&6.78	&5.65	&3.81	&2.60		\\
-																	&Glide HTVSモード							&0.627					&6.94	&5.55	&3.32	&2.55		\\
-	\multirow{2}{*}{線形和(maxsumBS)}		&Glide SPモード								&0.679					&6.03	&5.03	&3.96	&3.00		\\
-																	&Glide HTVSモード							&0.665					&5.98	&4.84	&3.58	&2.82		\\ \hline
+	\multirow{2}{*}{総和(score\_sum)}			&Glide SPモード								&0.624					&5.08	&4.14	&3.02	&2.34		\\
+											&Glide HTVSモード							&0.618					&4.84	&3.97	&2.99	&2.29		\\
+	\multirow{2}{*}{最良値(score\_max)}		&Glide SPモード								&0.637					&6.78	&\b{5.65}	&3.81	&2.60		\\
+											&Glide HTVSモード							&0.627					&\b{6.94}	&5.55	&3.32	&2.55		\\
+	\multirow{2}{*}{線形和(maxsumBS)}		&Glide SPモード								&\b{0.679}				&6.03	&5.03	&\b{3.96}	&\b{3.00}		\\
+											&Glide HTVSモード							&0.665					&5.98	&4.84	&3.58	&2.82		\\ \hline
 	\multicolumn{2}{l|}{従来手法(Glide HTVSモード)}											&0.705					&16.67	&11.18	&6.38	&4.11		\\ \hline
 	\end{tabular}
 \end{table}
@@ -170,7 +170,7 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 	maxsumBSを上回っている。
 \end{itemize}
 \ref{subsec:single_calc_time}で述べたように提案手法の速度はGlide SPモードを利用したフラグメントドッキングの場合でも
-9倍近く従来手法に比べて高速である。そのため、予測精度を高めるべく以下の実験ではGlide SPモードを用いることとする。
+9倍近く従来手法に比べて高速であるので、以下の実験ではGlide SPモードを用いることとする。
 
 \subsection{フィルタリング手法としての性能評価実験}
 \ref{subsec:single_calc_time}節および\ref{subsec:single_accuracy}節では、フィルタリング手法を単体で用いた場合の性能を評価し、
@@ -201,7 +201,7 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 \subsubsection{提案手法間の精度比較}\label{subsubsec:filtering_proposal}
 まず提案手法間の精度比較を行い、化合物フィルタリングスコアの算出方法を検討した。
 結果は表\ref{table:filtering_proposal}のようになり、多くの場合
-フィルタリングスコア算出方法は総和法と最良値法の線形和であるmaxsumBSを用いるのが最適であることが分かった。
+フィルタリングスコア算出方法はmaxsumBSを用いるのが最適であることが分かった。
 
 \begin{table}[htb] \centering
 	\caption{フィルタリング手法としての提案手法間の精度評価}
