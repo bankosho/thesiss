@@ -29,7 +29,25 @@ SBVSにおける化合物の評価には化合物-タンパク質ドッキング
 
 この化合物-タンパク質ドッキングシミュレーションを行うツールは
 Glide\cite{Friesner2004}, eHiTS\cite{Zsoldos2007}などの有償ソフトウェア、AutoDock\cite{Morris2009}などのオープンソースウェアを
-始めとして、有償無償問わず様々開発されている。\comment{関連ソフトの「名称・作者・論文」などの一覧表をどこかにのせておきたい。}
+始めとして、有償無償問わず様々開発されている。主なドッキングシミュレーションソフトウェアを表\ref{table:docking_tools_eg}にまとめた。
+
+\begin{table}[htb] \centering
+	\caption{主なドッキングシミュレーションソフトウェア}
+	\label{table:docking_tools_eg}
+	\begin{tabular}{llcl}
+	\hline
+	\multicolumn{1}{c}{ソフトウェア名}	&\multicolumn{1}{c}{論文}			&\multicolumn{1}{c}{有償/無償}	&\multicolumn{1}{c}{ホームページ}	\\ \hline
+	AutoDock					&Morris et al., 1998\cite{Morris1998}												&無償									&\url{http://autodock.scripps.edu/}	\\ 
+	AutoDock Vina			&																											&無償									&\url{http://autodock.scripps.edu/}	\\ 
+	DOCK							&\cite{Ewing2001}																				&無償									&\url{http://dock.compbio.ucsf.edu/}	\\
+	eHiTS							&Zsoldos et al., 2007\cite{Zsoldos2007}											&有償									&\url{http://www.simbiosys.ca/ehits/}	\\
+	FlexX							&																											&有償									&\url{http://www.biosolveit.de/flexx}	\\
+	Glide							&Friesner et al.\cite{Friesner2004}													&有償									&\url{http://www.schrodinger.com/Glide/}	\\
+	GOLD							&\cite{Jones1997}																				&有償									&\url{http://www.ccdc.cam.ac.uk/}	\\
+	ICM								&																											&有償									&\url{http://www.molsoft.com/docking.html}	\\ \hline
+	\end{tabular}
+\end{table}
+
 
 \subsection{ドッキングシミュレーションの要素}\label{subsec:docking_elements}
 SBVSの薬物候補化合物の選別はドッキングシミュレーションによって得られたスコアを基に行われるため算出されるスコアは重要となるが、
@@ -100,7 +118,31 @@ SBVSの薬物候補化合物の選別はドッキングシミュレーション�
 \subsubsection{スコア関数}
 探索アルゴリズムがどれほど良く、大域最適なスコアを得たとしても、そのスコアがタンパク質と化合物との物理的な結合エネルギーとの相関が
 なければ意味がない。しかし、結合エネルギーを厳密に計算するには量子化学計算が必要となり、実用的な時間では計算が完了しないので、
-近似計算が必要となる。したがって、スコア関数に関しても様々な提案がなされている。\comment{これに関してもChangが示しているようなForce field, Empirical, Knowledge basedの分類を表で示す。表にまとめることが大切。}
+近似計算が必要となる。したがって、スコア関数に関しても様々な提案がなされている。
+\begin{enumerate}
+\item 物理化学的スコア関数（Force field）
+	静電相互作用力やファンデルワールス力など、原子と原子との間に働く物理化学的な力を元としたスコア関数であり、
+	考慮する物理的な項や、原子に対するパラメータが異なるなどによって多数のスコア関数が提案されている
+	\cite{Morris1998, Ewing2001, Jones1997}。
+\item 経験的スコア関数（Empirical）
+	水素結合など物理化学的な要素に基づきつつも、実験から得られたタンパク質と化合物との結合エネルギーを再現できるように
+	関数の係数ではなく関数そのものをパラメータ化することによって作成されたスコア関数\cite{Wang2002, Gehlhaar1995, Eldridge1997}。
+\item 統計的スコア関数（Knowledge-based）
+	タンパク質と化合物との複合体構造はProtein Data Bank（PDB）\cite{Berman2000}に多数登録されている。
+	この複合体構造におけるそれぞれの原子種間の距離や角度の確率密度を計算し、それをエネルギーに変換することで作成されたスコア関数
+	\cite{Muegge2006, Xue2010, Gohlke2000, Huang2010}。この手法では、どの複合体構造のセットを用いるかによってスコア関数が変化するため、一部のターゲットに特化した
+	スコア関数なども作成されている\cite{Seifert2009}。
+\end{enumerate}
+
+それぞれの具体的なスコア関数名、もしくはドッキングシミュレーションソフトウェア名を表\ref{table:scoring_function}に示す。
+\todo{table:scoring\_function, Cheng2012の表をこちらに作成する}
+\begin{figure}[h]
+ \begin{center}
+  \fig[width=0.8\hsize]{./fig/background/scoring_functions.png}
+  \caption{作成する表(Cheng et al., 2012より)}
+  \label{fig:scoring_function}
+ \end{center}
+\end{figure}
 
 \subsection{ドッキングシミュレーションの問題点}\label{subsec:docking_problem}
 \ref{subsec:docking_elements}節に述べたように、ドッキングシミュレーションツールはそれぞれ高速化のための工夫を凝らしているが、
@@ -136,24 +178,34 @@ SBVSの薬物候補化合物の選別はドッキングシミュレーション�
 既存のフィルタリング手法は大きく分けて1. 化合物の物理的特徴に基づくフィルタリング、2. 化合物の構造に基づくフィルタリング、3. ドッキングベースのフィルタリングの3種類が存在している。
 \begin{enumerate}
 \item \b{化合物の物理的特徴に基づくフィルタリング}\\
-化合物の分子量や水溶性か油溶性かを示す分配係数（LogP）などの値は創薬において有用な情報である。
-これらの物理化学的な値を用いて、経口薬として優れた薬物の特徴を４つの法則にまとめたリピンスキーの法則\cite{Lipinski1997}や、
-これを発展させ既存の薬剤の物理化学的な値からヒストグラムを作成し化合物の薬物らしさ（Druglikeness）のスコアを付ける
-QED\cite{Bickerton2012}などのフィルタリング手法が存在している。
+	分子量や水溶性か油溶性かを示す分配係数（LogP）など、
+	化合物の物理的な特徴を示す値は体内での吸収などの上で重要な値である。
+	したがって、化合物の物理的特徴を用いたフィルタリングが提案されている。
+	\begin{itemize}
+	\item \b{リピンスキーの法則\cite{Lipinski1997}}\\
+		経口薬として優れた薬物の物理的特徴を4つの法則にまとめたもの
+	\item \b{Quantitative Estimate of Druglikeness（QED）\cite{Bickerton2012}}\\
+		既知薬剤の物理的な値からヒストグラムを作成し、化合物の薬物らしさ（Druglikeness）のスコアを付ける手法
+	\end{itemize}
 \item \b{化合物の構造に基づくフィルタリング}\\
-化合物の物理的特徴は物質を巨視的に見ることで得られるパラメータであるが、本来タンパク質の活動の阻害はタンパク質や化合物
-１分子単位の非常に微視的なメカニズムによって発生しており、したがって化合物の分子構造はタンパク質との複合体を形成する上で非常に重要な
-情報である。一般に構造が似ている化合物は同じタンパク質との複合体を形成することが多いため、
-化合物の分子構造式を数百～数千のあらかじめ定めた局所構造が存在するか否かのバイナリであるfingerprintに落とし、
-これが既知の薬剤やタンパク質の阻害剤にどれほど近いか、という情報を用いたフィルタリング手法が存在する\cite{Nilakantan1993}。
-また、化合物の分子構造式のみでなく、化合物の立体構造を用いて化合物の類似性を評価する
-ファーマコフォアモデリングと呼ばれる手法も存在する\cite{Parenti2003}。
+	タンパク質の活動の阻害はタンパク質や化合物１分子単位の非常に微視的なメカニズムによって発生しており、
+	したがって化合物の分子構造はタンパク質との複合体を形成する上で非常に重要な情報である。
+	特に、構造が似ている化合物同士は同じタンパク質との複合体を形成することが多く、
+	この性質を利用したフィルタリング手法が複数提案されている。
+	\begin{itemize}
+	\item \b{フィンガープリント（fingerprint）を用いたフィルタリング\cite{Nilakantan1993}}\\
+		化合物の分子構造式を数百～数千のあらかじめ定めた局所構造が存在するか否かのバイナリである
+		フィンガープリントに落とし、これを用いて既知の薬剤やタンパク質の阻害剤にどれほど近いかを判定する手法
+	\item \b{ファーマコフォア（pharmacophore）を用いたフィルタリング\cite{Parenti2003}}\\
+		分子の構造式のみではなく、化合物の立体構造も用いて化合物の類似性を評価する手法
+	\end{itemize}
 \item \b{ドッキングシミュレーションベースのフィルタリング}\\
-\ref{subsec:docking_problem}節で述べた通り、ドッキングシミュレーションは一般的に計算コストが高くフィルタリングには適していないが、
-Glideには化合物の構造について強い仮定を置くことで計算を簡易化し、通常ドッキングモード（SPモード）の
-10倍程度の速度\cite{GlideHomePage}で計算を完了させる高速ドッキングモード（HTVSモード）が存在する。
-このモードをフィルタリングとして利用し、フィルタリング後の化合物群に対してSPモードによる
-ドッキングシミュレーションを行うという手法が用いられることがある\cite{Fujimoto2008}。
+	\ref{subsec:docking_problem}節で述べた通り、ドッキングシミュレーションは一般的に計算コストが高くフィルタリングには適していないが、
+	一部の
+	Glideには化合物の構造について強い仮定を置くことで計算を簡易化し、通常ドッキングモード（SPモード）の
+	10倍程度の速度\cite{GlideHomePage}で計算を完了させる高速ドッキングモード（HTVSモード）が存在する。
+	このモードをフィルタリングとして利用し、フィルタリング後の化合物群に対してSPモードによる
+	ドッキングシミュレーションを行うという手法が用いられることがある\cite{Fujimoto2008}。
 \end{enumerate}
 \memo{これも文章ではなく表にまとめられないか？}
 

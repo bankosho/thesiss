@@ -2,7 +2,7 @@
 \section{本研究の結論}\label{sec:conclusion}
 本研究では、ドッキングに基づいた超高速なフィルタリング手法を提案した。
 提案手法をDUD-Eの全ターゲットである102種のデータセットを用いて評価すると、
-予測精度はドッキングに基づいたフィルタリングの既存手法であるglide HTVSモードに比べ劣っているが
+予測精度はドッキングに基づいたフィルタリングの既存手法であるGlide HTVSモードに比べ劣っているが
 計算速度は既存手法では実現不可能なほど高速であることが示された。
 \begin{table}[h] \centering
 	\caption{提案手法の性能}
@@ -12,7 +12,7 @@
 	\multicolumn{1}{c|}{\multirow{2}{*}{手法}}	&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}	&平均計算時間	\\
 										&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	&[CPU sec.]		\\ \hline
 	\b{提案手法(maxsumBS)}				&0.679					&6.03	&5.03	&3.96	&3.00		&\b{1,673}		\\
-	従来手法(glide HTVSモード)				&0.705				&16.67	&11.18	&6.38	&4.11		&14,813			\\ \hline
+	従来手法(Glide HTVSモード)				&0.705				&16.67	&11.18	&6.38	&4.11		&14,813			\\ \hline
 	\end{tabular}
 \end{table}
 
@@ -21,7 +21,7 @@
 また、フィルタリング後に行う通常のドッキングシミュレーションと組み合わせた場合の速度・精度の評価を行い、
 提案手法をフィルタリング手法として用いるべきユースケースを示した。
 \begin{table}[htbp] \centering
-	\caption{通常ドッキング（glide SP）と組み合わせた速度・精度評価}
+	\caption{通常ドッキング（Glide SP）と組み合わせた速度・精度評価}
 	\label{table:conclusion_2}
 	\begin{tabular}{l|rrr}
 	\hline

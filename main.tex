@@ -14,6 +14,7 @@
 \usepackage{eclbkbox}
 \usepackage{multirow}
 \usepackage{lscape}
+\usepackage{url}
 
 \usepackage{overcite} %Use overcite package (T.Arikuma)
 \renewcommand\citeform[1]{#1)} %Use overcite package (T.Arikuma)
@@ -46,8 +47,6 @@
 %\newcolumntype{C}{>{\centering\arraybackslash}X}
 
 
-
-
 %%%独自%%%%%
 
 \def\todo#1{\textcolor{red}{\bf @todo #1}}
@@ -63,15 +62,15 @@
 %%%%%%    TEXT START    %%%%%%
 \begin{document}
 
-%%============[ 表紙 ]=============================================================================
-%\input{title.tex}
-%\maketitle
-%\clearpage
-% \thispagestyle{empty}
-%　\\
-%\clearpage
-%
-%%============[ 内容梗概 ]=============================================================================
+%============[ 表紙 ]=============================================================================
+\input{title.tex}
+\maketitle
+\clearpage
+ \thispagestyle{empty}
+　\\
+\clearpage
+
+%============[ 内容梗概 ]=============================================================================
 \input{0_abstract.tex}
 %\clearpage
 \newpage

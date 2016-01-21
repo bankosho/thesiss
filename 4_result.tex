@@ -80,9 +80,9 @@
 \end{table}
 
 \section{比較対象}
-本提案手法はドッキングに基づくフィルタリング手法であるため、同様の用途に用いられているglide HTVS（高速）モードを比較対象として用いる。
-また、フィルタリングとしての性能を評価するために、glide SP（通常）モードによる化合物ドッキングシミュレーションと組み合わせた評価も行うため、
-計算時間などの評価に関してはglide SPモードも比較対象とする。
+本提案手法はドッキングに基づくフィルタリング手法であるため、同様の用途に用いられているGlide HTVS（高速）モードを比較対象として用いる。
+また、フィルタリングとしての性能を評価するために、Glide SP（通常）モードによる化合物ドッキングシミュレーションと組み合わせた評価も行うため、
+計算時間などの評価に関してはGlide SPモードも比較対象とする。
 
 \section{評価実験}
 
@@ -120,7 +120,7 @@
 DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総化合物数が最小であるターゲット fgfr1、
 総化合物数が平均値近いターゲット adrb2、総化合物数が最大であるターゲット fntaの3種類について独立して結果を示す。
 
-結果は表\ref{table:calc_time}の通りであり、提案手法は既存手法であるglide HTVSと比べて平均して約9倍（SPモード利用時）から
+結果は表\ref{table:calc_time}の通りであり、提案手法は既存手法であるGlide HTVSと比べて平均して約9倍（SPモード利用時）から
 約15倍（HTVSモード利用時）の速度向上を達成している。
 
 \begin{table}[htb] \centering
@@ -130,7 +130,7 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 	\hline
 	\multirow{3}{*}{ターゲット名}	&\multirow{3}{*}{総化合物数}	&\multirow{3}{*}{\shortstack{フラグメント\\種類数}}	&\multicolumn{4}{c}{計算時間 [CPU sec.]}										\\
 							&							&											&\multicolumn{2}{c}{化合物ドッキング}		&\multicolumn{2}{c}{フラグメントドッキング}	\\
-							&							&											&glide SP		&glide HTVS			&glide SP 			&glide HTVS		\\ \hline
+							&							&											&Glide SP		&Glide HTVS			&Glide SP 			&Glide HTVS		\\ \hline
 	fgfr1						&472						&166										&3,523			&566(x1.0)			&164(x3.5)			&140(x4.0)		\\
 	adrb2					&15,224						&2,779										&338,511			&17,043(x1.0)			&1,481(x11.5)			&899(x19.0)		\\
 	fnta						&52,022						&7,767										&1,770,967		&98,665(x1.0)			&4,149(x24.0)			&2,549(x38.7)		\\ \hline
@@ -149,13 +149,13 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 	\hline
 	\multicolumn{1}{c|}{\multirow{2}{*}{手法}}	&\multicolumn{1}{c|}{フラグメント}		&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}	\\
 																	&\multicolumn{1}{c|}{ドッキング}		&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	\\ \hline
-	\multirow{2}{*}{総和(score\_sum)}		&glide SPモード								&0.624					&5.08	&4.14	&3.02	&2.34		\\
-																	&glide HTVSモード							&0.618					&4.84	&3.97	&2.99	&2.29		\\
-	\multirow{2}{*}{最良値(score\_max)}		&glide SPモード								&0.637					&6.78	&5.65	&3.81	&2.60		\\
-																	&glide HTVSモード							&0.627					&6.94	&5.55	&3.32	&2.55		\\
-	\multirow{2}{*}{線形和(maxsumBS)}		&glide SPモード								&0.679					&6.03	&5.03	&3.96	&3.00		\\
-																	&glide HTVSモード							&0.665					&5.98	&4.84	&3.58	&2.82		\\ \hline
-	\multicolumn{2}{l|}{従来手法(glide HTVSモード)}											&0.705					&16.67	&11.18	&6.38	&4.11		\\ \hline
+	\multirow{2}{*}{総和(score\_sum)}		&Glide SPモード								&0.624					&5.08	&4.14	&3.02	&2.34		\\
+																	&Glide HTVSモード							&0.618					&4.84	&3.97	&2.99	&2.29		\\
+	\multirow{2}{*}{最良値(score\_max)}		&Glide SPモード								&0.637					&6.78	&5.65	&3.81	&2.60		\\
+																	&Glide HTVSモード							&0.627					&6.94	&5.55	&3.32	&2.55		\\
+	\multirow{2}{*}{線形和(maxsumBS)}		&Glide SPモード								&0.679					&6.03	&5.03	&3.96	&3.00		\\
+																	&Glide HTVSモード							&0.665					&5.98	&4.84	&3.58	&2.82		\\ \hline
+	\multicolumn{2}{l|}{従来手法(Glide HTVSモード)}											&0.705					&16.67	&11.18	&6.38	&4.11		\\ \hline
 	\end{tabular}
 \end{table}
 
@@ -165,13 +165,13 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 
 また、提案手法間の比較を行うことで以下のことが言える。
 \begin{itemize}
-\item タンパク質とフラグメントとのドッキングにglide SPモードを利用した方がどの手法を用いた場合についても
+\item タンパク質とフラグメントとのドッキングにGlide SPモードを利用した方がどの手法を用いた場合についても
 	ほぼすべての評価指標で予測精度が良くなる。
 \item ROC-AUCはmaxsumBSが他の2つの提案手法に比べて良い結果が出ているが、EF (1\%)やEF (2\%)に関してはscore\_maxが
 	maxsumBSを上回っている。
 \end{itemize}
-\ref{subsec:single_calc_time}で述べたように提案手法の速度はglide SPモードを利用したフラグメントドッキングの場合でも
-9倍近く従来手法に比べて高速である。そのため、予測精度を高めるべく以下の実験ではglide SPモードを用いることとする。\memo{日本語あやしい？}
+\ref{subsec:single_calc_time}で述べたように提案手法の速度はGlide SPモードを利用したフラグメントドッキングの場合でも
+9倍近く従来手法に比べて高速である。そのため、予測精度を高めるべく以下の実験ではGlide SPモードを用いることとする。\memo{日本語あやしい？}
 
 \subsection{フィルタリング手法としての性能評価実験}
 \ref{subsec:single_calc_time}節および\ref{subsec:single_accuracy}節では、フィルタリング手法を単体で用いた場合の性能を評価し、
@@ -180,11 +180,11 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 通常のドッキングシミュレーション手法と組み合わせた場合の速度や精度の評価はより重要となる。
 
 
-この節では通常のドッキングシミュレーションであるglide SPモードとの組み合わせを通した評価を行う。
+この節では通常のドッキングシミュレーションであるGlide SPモードとの組み合わせを通した評価を行う。
 組み合わせを通した評価は
 \begin{enumerate}
 \item フィルタリング手法で2\%, 5\%, 10\%まで化合物を削減
-\item 残った化合物を通常のドッキングシミュレーション（glide SPモード）で再計算
+\item 残った化合物を通常のドッキングシミュレーション（Glide SPモード）で再計算
 \item 再計算の結果の上位1\%および上位2\%の濃縮率(EF (1\%), EF (2\%))を評価
 \end{enumerate}
 という手順を用いる。
@@ -227,31 +227,31 @@ DUD-E 102ターゲット全てでの所要計算時間の平均以外に、総�
 \subsubsection{予測精度の従来手法との比較}\label{subsubsec:filtering_comparison}
 続いて、提案手法と従来手法との比較を行う。\ref{subsubsec:filtering_proposal}節の実験より、
 提案手法のフィルタリングスコア算出法はmaxsumBSが最も良いことが示されたので、
-ここではmaxsumBSと従来手法（glide HTVSモード）を用いて速度および精度の評価を行う。
+ここではmaxsumBSと従来手法（Glide HTVSモード）を用いて速度および精度の評価を行う。
 
 \begin{table}[htb] \centering
 	\caption{フィルタリング手法としての提案手法と従来手法の比較}
-	\label{table:filtering_proposal_glide}
+	\label{table:filtering_proposal_Glide}
 	\begin{tabular}{lc|rr|r}
 	\hline
 	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
 	\multicolumn{1}{c}{手法}		&通過率				&						&						&[CPU sec.]		\\ \hline
 	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&8.75					&\textendash				&6,396			\\
-	従来手法（glide HTVSモード）	&					&17.85					&\textendash				&19,536			\\
+	従来手法（Glide HTVSモード）	&					&17.85					&\textendash				&19,536			\\
 	提案手法（maxsumBS）		&\multirow{2}{*}{5\%}	&12.92					&7.99					&13,481			\\
-	従来手法（glide HTVSモード）	&					&18.97					&12.50					&26,621			\\
+	従来手法（Glide HTVSモード）	&					&18.97					&12.50					&26,621			\\
 	提案手法（maxsumBS）		&\multirow{2}{*}{10\%}	&15.46					&10.00					&25,289			\\
-	従来手法（glide HTVSモード）	&					&19.60					&12.92					&38,429			\\ \hline
-	\multicolumn{2}{l|}{通常ドッキング（glide SPモード）}	&21.54					&14.68					&236,156			\\ \hline
+	従来手法（Glide HTVSモード）	&					&19.60					&12.92					&38,429			\\ \hline
+	\multicolumn{2}{l|}{通常ドッキング（Glide SPモード）}	&21.54					&14.68					&236,156			\\ \hline
 	\end{tabular}
 \end{table}
 
-表\ref{table:filtering_proposal_glide}の結果より、以下のことが言える。
+表\ref{table:filtering_proposal_Glide}の結果より、以下のことが言える。
 \begin{itemize}
-\item \ref{subsec:single_accuracy}節で示した単体での性能評価と同様に、glide HTVSモードをフィルタリングに用いる場合でも
+\item \ref{subsec:single_accuracy}節で示した単体での性能評価と同様に、Glide HTVSモードをフィルタリングに用いる場合でも
 	提案手法よりも精度が良くなっている。
 \item 一方、計算速度について、フィルタリングで元の化合物群の2\%を通過させる場合、提案手法と通常ドッキング計算の
-	合計必要時間が従来のフィルタリング手法であるglide HTVSモードよりも少なくなっており、従来手法では達成できなかった速度での
+	合計必要時間が従来のフィルタリング手法であるGlide HTVSモードよりも少なくなっており、従来手法では達成できなかった速度での
 	化合物の選別が可能になっていることがこの結果からわかる。この利点はフィルタを通過させる化合物の割合を高めるほど薄れて行く。
 	これは、通常のドッキングシミュレーションの計算時間が支配的となるため、
 	提案しているフィルタリング手法の計算時間的な利点が押しつぶされてしまうためである。

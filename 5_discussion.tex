@@ -108,7 +108,7 @@ maxsumBSの精度はscore\_sumよりも良いことから、本研究の提案�
 
 \section{提案手法が得意とするケースの調査}
 \ref{subsec:single_accuracy}節の実験結果より、提案手法は従来手法に比べて平均的に見れば精度が低調に終わることが判明している。
-しかし、本研究で用いた102ターゲット中46ターゲットに関しては提案手法が従来手法であるglide HTVSモードよりも精度が良く、
+しかし、本研究で用いた102ターゲット中46ターゲットに関しては提案手法が従来手法であるGlide HTVSモードよりも精度が良く、
 ROC-AUCで0.2以上上回っているケースも表\ref{table:target_accuracy_good}に示す通り3例存在している。
 
 どのような場合において提案手法が有用であるかを調べるため、この3つのターゲットについて
@@ -121,7 +121,7 @@ sitemap\cite{Halgren2009}によって計算された各タンパク質の結合�
 \begin{table}[hb] \centering
 	\caption{提案手法が上手く行ったケース}
 	\label{table:target_accuracy_good}
-	提案手法（maxsumBS）が従来手法（glide HTVSモード）よりもROC-AUCで\\
+	提案手法（maxsumBS）が従来手法（Glide HTVSモード）よりもROC-AUCで\\
 	0.2以上上回ったケースについて、ROC-AUCの差の降順で示している。
 	\begin{tabular}{lc|r|rr}
 	\hline
@@ -201,26 +201,26 @@ EF (0.1\%)などの小さな割合におけるEFの評価（表\ref{table:usecas
 	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（0.1\%）}	&\multirow{2}{*}{EF（0.2\%）}	&\multirow{2}{*}{EF（0.5\%）}	&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
 	\multicolumn{1}{c}{手法}	&通過率					&						&						&						&						&						&[CPU sec.]		\\ \hline
 	提案手法（maxsumBS）		&\multirow{2}{*}{0.5\%}	&14.33					&9.39					&\textendash				&\textendash				&\textendash				&3,280			\\
-	従来手法（glide HTVSモード）	&					&35.16					&29.97					&\textendash				&\textendash				&\textendash				&25,452			\\
+	従来手法（Glide HTVSモード）	&					&35.16					&29.97					&\textendash				&\textendash				&\textendash				&25,452			\\
 	提案手法（maxsumBS）		&\multirow{2}{*}{1\%}	&20.26					&13.91					&7.14					&\textendash				&\textendash				&5,180			\\
-	従来手法（glide HTVSモード）	&					&35.36					&31.17					&22.19					&\textendash				&\textendash				&27,352			\\
+	従来手法（Glide HTVSモード）	&					&35.36					&31.17					&22.19					&\textendash				&\textendash				&27,352			\\
 	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&24.87					&19.14					&10.57					&6.32					&\textendash				&8,979			\\
-	従来手法（glide HTVSモード）	&					&35.54					&31.69					&23.10					&15.50					&\textendash				&31,151			\\
+	従来手法（Glide HTVSモード）	&					&35.54					&31.69					&23.10					&15.50					&\textendash				&31,151			\\
 	提案手法（maxsumBS）		&\multirow{2}{*}{5\%}	&29.24					&25.04					&16.80					&10.51					&6.29					&20,378			\\
-	従来手法（glide HTVSモード）	&					&35.54					&31.40					&23.56					&16.28					&10.59					&42,550			\\
+	従来手法（Glide HTVSモード）	&					&35.54					&31.40					&23.56					&16.28					&10.59					&42,550			\\
 	提案手法（maxsumBS）		&\multirow{2}{*}{10\%}	&31.94					&27.48					&19.68					&13.58					&8.36					&39,377			\\
-	従来手法（glide HTVSモード）	&					&35.70					&31.78					&23.80					&16.89					&11.07					&61,549			\\ \hline
-	\multicolumn{2}{l|}{通常ドッキング（glide SPモード）}	&35.98					&32.82					&25.57					&18.96					&12.82					&379,965			\\ \hline
+	従来手法（Glide HTVSモード）	&					&35.70					&31.78					&23.80					&16.89					&11.07					&61,549			\\ \hline
+	\multicolumn{2}{l|}{通常ドッキング（Glide SPモード）}	&35.98					&32.82					&25.57					&18.96					&12.82					&379,965			\\ \hline
 	\end{tabular}
 \end{table}
 \end{landscape}
 
-\begin{description}
-\item[超高速な化合物全体の評価]
+\begin{enumerate}
+\item \b{超高速な化合物全体の評価}\\
 	表\ref{table:usecase_accuracy}によると、提案手法で0.5\%の化合物をフィルタリングし、それらを通常のドッキングシミュレーションで再評価
-	することでglide HTVSモードを用いる場合の約8分の1の計算時間で評価を完了させることができる。例えば1,000万化合物を評価する場合、
-	今回のケースの450倍程度の化合物数となるので、glide HTVSモードは1 CPU換算で4か月程度を要してしまう。
-	一方、提案手法と通常ドッキングであるglide SPモードの組み合わせでは1 CPUでも半月程度で済む計算となる。この差は非常に大きく、
+	することでGlide HTVSモードを用いる場合の約8分の1の計算時間で評価を完了させることができる。例えば1,000万化合物を評価する場合、
+	今回のケースの450倍程度の化合物数となるので、Glide HTVSモードは1 CPU換算で4か月程度を要してしまう。
+	一方、提案手法と通常ドッキングであるGlide SPモードの組み合わせでは1 CPUでも半月程度で済む計算となる。この差は非常に大きく、
 	提案手法は有用であると言える。
 \begin{table}[htbp] \centering
 	\caption{化合物全体を評価するのに要する時間の比較}
@@ -230,16 +230,14 @@ EF (0.1\%)などの小さな割合におけるEFの評価（表\ref{table:usecas
 												&合計計算時間	&1,000万化合物評価の		\\ 
 												&[CPU sec.]		&推定時間 [CPU days]		\\ \hline
 	提案手法で0.5\%フィルタリング	&3,280				&17.1								\\
-	glide HTVSモード単独性能		&23,552				&122.5								\\ \hline
+	Glide HTVSモード単独性能		&23,552				&122.5								\\ \hline
 	\end{tabular}
 \end{table}
-\memo{計算時間について、図（積み上げ棒グラフ？）で表現}
-
-\item[従来手法以下の所要時間の中での予測精度の向上]
+\item \b{従来手法以下の所要時間の中での予測精度の向上}\\
 	表\ref{table:usecase_accuracy}に示されている通り、提案手法と従来手法とで単純に比較を行うと精度は従来手法に分がある。
 	しかしいくつかのケースについては、化合物ライブラリのサイズを変えることで同程度の所要時間の中で精度を高めることができる。
-	例えば、100万化合物を従来手法で10\%にフィルタリングし、glideSPでリランキングした場合、上位1万化合物の濃縮率(EF 1\%に相当する)は16.89、この時の推定必要計算時間は32.0 CPU daysとなる。
-	一方、1,000万化合物を提案手法で1\%にフィルタリングし、glide SPでリランキングした場合、上位1万化合物の濃縮率(EF 0.1\%に相当する)は20.26、この時の推定必要計算時間は26.9 CPU daysとなり、
+	例えば、100万化合物を従来手法で10\%にフィルタリングし、GlideSPでリランキングした場合、上位1万化合物の濃縮率(EF 1\%に相当する)は16.89、この時の推定必要計算時間は32.0 CPU daysとなる。
+	一方、1,000万化合物を提案手法で1\%にフィルタリングし、Glide SPでリランキングした場合、上位1万化合物の濃縮率(EF 0.1\%に相当する)は20.26、この時の推定必要計算時間は26.9 CPU daysとなり、
 	速度を向上させつつ、予測精度を高めることができる。このようなケースは複数存在しており（表\ref{table:win_proposal_case}）、これらの場合においては提案手法を利用すべきであると言える。
 \begin{table}[htbp] \centering
 	\caption{提案手法が従来手法に速度・精度ともに勝る例}
@@ -261,4 +259,4 @@ EF (0.1\%)などの小さな割合におけるEFの評価（表\ref{table:usecas
 	\end{tabular}
 \end{table}
 	
-\end{description}
+\end{enumerate}
