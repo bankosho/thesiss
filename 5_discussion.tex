@@ -107,7 +107,8 @@ maxsumBSの精度はscore\_sumよりも良いことから，本研究の提案�
 \newpage
 
 \section{提案手法が得意とするケースの調査}
-\ref{subsec:single_accuracy}節の実験結果より，提案手法は従来手法に比べて平均的に見れば精度が低調に終わることが判明している．
+\ref{subsec:single_accuracy}節の実験結果より，提案手法は簡易なドッキングシミュレーションであるGlide HTVSモード
+と比べて精度が低調に終わることが判明している．
 しかし，本研究で用いた102ターゲット中46ターゲットに関しては提案手法が従来手法であるGlide HTVSモードよりも精度が良く，
 ROC-AUCで0.2以上上回っているケースも表\ref{table:target_accuracy_good}に示す通り3例存在している．
 
@@ -115,21 +116,24 @@ ROC-AUCで0.2以上上回っているケースも表\ref{table:target_accuracy_g
 化合物の持つフラグメント数の平均，小さなフラグメントを削減した後のフラグメント数の平均，
 sitemap\cite{Halgren2009}によって計算された各タンパク質の結合部位のサイズを求めた．
 その結果，結合部位のサイズやデータセット全体を通してのフラグメント数などに傾向は見受けられなかったが，
-化合物の持つフラグメント数の平均，そのうち重原子数が2以下のフラグメント数の平均どちらも正例より負例が上回っているということが判明した
-（表\ref{table:good_property}）．
+\begin{itemize}
+\item 化合物の持つフラグメント数の平均
+\item 重原子数が2以下のフラグメント数の平均
+\end{itemize}
+どちらも正例より負例が上回っているということが判明した（表\ref{table:good_property}）．
 
 \begin{table}[hb] \centering
 	\caption{提案手法が上手く行ったケース}
 	\label{table:target_accuracy_good}
 	提案手法（maxsumBS）が従来手法（Glide HTVSモード）よりもROC-AUCで\\
 	0.2以上上回ったケースについて，ROC-AUCの差の降順で示している．
-	\begin{tabular}{lc|r|rr}
+	\begin{tabular}{c|r|rr}
 	\hline
-	\multirow{2}{*}{提案手法の種類}	&\multirow{2}{*}{ターゲット名}	&\multirow{2}{*}{ROC-AUC差}	&\multicolumn{2}{c}{ROC-AUC}	\\
-								&						&							&従来手法	&提案手法		\\ \hline
-	線形和（maxsumBS）			&mcr					&0.319						&0.466		&{\bf 0.785}		\\
-	線形和（maxsumBS）			&akt1					&0.285						&0.539		&{\bf 0.824}		\\
-	線形和（maxsumBS）			&gcr						&0.252						&0.528		&{\bf 0.780}		\\ \hline
+	\multirow{2}{*}{ターゲット名}	&\multirow{2}{*}{ROC-AUC差}	&\multicolumn{2}{c}{ROC-AUC}	\\
+							&							&従来手法	&提案手法		\\ \hline
+	mcr					&0.319						&0.466		&{\bf 0.785}		\\
+	akt1					&0.285						&0.539		&{\bf 0.824}		\\
+	gcr						&0.252						&0.528		&{\bf 0.780}		\\ \hline
 	\end{tabular}
 \end{table}
 \begin{table}[htb] \centering
@@ -137,7 +141,7 @@ sitemap\cite{Halgren2009}によって計算された各タンパク質の結合�
 	\label{table:good_property}
 	\begin{tabular}{c|rrrrrrr}
 	\hline
-	\multirow{2}{*}{ターゲット}	&\multicolumn{3}{c}{\multirow{2}{*}{フラグメント数の平均}}	&\multicolumn{3}{c}{重原子数2以下の}		&\multirow{2}{*}{結合部位のサイズ [$Å^3$]}	\\
+	\multirow{2}{*}{ターゲット}	&\multicolumn{3}{c}{\multirow{2}{*}{フラグメント数の平均}}	&\multicolumn{3}{c}{重原子数2以下の}		&\multirow{2}{*}{結合部位のサイズ [$\mathrm{\AA}^3$]}	\\
 							&		&		&								&\multicolumn{3}{c}{フラグメント数の平均}	&										\\
 							&全体	&正例	&負例							&全体	&正例		&負例			&										\\ \hline
 	akt1						&7.98	&6.94	&8.00							&4.64	&3.08		&4.66			&637									\\
@@ -149,31 +153,19 @@ sitemap\cite{Halgren2009}によって計算された各タンパク質の結合�
 
 \newpage
 
-例えば，ホルモテロール（図\ref{fig:ZINC02599970}）とカンデサルタン（図\ref{fig:ZINC03782818}）はそれぞれ薬剤として
+例えば，ホルモテロール（図\ref{fig:drugs}-(a)）とカンデサルタン（図\ref{fig:drugs}-(b)）はそれぞれ薬剤として
 認められている化合物だが，このうち後者のような化合物が結合するタンパク質を対象としたフィルタリングには提案手法を，
-前者のような化合物が結合するタンパク質を対象としたフィルタリングには従来手法を用いると良いことが推定される．
+前者のような化合物が結合するタンパク質を対象としたフィルタリングには従来通り簡易ドッキングシミュレーションを用いると良いと推定される．
 
 一方この性質は\ref{sec:discussion_penalty}節で示したペナルティの影響を受けていると考えられるため，
 化合物の構造の有利不利が発生しないようなスコア計算手法およびペナルティの考案を引き続き行う必要がある．
 
 \begin{figure}[t]
-\begin{minipage}{0.5\hsize}
  \begin{center}
-  \fig[width=0.82\hsize]{./fig/discussion/ZINC02599970.eps}
-  \caption{ホルモテロール}
-  \label{fig:ZINC02599970}
+  \fig[width=0.90\hsize]{./fig/discussion/drugs_decomposition.eps}
  \end{center}
-\end{minipage}
-\begin{minipage}{0.5\hsize}
- \begin{center}
-  \fig[width=0.70\hsize]{./fig/discussion/ZINC03782818.eps}
-  \caption{カンデサルタン}
-  \label{fig:ZINC03782818}
- \end{center}
-\end{minipage}
-\begin{center}
-どちらも切断面を示し，重原子2以下のフラグメントになってしまう部分を青く表示している
-\end{center}
+  \caption{薬剤化合物の例：(a)ホルモテロール (b)カンデサルタン}
+  \label{fig:drugs}
 \end{figure}
 
 
@@ -233,7 +225,7 @@ EF (0.1\%)などの小さな割合におけるEFの評価（表\ref{table:usecas
 \item \b{従来手法以下の所要時間の中での予測精度の向上}\\
 	表\ref{table:usecase_accuracy}に示されている通り，提案手法と従来手法とで単純に比較を行うと精度は従来手法に分がある．
 	しかしいくつかのケースについては，化合物ライブラリのサイズを変えることで同程度の所要時間の中で精度を高めることができる．
-	例えば，100万化合物を従来手法で10\%にフィルタリングし，GlideSPでリランキングした場合，上位1万化合物の濃縮率(EF 1\%に相当する)は16.89，この時の推定必要計算時間は32.0 CPU daysとなる．
+	例えば，100万化合物をGlide HTVSモードを用いて10\%にフィルタリングし，GlideSPでリランキングした場合，上位1万化合物の濃縮率(EF 1\%に相当する)は16.89，この時の推定必要計算時間は32.0 CPU daysとなる．
 	一方，1,000万化合物を提案手法で1\%にフィルタリングし，Glide SPでリランキングした場合，上位1万化合物の濃縮率(EF 0.1\%に相当する)は20.26，この時の推定必要計算時間は26.9 CPU daysとなり，
 	速度を向上させつつ，予測精度を高めることができる．このようなケースは複数存在しており（表\ref{table:win_proposal_case}），これらの場合においては提案手法を利用すべきであると言える．
 \begin{table}[htbp] \centering
@@ -241,16 +233,16 @@ EF (0.1\%)などの小さな割合におけるEFの評価（表\ref{table:usecas
 	\label{table:win_proposal_case}
 	\begin{tabular}{l|rrr}
 	\hline
-												&\multirow{2}{*}{化合物ライブラリサイズ}	&上位1万化合物の		&推定計算時間	\\
+												&\multirow{2}{*}{化合物数}	&上位1万化合物の		&推定計算時間	\\
 												&														&濃縮率(EF)				&[CPU days]		\\ \hline
 	提案手法で1\%フィルタリング		&1,000万											&20.26 (EF 0.1\%)		&26.9				\\
-	従来手法で10\%フィルタリング	&100万												&16.89 (EF 1\%)			&32.0				\\ \hline
-	提案手法で1\%フィルタリング		&500万												&13.91 (EF 0.2\%)		&13.5				\\
-	従来手法で10\%フィルタリング	&50万												&11.07 (EF 2\%)			&16.0				\\ \hline
-	提案手法で2\%フィルタリング		&1,000万											&24.87 (EF 0.1\%)		&46.7				\\
-	従来手法で10\%フィルタリング	&200万												&23.80 (EF 0.5\%)		&64.0				\\ \hline
-	提案手法で5\%フィルタリング		&200万												&16.80 (EF 0.5\%)		&21.2				\\
-	従来手法で5\%フィルタリング		&100万												&16.28 (EF 1\%)			&22.1				\\ \hline
+	Glide HTVSモードで10\%フィルタリング	&100万												&16.89 (EF 1\%)			&32.0				\\ \hline
+	maxsumBSで1\%フィルタリング		&500万												&13.91 (EF 0.2\%)		&13.5				\\
+	Glide HTVSモードで10\%フィルタリング	&50万												&11.07 (EF 2\%)			&16.0				\\ \hline
+	maxsumBSで2\%フィルタリング		&1,000万											&24.87 (EF 0.1\%)		&46.7				\\
+	Glide HTVSモードで10\%フィルタリング	&200万												&23.80 (EF 0.5\%)		&64.0				\\ \hline
+	maxsumBSで5\%フィルタリング		&200万												&16.80 (EF 0.5\%)		&21.2				\\
+	Glide HTVSモードで5\%フィルタリング		&100万												&16.28 (EF 1\%)			&22.1				\\ \hline
 	
 
 	\end{tabular}
