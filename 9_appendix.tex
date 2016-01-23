@@ -21,7 +21,6 @@ DUD-E（A Database of Useful Decoys: Enhanced）はMysingerらによって作成
 	abl1						&2HZI				&Tyrosine-protein kinase ABL					&182	&10,746				&7.08	&7.33						\\ \hline
 	\end{tabular}
 \end{table}
-\todo{以下作成中．スクリプト書いて完成させねば}
 
 \chapter{各手法を単体で用いた場合のROC曲線}\label{appendix:roc}
 \ref{subsec:single_accuracy}節にて示した
@@ -30,42 +29,5 @@ DUD-E（A Database of Useful Decoys: Enhanced）はMysingerらによって作成
 3つの提案手法についてはフラグメントの結合スコア算出をGlide SPモード/Glide HTVSモードで行った場合がそれぞれ示されている．
 例えば，「score\_max\_SP」とはフラグメントの結合スコアをGlide SPモードで求め，そのフラグメントスコアの最良値をとった場合の精度が
 ROC曲線で示されている．
-\memo{
-DUD-Eの102ターゲットそれぞれについて，7通りの手法のROC曲線を記載する．
-図\ref{fig:roc:1}のようなものがターゲットを変えながら102個並ぶ．
-2×3＝6が1ページで，それが18ページ続く形になることを想像している．
-}
-\begin{figure}[tb]
- \begin{minipage}{0.5\hsize}
-  \begin{center}
-   \fig[width=0.9\hsize]{./fig/appendix/aa2ar_gscore_ROC.pdf}
-  \end{center}
- \end{minipage}
- \begin{minipage}{0.5\hsize}
-  \begin{center}
-   \fig[width=0.9\hsize]{./fig/appendix/abl1_gscore_ROC.pdf}
-  \end{center}
- \end{minipage}
- \begin{minipage}{0.5\hsize}
-  \begin{center}
-   \fig[width=0.9\hsize]{./fig/appendix/ace_gscore_ROC.pdf}
-  \end{center}
- \end{minipage}
- \begin{minipage}{0.5\hsize}
-  \begin{center}
-   \fig[width=0.9\hsize]{./fig/appendix/aces_gscore_ROC.pdf}
-  \end{center}
- \end{minipage}
- \begin{minipage}{0.5\hsize}
-  \begin{center}
-   \fig[width=0.9\hsize]{./fig/appendix/ada_gscore_ROC.pdf}
-  \end{center}
- \end{minipage}
- \begin{minipage}{0.5\hsize}
-  \begin{center}
-   \fig[width=0.9\hsize]{./fig/appendix/ada17_gscore_ROC.pdf}
-  \end{center}
- \end{minipage}
-  \caption{ROC曲線例}
-  \label{fig:roc:1}
-\end{figure}
+
+\input{appendix_roc.tex}
