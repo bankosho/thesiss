@@ -1,7 +1,7 @@
 % 卒業論文　main.tex
 
 \documentclass[11pt]{jreport}
-\bibliographystyle{my_junsrt} % for bibtex
+\bibliographystyle{junsrt} % for bibtex
 \bibdata{ref.bib}
 
 \usepackage{pifont}
@@ -46,6 +46,9 @@
 \DeclareMathOperator*{\argmin}{argmin}
 %\newcolumntype{C}{>{\centering\arraybackslash}X}
 
+%ハイフネーションをガンガン許す
+\hyphenpenalty=0\relax
+\exhyphenpenalty=0\relax
 
 %%%独自%%%%%
 
@@ -54,7 +57,7 @@
 \def\citetodo#1{\textcolor{green}{{\small @cite #1}}}
 \def\comment#1{\textcolor{blue}{{@comment #1}}}
 
-\def\r#1{\textcolor{red}{\textbf{#1}}}
+%\def\r#1{\textcolor{red}{\textbf{#1}}}
 \def\b#1{\textbf{#1}}
 
 \def\fig{\includegraphics}
@@ -107,5 +110,5 @@
 \newpage
 \appendix
 \input{9_appendix.tex}
-%\clearpage
+\clearpage
 \end{document}
