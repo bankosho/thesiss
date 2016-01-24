@@ -1,0 +1,244 @@
+\begin{thebibliography}{10}
+
+\bibitem{Friesner2004}
+R. A. Friesner {\it et al.}
+\newblock {Glide: A New Approach for Rapid, Accurate Docking and Scoring. 1.
+  Method and Assessment of Docking Accuracy}.
+\newblock {\em Journal of Medicinal Chemistry}, 47(7):1739--1749, 2004.
+
+\bibitem{Zsoldos2007}
+Z. Zsoldos {\it et al.}
+\newblock {eHiTS: A new fast, exhaustive flexible ligand docking system}.
+\newblock {\em Journal of Molecular Graphics and Modelling}, 26(1):198--212, 2007.
+
+\bibitem{Morris2009}
+G. M. Morris {\it et al.}
+\newblock {AutoDock4 and AutoDockTools4: Automated docking with selective
+  receptor flexibility}.
+\newblock {\em Journal of Computational Chemistry}, 30(16):2785--2791, 2009.
+
+\bibitem{Hansch1964}
+C. Hansch and T. Fujita. 
+\newblock {$\rho$-$\sigma$-$\pi$ Analysis. A Method for the Correlation of
+  Biological Activity and Chemical Structure}.
+\newblock {\em Journal of the American Chemical Society}, 86(8):1616--1626, 1964.
+
+\bibitem{Ivanciuc2007}
+O. Ivanciuc.
+\newblock {Applications of support vector machines in chemistry}.
+\newblock {\em Reviews in computational chemistry}, 23:291--400, 2007.
+
+\bibitem{Wolber2008}
+G. Wolber {\it et al.}
+\newblock {Molecule-pharmacophore superpositioning and pattern matching in
+  computational drug design}.
+\newblock {\em Drug Discovery Today}, 13(1-2):23--29, 2008.
+
+\bibitem{Brown2012}
+J. B. Brown and Y. Okuno.
+\newblock {Systems Biology and Systems Chemistry : New Directions
+  for Drug Discovery}.
+\newblock {\em Chemistry {\&} Biology}, 19(1)23--28, 2012.
+
+\bibitem{Kruger2010}
+D. M. Kr{\"{u}}ger and A. Evers.
+\newblock {Comparison of structure- and ligand-based virtual screening
+  protocols considering hit list complementarity and enrichment factors}.
+\newblock {\em ChemMedChem}, 5(1):148--158, 2010.
+
+\bibitem{Yuriev2013}
+E. Yuriev and P. A. Ramsland.
+\newblock {Latest developments in molecular docking: 2010-2011 in review}.
+\newblock {\em Journal of Molecular Recognition}, 26(5):215--239, 2013.
+
+\bibitem{Kannan2010}
+S. Kannan and R. Ganji.
+\newblock {Porting Autodock to CUDA}.
+\newblock {\em Evolutionary Computation (CEC), 2010 IEEE Congress on}, pages 1--8, 2010.
+
+\bibitem{McIntosh-Smith2014}
+S. McIntosh-Smith {\it et al.}
+\newblock {High performance in silico virtual drug screening on many-core
+  processors}.
+\newblock {\em International Journal of High Performance Computing
+  Applications}, 29(2):119--134, 2015.
+
+\bibitem{Trott2010}
+O. Trott and A. J. Olson.
+\newblock {AutoDock Vina: Improving the speed and accuracy of docking with a
+  new scoring function, efficient optimization, and multithreading}.
+\newblock {\em Journal of Computational Chemistry}, 31(2):455--461, 2010.
+
+\bibitem{Irwin2005}
+J. J. Irwin and B. K. Shoichet.
+\newblock {ZINC --- A Free Database of Commercially Available Compounds for
+  Virtual Screening ZINC}.
+\newblock {\em Journal of Chemical Information and Modeling}, 45(1):177--182, 2005.
+
+\bibitem{Nilakantan1993}
+R. Nilakantan {\it et al.}
+\newblock {New method for rapid characterization of molecular shapes:
+  applications in drug design.}
+\newblock {\em Journal of chemical information and computer sciences}, 33(1):79--85, 1993.
+
+\bibitem{Parenti2003}
+M. D. Parenti {\it et al.}
+\newblock {Docking and Database Screening Reveal New Classes of Plasmodium falciparum Dihydrofolate Reductase Inhibitors}.
+\newblock {\em Journal of Medicinal Chemistry}, 46(14):2834--2845, 2003.
+
+\bibitem{Fujimoto2008}
+T. Fujimoto {\it et al.}
+\newblock {In silico multi-filter screening approaches for developing novel
+  beta-secretase inhibitors.}
+\newblock {\em Bioorganic {\&} medicinal chemistry letters}, 18(9):2771--2775, 2008.
+
+\bibitem{Ewing2001}
+T. J. A. Ewing {\it et al.}
+\newblock {DOCK 4.0: Search strategies for automated molecular docking of
+  flexible molecule databases}.
+\newblock {\em Journal of Computer-Aided Molecular Design}, 15(5):411--428, 2001.
+
+\bibitem{Rarey1996}
+M. Rarey {\it et al.}
+\newblock {A fast flexible docking method using an incremental construction
+  algorithm.}
+\newblock {\em Journal of molecular biology}, 261(3):470--489, 1996.
+
+\bibitem{Jones1997}
+G. Jones {\it et al.}
+\newblock {Development and validation of a genetic algorithm for flexible
+  docking.}
+\newblock {\em Journal of molecular biology}, 267(3):727--748, 1997.
+
+\bibitem{Abagyan1993}
+R. Abagyan {\it et al.}
+\newblock {ICM - A New Method for Protein Modeling and Design: Applications to
+  Docking and Structure Prediction from the Distorted Native Conformation}.
+\newblock {\em Journal of Computational Chemistry}, 15(5):488--506, 1993.
+
+\bibitem{Kuntz1982}
+I. D. Kuntz {\it et al.}
+\newblock {A geometric approach to macromolecule-ligand interactions.}
+\newblock {\em Journal of molecular biology}, 161(2):269--288, 1982.
+
+\bibitem{Morris1998}
+G. M. Morris {\it et al.}
+\newblock {Automated Docking Using a Lamarckian Genetic Algorithm and an
+  Empirical Binding Free Energy Function}.
+\newblock {\em Journal of Computational Chemistry}, 19(14):1639--1662, 1998.
+
+\bibitem{Wang2002}
+R. Wang {\it et al.}
+\newblock {Further development and validation of empirical scoring functions
+  for structure-based binding affinity prediction}.
+\newblock {\em Journal of Computer-Aided Molecular Design}, 16(1):11--26, 2002.
+
+\bibitem{Gehlhaar1995}
+D. K. Gehlhaar {\it et al.}
+\newblock {Molecular recognition of the inhibitor AG-1343 by HIV-1 protease:
+  Conformationally flexible docking by evolutionary programming}.
+\newblock {\em Chemistry and Biology}, 2(5):317--324, 1995.
+
+\bibitem{Eldridge1997}
+M. D. Eldridge {\it et al.}
+\newblock {Empirical scoring functions: I. The development of a fast empirical
+  scoring function to estimate the binding affinity of ligands in receptor
+  complexes.}
+\newblock {\em Journal of computer-aided molecular design}, 11(5):425--445, 1997.
+
+\bibitem{Berman2000}
+H. M. Berman {\it et al.}
+\newblock {The Protein Data Bank.}
+\newblock {\em Nucleic acids research}, 28(1):235--242, 2000.
+
+\bibitem{Muegge2006}
+I. Muegge.
+\newblock {PMF scoring revisited}.
+\newblock {\em Journal of Medicinal Chemistry}, 49(20):5895--5902, 2006.
+
+\bibitem{Xue2010}
+M. Xue {\it et al.}
+\newblock {Knowledge-based scoring functions in drug design. 1. Developing a
+  target-specific method for kinase-ligand interactions}.
+\newblock {\em Journal of Chemical Information and Modeling}, 50(8):1378--1386, 2010.
+
+\bibitem{Gohlke2000}
+H. Gohlke {\it et al.}
+\newblock {Knowledge-based scoring function to predict protein-ligand
+  interactions.}
+\newblock {\em Journal of Molecular Biology}, 295(2):337--356, 2000.
+
+\bibitem{Huang2010}
+S. Y. Huang and X Zou.
+\newblock {Inclusion of solvation and entropy in the knowledge-based scoring
+  function for protein－ ligand interactions}.
+\newblock {\em Journal of chemical information and modeling}, 50(2):262--273, 2010.
+
+\bibitem{Seifert2009}
+M. H. J. Seifert.
+\newblock {Targeted scoring functions for virtual screening}.
+\newblock {\em Drug Discovery Today}, 14(11-12)562--569, 2009.
+
+\bibitem{Tuccinardi2010}
+T. Tuccinardi {\it et al.}
+\newblock {Protein kinases: Docking and homology modeling reliability}.
+\newblock {\em Journal of Chemical Information and Modeling}, 50(8):1432--1441, 2010.
+
+\bibitem{Lipinski1997}
+C. A. Lipinski {\it et al.}
+\newblock {Experimental and computational approaches to estimate solubility and
+  permeability in drug discovery and development settings.}
+\newblock {\em Advanced drug delivery reviews}, 23(1-3):3--25,
+  1997.
+
+\bibitem{Bickerton2012}
+G. R. Bickerton {\it et al.}
+\newblock {Quantifying the chemical beauty of drugs.}
+\newblock {\em Nature chemistry}, 4(2):90--98, 2012.
+
+\bibitem{GlideHomePage}
+How long does it take to screen 10,000 compounds with glide?
+\newblock \url{http://www.schrodinger.com/kb/1012}.
+(2016年1月24日閲覧)
+
+
+\bibitem{Shunta2015}
+小峰 駿汰 {\it et al.}
+\newblock {フラグメント伸長型タンパク質-化合物ドッキングのビームサーチによる高速化}.
+\newblock {\em 情報処理学会研究報告}, 2015-BIO-4(62):1--8, 2015.
+
+\bibitem{OBoyle2011}
+N. M. O'Boyle {\it et al.}
+\newblock {Open Babel: An open chemical toolbox.}
+\newblock {\em Journal of cheminformatics}, 3(33):1--14, 2011.
+
+\bibitem{Verdonk2004}
+M. L. Verdonk {\it et al.}
+\newblock {Virtual screening using protein-ligand docking: Avoiding artificial
+  enrichment}.
+\newblock {\em Journal of Chemical Information and Computer Sciences}, 44(3):793--806, 2004.
+
+\bibitem{Mysinger2012}
+M. M. Mysinger {\it et al.}
+\newblock {Directory of useful decoys, enhanced (DUD-E): Better ligands and
+  decoys for better benchmarking}.
+\newblock {\em Journal of Medicinal Chemistry}, 55(14):6582--6594, 2012.
+
+\bibitem{Halgren2009}
+T. A. Halgren.
+\newblock {Identifying and characterizing binding sites and assessing
+  druggability}.
+\newblock {\em Journal of Chemical Information and Modeling}, 49(2):377--389, 2009.
+
+\bibitem{Gaulton2012}
+A. Gaulton {\it et al.}
+\newblock {ChEMBL: a large-scale bioactivity database for drug discovery}.
+\newblock {\em Nucleic Acids Research}, 40(D1):D1100--D1107,
+  2012.
+
+\bibitem{Bemis1996}
+G. W. Bemis and M. A. Murcko.
+\newblock {The properties of known drugs. 1. Molecular frameworks}.
+\newblock {\em Journal of Medicinal Chemistry}, 39(15):2887--2893, 1996.
+
+\end{thebibliography}
