@@ -186,29 +186,6 @@ EF (0.1\%)などの小さな割合におけるEFの評価（表\ref{table:usecas
 
 なお，総化合物数が10,000以上である49ターゲットの平均化合物数は22,259, 平均フラグメント種類数は4,588である．
 
-\begin{landscape}
-\begin{table}[p] \centering
-	\caption{総化合物数が1万以上存在するDUD-Eのターゲットに対する評価実験}
-	\label{table:usecase_accuracy}
-	\begin{tabular}{lc|rrrrr|r}
-	\hline
-	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（0.1\%）}	&\multirow{2}{*}{EF（0.2\%）}	&\multirow{2}{*}{EF（0.5\%）}	&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
-	\multicolumn{1}{c}{手法}	&通過率					&						&						&						&						&						&[CPU sec.]		\\ \hline
-	提案手法（maxsumBS）		&\multirow{2}{*}{0.5\%}	&14.33					&9.39					&\textendash				&\textendash				&\textendash				&3,280			\\
-	従来手法（Glide HTVSモード）	&					&35.16					&29.97					&\textendash				&\textendash				&\textendash				&25,452			\\
-	提案手法（maxsumBS）		&\multirow{2}{*}{1\%}	&20.26					&13.91					&7.14					&\textendash				&\textendash				&5,180			\\
-	従来手法（Glide HTVSモード）	&					&35.36					&31.17					&22.19					&\textendash				&\textendash				&27,352			\\
-	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&24.87					&19.14					&10.57					&6.32					&\textendash				&8,979			\\
-	従来手法（Glide HTVSモード）	&					&35.54					&31.69					&23.10					&15.50					&\textendash				&31,151			\\
-	提案手法（maxsumBS）		&\multirow{2}{*}{5\%}	&29.24					&25.04					&16.80					&10.51					&6.29					&20,378			\\
-	従来手法（Glide HTVSモード）	&					&35.54					&31.40					&23.56					&16.28					&10.59					&42,550			\\
-	提案手法（maxsumBS）		&\multirow{2}{*}{10\%}	&31.94					&27.48					&19.68					&13.58					&8.36					&39,377			\\
-	従来手法（Glide HTVSモード）	&					&35.70					&31.78					&23.80					&16.89					&11.07					&61,549			\\ \hline
-	\multicolumn{2}{l|}{通常ドッキング（Glide SPモード）}	&35.98					&32.82					&25.57					&18.96					&12.82					&379,965			\\ \hline
-	\end{tabular}
-\end{table}
-\end{landscape}
-
 \begin{enumerate}
 \item \b{超高速な化合物全体の評価}\\
 	表\ref{table:usecase_accuracy}によると，提案手法で0.5\%の化合物をフィルタリングし，それらを通常のドッキングシミュレーションで再評価
@@ -233,7 +210,33 @@ EF (0.1\%)などの小さな割合におけるEFの評価（表\ref{table:usecas
 	例えば，100万化合物をGlide HTVSモードを用いて10\%にフィルタリングし，Glide SPでリランキングした場合，上位1万化合物の濃縮率(EF 1\%に相当する)は16.89，この時の推定必要計算時間は32.0 CPU daysとなる．
 	一方，1,000万化合物を提案手法で1\%にフィルタリングし，Glide SPでリランキングした場合，上位1万化合物の濃縮率(EF 0.1\%に相当する)は20.26，この時の推定必要計算時間は26.9 CPU daysとなり，
 	速度を向上させつつ，予測精度を高めることができる．このようなケースは複数存在しており（表\ref{table:win_proposal_case}），これらの場合においては提案手法を利用すべきであると言える．
-\begin{table}[htbp] \centering
+\end{enumerate}
+
+
+\begin{landscape}
+\begin{table}[p] \centering
+	\caption{総化合物数が1万以上存在するDUD-Eのターゲットに対する評価実験}
+	\label{table:usecase_accuracy}
+	\begin{tabular}{lc|rrrrr|r}
+	\hline
+	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（0.1\%）}	&\multirow{2}{*}{EF（0.2\%）}	&\multirow{2}{*}{EF（0.5\%）}	&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
+	\multicolumn{1}{c}{手法}	&通過率					&						&						&						&						&						&[CPU sec.]		\\ \hline
+	提案手法（maxsumBS）		&\multirow{2}{*}{0.5\%}	&14.33					&9.39					&\textendash				&\textendash				&\textendash				&3,280			\\
+	従来手法（Glide HTVSモード）	&					&35.16					&29.97					&\textendash				&\textendash				&\textendash				&25,452			\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{1\%}	&20.26					&13.91					&7.14					&\textendash				&\textendash				&5,180			\\
+	従来手法（Glide HTVSモード）	&					&35.36					&31.17					&22.19					&\textendash				&\textendash				&27,352			\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&24.87					&19.14					&10.57					&6.32					&\textendash				&8,979			\\
+	従来手法（Glide HTVSモード）	&					&35.54					&31.69					&23.10					&15.50					&\textendash				&31,151			\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{5\%}	&29.24					&25.04					&16.80					&10.51					&6.29					&20,378			\\
+	従来手法（Glide HTVSモード）	&					&35.54					&31.40					&23.56					&16.28					&10.59					&42,550			\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{10\%}	&31.94					&27.48					&19.68					&13.58					&8.36					&39,377			\\
+	従来手法（Glide HTVSモード）	&					&35.70					&31.78					&23.80					&16.89					&11.07					&61,549			\\ \hline
+	\multicolumn{2}{l|}{通常ドッキング（Glide SPモード）}	&35.98					&32.82					&25.57					&18.96					&12.82					&379,965			\\ \hline
+	\end{tabular}
+\end{table}
+\end{landscape}
+
+\begin{table}[p] \centering
 	\caption{提案手法が従来手法に速度・精度ともに勝る例}
 	\label{table:win_proposal_case}
 	\begin{tabular}{l|rrr}
@@ -242,15 +245,14 @@ EF (0.1\%)などの小さな割合におけるEFの評価（表\ref{table:usecas
 												&														&濃縮率(EF)				&[CPU days]		\\ \hline
 	提案手法で1\%フィルタリング		&1,000万											&20.26 (EF 0.1\%)		&26.9				\\
 	Glide HTVSモードで10\%フィルタリング	&100万												&16.89 (EF 1\%)			&32.0				\\ \hline
-	maxsumBSで1\%フィルタリング		&500万												&13.91 (EF 0.2\%)		&13.5				\\
+	提案手法で1\%フィルタリング		&500万												&13.91 (EF 0.2\%)		&13.5				\\
 	Glide HTVSモードで10\%フィルタリング	&50万												&11.07 (EF 2\%)			&16.0				\\ \hline
-	maxsumBSで2\%フィルタリング		&1,000万											&24.87 (EF 0.1\%)		&46.7				\\
+	提案手法で2\%フィルタリング		&1,000万											&24.87 (EF 0.1\%)		&46.7				\\
 	Glide HTVSモードで10\%フィルタリング	&200万												&23.80 (EF 0.5\%)		&64.0				\\ \hline
-	maxsumBSで5\%フィルタリング		&200万												&16.80 (EF 0.5\%)		&21.2				\\
+	提案手法で5\%フィルタリング		&200万												&16.80 (EF 0.5\%)		&21.2				\\
 	Glide HTVSモードで5\%フィルタリング		&100万												&16.28 (EF 1\%)			&22.1				\\ \hline
 	
 
 	\end{tabular}
 \end{table}
 	
-\end{enumerate}
