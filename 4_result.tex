@@ -3,14 +3,15 @@
 
 
 \section{データセット}
-本実験では，データセットとしてDirectory of Useful Decoys (DUD-E)\cite{Mysinger2012}を用いた．DUD-Eは102種類のターゲットについて，
-それぞれタンパク質・正例化合物・負例化合物を用意している．表\ref{table:dude}にターゲットごとの化合物数，正例と負例の比率の
-最小値，最大値，平均値を示す．
+本実験では，データセットとしてDirectory of Useful Decoys (DUD-E)\cite{Mysinger2012}を用いた．
+DUD-Eはカリフォルニア大学サンフランシスコ校のMysingerらによって作成されたドッキングシミュレーション手法を評価するためのデータセットである．
+DUD-Eには102種類の標的タンパク質（ターゲット）が登録されており，それぞれに対してタンパク質構造・正例化合物・負例化合物を用意している．
+表\ref{table:dude}にターゲットごとの化合物数，正例と負例の比率の最小値，最大値，平均値を示す．
 各ターゲットの詳細については付録\ref{appendix:dude}に記載する．なお，DUD-Eのターゲットのうちfgfr1およびfa10は
 記載されている負例数とデータセットに実際に含まれている負例数が大きく異なっているが，そのまま扱うこととする．
 
 \begin{table}[htb] \centering
-	\caption{DUD-Eのターゲットの化合物}
+	\caption{DUD-Eのターゲットの化合物数}
 	\label {table:dude}
 	\begin{tabular}{c|cc}
 	\hline
@@ -79,6 +80,7 @@
 	CPU		&Intel Xeon X5670, 2.93 GHz (6 cores) $\times2$ \\
 	Memory	& 54 GB RAM \\ \hline 
 	\end{tabular}
+	\vspace{-2cm}
 \end{table}
 
 \section{比較対象}
@@ -91,51 +93,63 @@
 \subsection{フラグメント分割}\label{subsec:result_decomposition}
 まず，今回用いる複数のターゲットについて，フラグメント分割を行うことでドッキングの必要数をどの程度減らせるのかを示す．
 それぞれターゲットにフラグメント分割を適用した場合における化合物数とフラグメント種類数の推移は図\ref{fig:dude_decomposition}の通り
-となり，DUD-Eターゲット全体で平均するとフラグメント種類数は化合物数の約4分の1に抑えられている．化合物数が多いほど
-化合物数に対するフラグメント種類数が抑えられる傾向にあることも確認された（表\ref{table:dude_decomposition}）．
+となり，DUD-Eターゲット全体で平均するとフラグメント種類数は化合物数の約4分の1に抑えられている（表\ref{table:dude_decomposition}）．
+化合物数が多いほど化合物数に対するフラグメント種類数が抑えられる傾向にあることも確認された．
 
 \begin{figure}[bhtp]
  \begin{center}
   \fig[width=0.75\hsize]{./fig/result/ターゲットに対するフラグメント数.eps}
+	\vspace{-0.5cm}
   \caption{DUD-Eターゲットにおける化合物数とフラグメント種類数の関係}
   \label{fig:dude_decomposition}
  \end{center}
 \end{figure}
 \begin{table}[htb] \centering
-	\caption{フラグメント１種類あたりの化合物数}
+	\caption{DUD-E各ターゲットの化合物群を分割した時のフラグメント１種類あたりの化合物数}
 	\label{table:dude_decomposition}
 	\begin{tabular}{c|rr}
 	\hline
-								&\multirow{2}{*}{ターゲット数}	&フラグメント1種類		\\
-								&						&あたりの化合物数		\\ \hline
-	全ターゲット					&102		&4.00							\\
-	化合物数1万未満のターゲット		&53			&3.17							\\
-	化合物数１万以上のターゲット	&49			&4.91							\\ \hline
+								&\multirow{2}{*}{ターゲット数}	&フラグメント1種類			\\
+								&						&あたりの平均化合物数		\\ 
+	\hline
+	化合物数1万未満のDUD-Eターゲット		&53			&3.17							\\
+	化合物数１万以上のDUD-Eターゲット		&49			&4.91							\\ 
+	\hline
+	全DUD-Eターゲット						&102		&4.00							\\ 
+	\hline
 	\end{tabular}
 \end{table}
 
 
 \subsection{ドッキング速度の評価}\label{subsec:single_calc_time}
-つづいてフィルタリング手法の計算速度を評価する．\ref{subsec:result_decomposition}節で述べたように，1つのターゲットに含まれる化合物数
+つづいてフィルタリング手法の計算速度を評価する．ここでは以下に示す4種類の手法の計算時間を比較する．
+\begin{enumerate}
+\item Glide SPモードを利用した通常のドッキングシミュレーション 「Glide SP」
+\item Glide HTVSモードを利用した簡易なドッキングシミュレーション 「Glide HTVS」
+\item フラグメントのドッキングシミュレーションにGlide SPモードを用いた提案手法 「提案手法（SP）」
+\item フラグメントのドッキングシミュレーションにGlide HTVSモードを用いた提案手法 「提案手法（HTVS）」
+\end{enumerate}
+
+\ref{subsec:result_decomposition}節で述べたように，1つのターゲットに含まれる化合物数
 が多ければ多いほどフラグメント数は相対的に少なくなり提案手法の計算コストの削減が増幅される．
 そこでDUD-E 102ターゲット全てでの所要計算時間の平均以外に，総化合物数が最小であるターゲット fgfr1，
 総化合物数が平均値に近いターゲット adrb2，総化合物数が最大であるターゲット fntaの3種類について独立して結果を示す．
 
-結果は表\ref{table:calc_time}の通りであり，提案手法はGlide HTVSモードと比べて平均して約9倍（SPモード利用時）から
-約15倍（HTVSモード利用時）の速度向上を達成している．
+結果は表\ref{table:calc_time}の通りであり，Glide HTVSモードと比較すると提案手法（SP）は平均約9倍，
+提案手法（HTVS）は平均約15倍の速度向上を達成している．
 
 \begin{table}[htb] \centering
-	\caption{ドッキング計算時間の比較（括弧内は簡易ドッキングシミュレーションであるGlide HTVSモードとの速度比）}
+	\caption{ドッキング計算時間の比較（括弧内はGlide HTVSとの速度比）}
 	\label{table:calc_time}
 	\begin{tabular}{c|rr|rrrr}
 	\hline
 	\multirow{3}{*}{ターゲット名}	&\multirow{3}{*}{総化合物数}	&\multirow{3}{*}{\shortstack{フラグメント\\種類数}}	&\multicolumn{4}{c}{計算時間 [CPU sec.]}										\\
-							&							&											&\multicolumn{2}{c}{化合物ドッキング}		&\multicolumn{2}{c}{フラグメントドッキング}	\\
-							&							&											&Glide SP		&Glide HTVS			&Glide SP 			&Glide HTVS		\\ \hline
-	fgfr1						&472						&166										&3,523			&566 (x1.0)			&164 (x3.5)			&140 (x4.0)		\\
-	adrb2					&15,224						&2,779										&338,511			&17,043 (x1.0)			&1,481 (x11.5)			&899 (x19.0)		\\
-	fnta						&52,022						&7,767										&1,770,967		&98,665 (x1.0)			&4,149 (x24.0)			&2,549 (x38.7)		\\ \hline
-	全ての平均				&13,881						&3,231										&236,156			&14,813 (x1.0)			&1,673 (x8.9)			&987 (x15.0)		\\ \hline
+							&							&											&\mrow{2}{Glide SP}	&\mrow{2}{Glide HTVS}	&提案手法		&提案手法		\\
+							&							&											&					&					&（SP） 			&（HTVS）		\\ \hline
+	fgfr1						&472						&166										&3,523				&566 (x1.0)			&164 (x3.5)		&140 (x4.0)		\\
+	adrb2					&15,224						&2,779										&338,511				&17,043 (x1.0)			&1,481 (x11.5)		&899 (x19.0)		\\
+	fnta						&52,022						&7,767										&1,770,967			&98,665 (x1.0)			&4,149 (x24.0)		&2,549 (x38.7)		\\ \hline
+	全ての平均				&13,881						&3,231										&236,156				&14,813 (x1.0)			&1,673 (x8.9)		&987 (x15.0)		\\ \hline
 	\end{tabular}
 \end{table}
 
@@ -148,15 +162,19 @@
 	\label{table:single_accuracy}
 	\begin{tabular}{l|l|rrrrr}
 	\hline
-	\multicolumn{1}{c|}{\multirow{2}{*}{手法}}	&\multicolumn{1}{c|}{フラグメント}		&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}	\\
-																	&\multicolumn{1}{c|}{ドッキング}		&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	\\ \hline
-	\multirow{2}{*}{総和(score\_sum)}			&Glide SPモード								&0.624					&5.08	&4.14	&3.02	&2.34		\\
-											&Glide HTVSモード							&0.618					&4.84	&3.97	&2.99	&2.29		\\
-	\multirow{2}{*}{最良値(score\_max)}		&Glide SPモード								&0.637					&6.78	&\b{5.65}	&3.81	&2.60		\\
-											&Glide HTVSモード							&0.627					&\b{6.94}	&5.55	&3.32	&2.55		\\
-	\multirow{2}{*}{線形和(maxsumBS)}		&Glide SPモード								&\b{0.679}				&6.03	&5.03	&\b{3.96}	&\b{3.00}		\\
-											&Glide HTVSモード							&0.665					&5.98	&4.84	&3.58	&2.82		\\ \hline
-	\multicolumn{2}{l|}{従来手法(Glide HTVSモード)}											&0.705					&16.67	&11.18	&6.38	&4.11		\\ \hline
+	\multicolumn{1}{c|}{\mrow{2}{ドッキング計算}}	&\multicolumn{1}{c|}{化合物スコア}		&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}	\\
+											&\multicolumn{1}{c|}{算出方法}			&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	\\ 
+	\hline
+											&総和(score\_sum)					&0.624					&5.08	&4.14	&3.02	&2.34		\\
+	提案手法（SP）							&最良値(score\_max)					&0.637					&6.78	&\b{5.65}	&3.81	&2.60		\\
+											&線形和(maxsumBS)					&\b{0.679}				&6.03	&5.03	&\b{3.96}	&\b{3.00}		\\
+											&総和(score\_sum)					&0.618					&4.84	&3.97	&2.99	&2.29		\\
+	提案手法（HTVS）							&最良値(score\_max)					&0.627					&\b{6.94}	&5.55	&3.32	&2.55		\\
+											&線形和(maxsumBS)					&0.665					&5.98	&4.84	&3.58	&2.82		\\ 
+	\hline
+	\multicolumn{2}{c|}{簡易ドッキングシミュレーション}										&\mrow{2}{0.705}			&\mrow{2}{16.67}	&\mrow{2}{11.18}	&\mrow{2}{6.38}	&\mrow{2}{4.11}		\\ 
+	\multicolumn{2}{c|}{（Glide HTVSモード）}											&&&&& \\
+	\hline
 	\end{tabular}
 \end{table}
 
@@ -166,13 +184,15 @@
 
 また，提案手法間の比較を行うことで以下のことが言える．
 \begin{itemize}
-\item タンパク質とフラグメントとのドッキングにGlide SPモードを利用した方がどの手法を用いた場合についても
+\item ドッキング計算について，化合物フィルタリングスコアの算出方法に関わらず，提案手法（SP）は提案手法（HTVS）と比べて
 	ほぼすべての評価指標で予測精度が良くなる．
 \item ROC-AUCはmaxsumBSが他の2つの提案手法に比べて良い結果が出ているが，EF (1\%)やEF (2\%)に関してはscore\_maxが
 	maxsumBSを上回っている．
 \end{itemize}
-\ref{subsec:single_calc_time}で述べたように提案手法の速度はGlide SPモードを利用したフラグメントドッキングの場合でも
-9倍近く従来手法に比べて高速であるので，以下の実験ではGlide SPモードを用いることとする．
+\ref{subsec:single_calc_time}で述べたように提案手法（SP）の速度は9倍程度，
+従来手法に比べて高速であるので，以下の実験ではフラグメントのドッキングシミュレーションにGlide SPモードを用いることとする．
+
+\newpage
 
 \subsection{フィルタリング手法としての性能評価実験}
 \ref{subsec:single_calc_time}節および\ref{subsec:single_accuracy}節では，フィルタリング手法を単体で用いた場合の性能を評価し，
@@ -199,6 +219,8 @@
   \label{fig:filtering_image}
  \end{center}
 \end{figure}
+
+\newpage
 
 \subsubsection{提案手法間の精度比較}\label{subsubsec:filtering_proposal}
 まず提案手法間の精度比較を行い，化合物フィルタリングスコアの算出方法を検討した．
@@ -233,17 +255,17 @@
 \begin{table}[htb] \centering
 	\caption{フィルタリング手法としての提案手法と従来手法の比較}
 	\label{table:filtering_proposal_Glide}
-	\begin{tabular}{lc|rr|r}
+	\begin{tabular}{lc|rr|rr}
 	\hline
-	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
-	\multicolumn{1}{c}{手法}		&通過率				&						&						&[CPU sec.]		\\ \hline
-	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&8.75					&\textendash				&6,396			\\
-	従来手法（Glide HTVSモード）	&					&17.85					&\textendash				&19,536			\\
-	提案手法（maxsumBS）		&\multirow{2}{*}{5\%}	&12.92					&7.99					&13,481			\\
-	従来手法（Glide HTVSモード）	&					&18.97					&12.50					&26,621			\\
-	提案手法（maxsumBS）		&\multirow{2}{*}{10\%}	&15.46					&10.00					&25,289			\\
-	従来手法（Glide HTVSモード）	&					&19.60					&12.92					&38,429			\\ \hline
-	\multicolumn{2}{l|}{通常ドッキング（Glide SPモード）}	&21.54					&14.68					&236,156			\\ \hline
+	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	&\multicolumn{1}{c}{提案手法の}	\\
+	\multicolumn{1}{c}{手法}		&通過率				&						&						&[CPU sec.]		&\multicolumn{1}{c}{高速化率}	\\ \hline
+	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&8.75					&\textendash				&6,396			&\mrow{2}{\b{x3.05}}\\
+	従来手法（Glide HTVSモード）	&					&17.85					&\textendash				&19,536		&\\ \hline
+	提案手法（maxsumBS）		&\multirow{2}{*}{5\%}	&12.92					&7.99					&13,481			&\mrow{2}{\b{x1.97}}\\
+	従来手法（Glide HTVSモード）	&					&18.97					&12.50					&26,621		&\\ \hline
+	提案手法（maxsumBS）		&\multirow{2}{*}{10\%}	&15.46					&10.00					&25,289			&\mrow{2}{\b{x1.52}}\\
+	従来手法（Glide HTVSモード）	&					&19.60					&12.92					&38,429		&\\ \hline
+	\multicolumn{2}{l|}{通常ドッキング（Glide SPモード）}	&21.54					&14.68					&\multicolumn{1}{r}{236,156}&	\\ \hline
 	\end{tabular}
 \end{table}
 
