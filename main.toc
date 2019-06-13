@@ -1,0 +1,48 @@
+\contentsline {chapter}{\numberline {\hbox to\z@ {第1章\hss }}\kern 2.0em 序論}{1}
+\contentsline {section}{\numberline {1.1}研究背景}{1}
+\contentsline {section}{\numberline {1.2}研究目的}{2}
+\contentsline {section}{\numberline {1.3}本論文の構成}{2}
+\contentsline {chapter}{\numberline {\hbox to\z@ {第2章\hss }}\kern 2.0em ドッキングシミュレーションによる薬物候補化合物の選別}{4}
+\contentsline {section}{\numberline {2.1}SBVS（Structure-Based Virtual Screening）とは}{4}
+\contentsline {section}{\numberline {2.2}タンパク質-化合物ドッキングシミュレーション}{4}
+\contentsline {subsection}{\numberline {2.2.1}ドッキングシミュレーションの要素}{6}
+\contentsline {subsubsection}{探索空間}{6}
+\contentsline {subsubsection}{探索アルゴリズム}{6}
+\contentsline {subsubsection}{スコア関数}{7}
+\contentsline {subsection}{\numberline {2.2.2}ドッキングシミュレーションの問題点}{8}
+\contentsline {section}{\numberline {2.3}化合物のフィルタリング}{9}
+\contentsline {subsection}{\numberline {2.3.1}既存のフィルタリング手法}{10}
+\contentsline {subsection}{\numberline {2.3.2}既存手法の問題点}{11}
+\contentsline {subsection}{\numberline {2.3.3}提案手法の目標}{11}
+\contentsline {chapter}{\numberline {\hbox to\z@ {第3章\hss }}\kern 2.0em 提案手法：化合物の部分構造を利用したフィルタリング（プレドッキング）手法の開発}{13}
+\contentsline {section}{\numberline {3.1}提案手法の概説}{13}
+\contentsline {subsection}{\numberline {3.1.1}フィルタリングの要件}{13}
+\contentsline {subsection}{\numberline {3.1.2}提案手法へのアイデア}{14}
+\contentsline {section}{\numberline {3.2}提案手法の詳細の説明}{14}
+\contentsline {subsection}{\numberline {3.2.1}提案手法のフローチャート}{15}
+\contentsline {subsection}{\numberline {3.2.2}化合物のフラグメントへの分割}{15}
+\contentsline {subsection}{\numberline {3.2.3}フラグメント単位でのドッキングシミュレーション}{18}
+\contentsline {subsection}{\numberline {3.2.4}化合物のフィルタリングスコアの算出}{19}
+\contentsline {chapter}{\numberline {\hbox to\z@ {第4章\hss }}\kern 2.0em 実験}{22}
+\contentsline {section}{\numberline {4.1}データセット}{22}
+\contentsline {section}{\numberline {4.2}予測精度の評価指標}{22}
+\contentsline {section}{\numberline {4.3}計算環境}{23}
+\contentsline {section}{\numberline {4.4}比較対象}{25}
+\contentsline {section}{\numberline {4.5}評価実験}{25}
+\contentsline {subsection}{\numberline {4.5.1}フラグメント分割}{25}
+\contentsline {subsection}{\numberline {4.5.2}ドッキング速度の評価}{26}
+\contentsline {subsection}{\numberline {4.5.3}予測精度の評価}{26}
+\contentsline {subsection}{\numberline {4.5.4}フィルタリング手法としての性能評価実験}{28}
+\contentsline {subsubsection}{提案手法間の精度比較}{29}
+\contentsline {subsubsection}{予測精度の従来手法との比較}{29}
+\contentsline {chapter}{\numberline {\hbox to\z@ {第5章\hss }}\kern 2.0em 考察}{31}
+\contentsline {section}{\numberline {5.1}総和法におけるフラグメント数に対するペナルティ}{31}
+\contentsline {section}{\numberline {5.2}提案手法が得意とするケースの調査}{34}
+\contentsline {section}{\numberline {5.3}提案手法の利用例}{35}
+\contentsline {chapter}{\numberline {\hbox to\z@ {第6章\hss }}\kern 2.0em 結論}{39}
+\contentsline {section}{\numberline {6.1}本研究の結論}{39}
+\contentsline {section}{\numberline {6.2}今後の課題}{41}
+\contentsline {chapter}{謝辞}{42}
+\contentsline {chapter}{参\nobreakspace {}考\nobreakspace {}文\nobreakspace {}献}{43}
+\contentsline {chapter}{\numberline {\hbox to\z@ {付録A\hss }}\kern 2.0em DUD-Eデータセットの詳細}{47}
+\contentsline {chapter}{\numberline {\hbox to\z@ {付録B\hss }}\kern 2.0em 各手法を単体で用いた場合のROC曲線}{53}

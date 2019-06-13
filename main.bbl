@@ -92,6 +92,12 @@ T. Fujimoto {\it et al.}
   beta-secretase inhibitors.}
 \newblock {\em Bioorganic {\&} medicinal chemistry letters}, 18(9):2771--2775, 2008.
 
+\bibitem{Grover2012}
+A. Grover {\it et al.}
+\newblock {A leishmaniasis study: Structure-based screening and molecular dynamics mechanistic analysis 
+for discovering potent inhibitors of spermidine synthase.}
+\newblock {\em Biochimica et Biophysica Acta}, 1824(12):1476--1483, 2012.
+
 \bibitem{Ewing2001}
 T. J. A. Ewing {\it et al.}
 \newblock {DOCK 4.0: Search strategies for automated molecular docking of
@@ -203,7 +209,7 @@ How long does it take to screen 10,000 compounds with glide?
 
 
 \bibitem{Shunta2015}
-小峰 駿汰 {\it et al.}
+小峰 駿汰 {\it 他.}
 \newblock {フラグメント伸長型タンパク質-化合物ドッキングのビームサーチによる高速化}.
 \newblock {\em 情報処理学会研究報告}, 2015-BIO-4(62):1--8, 2015.
 

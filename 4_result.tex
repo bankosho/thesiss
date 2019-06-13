@@ -3,7 +3,7 @@
 
 
 \section{データセット}
-本実験では，データセットとしてDirectory of Useful Decoys (DUD-E)\cite{Mysinger2012}を用いた．
+本実験では，データセットとしてDirectory of Useful Decoys, Enhanced (DUD-E)\cite{Mysinger2012}を用いた．
 DUD-Eはカリフォルニア大学サンフランシスコ校のMysingerらによって作成されたドッキングシミュレーション手法を評価するためのデータセットである．
 DUD-Eには102種類の標的タンパク質（ターゲット）が登録されており，それぞれに対してタンパク質構造・正例化合物・負例化合物を用意している．
 表\ref{table:dude}にターゲットごとの化合物数，正例と負例の比率の最小値，最大値，平均値を示す．
@@ -15,18 +15,19 @@ DUD-Eには102種類の標的タンパク質（ターゲット）が登録され
 	\label {table:dude}
 	\begin{tabular}{c|cc}
 	\hline
-			&総化合物数		&正/負例の比率	\\ \hline
-	最大値	&52,022 (fnta)		&1:104 (fnta)		\\
-	平均値	&13,881			&1:60			\\
-	最小値	&472 (fgfr1)		&1:2.4 (fgfr1)		\\ \hline
+				&総化合物数	&正/負例の比率	\\ \hline
+	最大値	&52,022 (fnta)	&1:104 (fnta)			\\
+	平均値	&13,881			&1:60					\\
+	中央値	&9,297			&1:59					\\
+	最小値	&472 (fgfr1)		&1:2.4 (fgfr1)			\\ \hline
 	\end{tabular}
 \end{table}
 
 	
 \section{予測精度の評価指標}
 バーチャルスクリーニングでは，計算機による選別を通過して実際に活性実験が行われる化合物数が
-もとの化合物と比べてきわめて少ない状況を想定することが多い．
-また，化合物データベースの中で実際に標的タンパク質を阻害する化合物は1,000個に1個であると言われており，
+元の化合物と比べてきわめて少ない状況を想定することが多い．
+また，化合物データベースの中で実際に標的タンパク質を阻害する化合物は約1,000個に1個であると言われており，
 したがって正例と負例の比率が大きく偏っていると言える．
 そのためこの分野における予測精度の評価指標は以下の2種類が多く用いられている．
 
@@ -94,7 +95,7 @@ DUD-Eには102種類の標的タンパク質（ターゲット）が登録され
 まず，今回用いる複数のターゲットについて，フラグメント分割を行うことでドッキングの必要数をどの程度減らせるのかを示す．
 それぞれターゲットにフラグメント分割を適用した場合における化合物数とフラグメント種類数の推移は図\ref{fig:dude_decomposition}の通り
 となり，DUD-Eターゲット全体で平均するとフラグメント種類数は化合物数の約4分の1に抑えられている（表\ref{table:dude_decomposition}）．
-化合物数が多いほど化合物数に対するフラグメント種類数が抑えられる傾向にあることも確認された．
+化合物数が多いほど，化合物数に対するフラグメント種類数が抑えられる傾向にあることも確認された．
 
 \begin{figure}[bhtp]
  \begin{center}
@@ -105,7 +106,7 @@ DUD-Eには102種類の標的タンパク質（ターゲット）が登録され
  \end{center}
 \end{figure}
 \begin{table}[htb] \centering
-	\caption{DUD-E各ターゲットの化合物群を分割した時のフラグメント１種類あたりの化合物数}
+	\caption{フラグメント分割を行った時のフラグメント１種類あたりの化合物数}
 	\label{table:dude_decomposition}
 	\begin{tabular}{c|rr}
 	\hline
@@ -141,15 +142,18 @@ DUD-Eには102種類の標的タンパク質（ターゲット）が登録され
 \begin{table}[htb] \centering
 	\caption{ドッキング計算時間の比較（括弧内はGlide HTVSとの速度比）}
 	\label{table:calc_time}
-	\begin{tabular}{c|rr|rrrr}
+	\begin{tabular}{cc|rr|rrrr}
 	\hline
-	\multirow{3}{*}{ターゲット名}	&\multirow{3}{*}{総化合物数}	&\multirow{3}{*}{\shortstack{フラグメント\\種類数}}	&\multicolumn{4}{c}{計算時間 [CPU sec.]}										\\
-							&							&											&\mrow{2}{Glide SP}	&\mrow{2}{Glide HTVS}	&提案手法		&提案手法		\\
-							&							&											&					&					&（SP） 			&（HTVS）		\\ \hline
-	fgfr1						&472						&166										&3,523				&566 (x1.0)			&164 (x3.5)		&140 (x4.0)		\\
-	adrb2					&15,224						&2,779										&338,511				&17,043 (x1.0)			&1,481 (x11.5)		&899 (x19.0)		\\
-	fnta						&52,022						&7,767										&1,770,967			&98,665 (x1.0)			&4,149 (x24.0)		&2,549 (x38.7)		\\ \hline
-	全ての平均				&13,881						&3,231										&236,156				&14,813 (x1.0)			&1,673 (x8.9)		&987 (x15.0)		\\ \hline
+	\multirow{3}{*}{\shortstack{問題\\サイズ}}	&\multirow{3}{*}{ターゲット名}	&\multirow{3}{*}{化合物数}	&フラグ	&\multicolumn{4}{c}{計算時間 [CPU sec.]}											\\
+														&									&									&メント	&\mrow{2}{Glide SP}	&\mrow{2}{Glide HTVS}	&提案手法		&提案手法	\\
+														&									&									&種類数	&							&					&（SP） 			&（HTVS）				\\ 
+		\hline
+	小													&fgfr1								&472								&166		&3,523					&566 (x1.0)		&164 (x3.5)		&140 (x4.0)				\\
+	中													&adrb2							&15,224							&2,779	&338,511					&17,043 (x1.0)	&1,481 (x11.5)	&899 (x19.0)				\\
+	大													&fnta								&52,022							&7,767	&1,770,967				&98,665 (x1.0)	&4,149 (x24.0)	&2,549 (x38.7)			\\ 
+		\hline
+	\multicolumn{2}{c|}{全ての平均}													&13,881							&3,231	&236,156					&14,813 (x1.0)	&1,673 (x8.9)	&987 (x15.0)				\\ 
+		\hline
 	\end{tabular}
 \end{table}
 
@@ -163,14 +167,14 @@ DUD-Eには102種類の標的タンパク質（ターゲット）が登録され
 	\begin{tabular}{l|l|rrrrr}
 	\hline
 	\multicolumn{1}{c|}{\mrow{2}{ドッキング計算}}	&\multicolumn{1}{c|}{化合物スコア}		&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}	\\
-											&\multicolumn{1}{c|}{算出方法}			&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	\\ 
+															&\multicolumn{1}{c|}{算出方法}			&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	\\ 
 	\hline
-											&総和(score\_sum)					&0.624					&5.08	&4.14	&3.02	&2.34		\\
-	提案手法（SP）							&最良値(score\_max)					&0.637					&6.78	&\b{5.65}	&3.81	&2.60		\\
-											&線形和(maxsumBS)					&\b{0.679}				&6.03	&5.03	&\b{3.96}	&\b{3.00}		\\
-											&総和(score\_sum)					&0.618					&4.84	&3.97	&2.99	&2.29		\\
-	提案手法（HTVS）							&最良値(score\_max)					&0.627					&\b{6.94}	&5.55	&3.32	&2.55		\\
-											&線形和(maxsumBS)					&0.665					&5.98	&4.84	&3.58	&2.82		\\ 
+															&総和(score\_sum)					&0.624					&5.08	&4.14	&3.02	&2.34		\\
+	提案手法（SP）										&最良値(score\_max)					&0.637					&6.78	&\b{5.65}	&3.81	&2.60		\\
+															&線形和(maxsumBS)					&\b{0.679}				&6.03	&5.03	&\b{3.96}	&\b{3.00}		\\
+															&総和(score\_sum)					&0.618					&4.84	&3.97	&2.99	&2.29		\\
+	提案手法（HTVS）									&最良値(score\_max)					&0.627					&\b{6.94}	&5.55	&3.32	&2.55		\\
+															&線形和(maxsumBS)					&0.665					&5.98	&4.84	&3.58	&2.82		\\ 
 	\hline
 	\multicolumn{2}{c|}{簡易ドッキングシミュレーション}										&\mrow{2}{0.705}			&\mrow{2}{16.67}	&\mrow{2}{11.18}	&\mrow{2}{6.38}	&\mrow{2}{4.11}		\\ 
 	\multicolumn{2}{c|}{（Glide HTVSモード）}											&&&&& \\
@@ -179,7 +183,7 @@ DUD-Eには102種類の標的タンパク質（ターゲット）が登録され
 \end{table}
 
 結果は表\ref{table:single_accuracy}の通りである．なお，各手法を用いた場合のターゲットごとのROC曲線は付録\ref{appendix:roc}に記載している．
-この結果から，単体での予測精度に関しては，どの評価指標においてもGlide HTVSモードが高速性を重視した本研究の提案手法よりも
+この結果から，単体での予測精度に関しては，どの評価指標においても既存手法であるGlide HTVSモードが高速性を重視した本研究の提案手法よりも
 勝っていることが分かる．
 
 また，提案手法間の比較を行うことで以下のことが言える．
@@ -189,8 +193,9 @@ DUD-Eには102種類の標的タンパク質（ターゲット）が登録され
 \item ROC-AUCはmaxsumBSが他の2つの提案手法に比べて良い結果が出ているが，EF (1\%)やEF (2\%)に関してはscore\_maxが
 	maxsumBSを上回っている．
 \end{itemize}
-\ref{subsec:single_calc_time}で述べたように提案手法（SP）の速度は9倍程度，
-従来手法に比べて高速であるので，以下の実験ではフラグメントのドッキングシミュレーションにGlide SPモードを用いることとする．
+\ref{subsec:single_calc_time}で述べたように提案手法（SP）の速度は9倍程度，従来手法に比べて高速である．
+提案手法（HTVS）は従来手法に比べて15倍程度高速であり，計算時間の短縮が特に重要な場合には考慮に値するが，
+本研究では高速化を達成した中での精度を重視し，フラグメントのドッキングシミュレーションにはGlide SPモードを用いることとする．
 
 \newpage
 
@@ -214,7 +219,7 @@ DUD-Eには102種類の標的タンパク質（ターゲット）が登録され
 
 \begin{figure}[htp]
  \begin{center}
-  \fig[width=0.99\hsize]{./fig/result/filtering_image.png}
+  \fig[width=0.99\hsize]{./fig/result/filtering_image.pdf}
   \caption{EF（1\%），EF（2\%）算出までの流れ}
   \label{fig:filtering_image}
  \end{center}
@@ -226,6 +231,7 @@ DUD-Eには102種類の標的タンパク質（ターゲット）が登録され
 まず提案手法間の精度比較を行い，化合物フィルタリングスコアの算出方法を検討した．
 結果は表\ref{table:filtering_proposal}のようになり，多くの場合
 フィルタリングスコア算出方法はmaxsumBSを用いるのが最適であることが分かった．
+以降ではmaxsumBSを用いることとする．
 
 \begin{table}[htb] \centering
 	\caption{フィルタリング手法としての提案手法間の精度評価}
@@ -233,24 +239,22 @@ DUD-Eには102種類の標的タンパク質（ターゲット）が登録され
 	\begin{tabular}{lc|rr|r}
 	\hline
 	\multicolumn{2}{c|}{フィルタリング}	&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
-	\multicolumn{1}{c}{手法}	&通過率	&						&						&[CPU sec.]		\\ \hline
-	総和（score\_sum）		&		&6.84					&\textendash				&				\\
-	最良値（score\_max）	&2\%	&\textbf{9.09}				&\textendash				&6,396			\\
-	線形和（maxsumBS）	&		&8.75					&\textendash				&				\\ \hline
-	総和（score\_sum）		&		&9.61					&5.92					&				\\
-	最良値（score\_max）	&5\%	&10.93					&7.49					&13,481			\\
-	線形和（maxsumBS）	&		&\textbf{12.92}			&\textbf{7.99}				&				\\ \hline
-	総和（score\_sum）		&		&12.41					&7.67					&				\\
-	最良値（score\_max）	&10\%	&11.85					&8.24					&25,289			\\
-	線形和（maxsumBS）	&		&\textbf{15.45}			&\textbf{10.00}			&				\\ \hline
+	\multicolumn{1}{c}{手法}	&通過率	&								&									&[CPU sec.]		\\ \hline
+	総和（score\_sum）			&			&6.84							&\textendash					&					\\
+	最良値（score\_max）		&2\%		&\textbf{9.09}				&\textendash					&6,396			\\
+	線形和（maxsumBS）		&			&8.75							&\textendash					&					\\ \hline
+	総和（score\_sum）			&			&9.61							&5.92								&					\\
+	最良値（score\_max）		&5\%		&10.93						&7.49								&13,481			\\
+	線形和（maxsumBS）		&			&\textbf{12.92}				&\textbf{7.99}					&					\\ \hline
+	総和（score\_sum）			&			&12.41						&7.67								&					\\
+	最良値（score\_max）		&10\%		&11.85						&8.24								&25,289			\\
+	線形和（maxsumBS）		&			&\textbf{15.45}				&\textbf{10.00}					&					\\ \hline
 	\end{tabular}
 \end{table}
 
 
 \subsubsection{予測精度の従来手法との比較}\label{subsubsec:filtering_comparison}
-続いて，提案手法と従来手法との比較を行う．\ref{subsubsec:filtering_proposal}節の実験より，
-提案手法のフィルタリングスコア算出法はmaxsumBSが最も良いことが示されたので，
-ここではmaxsumBSとGlide HTVSモードとの速度および精度の比較を行う．
+続いて，提案手法と従来手法との比較を行った．
 
 \begin{table}[htb] \centering
 	\caption{フィルタリング手法としての提案手法と従来手法の比較}
@@ -259,13 +263,13 @@ DUD-Eには102種類の標的タンパク質（ターゲット）が登録され
 	\hline
 	\multicolumn{2}{c|}{フィルタリング}					&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	&\multicolumn{1}{c}{提案手法の}	\\
 	\multicolumn{1}{c}{手法}		&通過率				&						&						&[CPU sec.]		&\multicolumn{1}{c}{高速化率}	\\ \hline
-	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&8.75					&\textendash				&6,396			&\mrow{2}{\b{x3.05}}\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{2\%}	&8.75					&\textendash				&6,396			&\mrow{2}{\b{x 3.05}}\\
 	従来手法（Glide HTVSモード）	&					&17.85					&\textendash				&19,536		&\\ \hline
-	提案手法（maxsumBS）		&\multirow{2}{*}{5\%}	&12.92					&7.99					&13,481			&\mrow{2}{\b{x1.97}}\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{5\%}	&12.92					&7.99					&13,481			&\mrow{2}{\b{x 1.97}}\\
 	従来手法（Glide HTVSモード）	&					&18.97					&12.50					&26,621		&\\ \hline
-	提案手法（maxsumBS）		&\multirow{2}{*}{10\%}	&15.46					&10.00					&25,289			&\mrow{2}{\b{x1.52}}\\
+	提案手法（maxsumBS）		&\multirow{2}{*}{10\%}	&15.46					&10.00					&25,289			&\mrow{2}{\b{x 1.52}}\\
 	従来手法（Glide HTVSモード）	&					&19.60					&12.92					&38,429		&\\ \hline
-	\multicolumn{2}{l|}{通常ドッキング（Glide SPモード）}	&21.54					&14.68					&\multicolumn{1}{r}{236,156}&	\\ \hline
+	\multicolumn{2}{l|}{通常ドッキング（Glide SPモード）}	&21.54					&14.68					&236,156& \multicolumn{1}{c}{\textendash}	\\ \hline
 	\end{tabular}
 \end{table}
 

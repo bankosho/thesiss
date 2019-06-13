@@ -1,15 +1,44 @@
 \chapter{結論}
 \section{本研究の結論}\label{sec:conclusion}
-本研究では，ドッキングに基づいた高速なフィルタリング手法を提案した．
-提案手法をDUD-Eの全ターゲットである102種のデータセットを用いて評価すると，
-予測精度は簡易ドッキングシミュレーションであるGlide HTVSモードに比べ劣っているが
-計算速度は既存手法では実現不可能なほど高速であることが示された．
+本研究ではドッキングに基づいた高速なフィルタリング手法を提案した．この手法は以下の3つの要素を用いて高速化を実現している．
+\begin{itemize}
+\item 化合物の内部自由度を無くすような分割によるドッキングの高速化
+\item 共通フラグメントの発生によるドッキング回数の削減
+\item 高速な化合物のスコア付け
+\end{itemize}
+
+化合物のフィルタリングスコアは3通りの計算式を実験し，フラグメントの結合スコアの総和と最良値の線形和を行う
+maxsumBSが最良であることを示した（表\ref{table:conclusion_1}）．
+\begin{table}[htb] \centering
+	\caption{提案手法のフィルタリング利用時の精度}
+	\label{table:conclusion_1}
+	\begin{tabular}{lc|rr|r}
+	\hline
+	\multicolumn{2}{c|}{フィルタリング}	&\multirow{2}{*}{EF（1\%）}	&\multirow{2}{*}{EF（2\%）}	&合計計算時間	\\
+	\multicolumn{1}{c}{手法}	&通過率	&								&									&[CPU sec.]		\\ \hline
+	総和（score\_sum）			&			&6.84							&\textendash					&					\\
+	最良値（score\_max）		&2\%		&\textbf{9.09}				&\textendash					&6,396			\\
+	線形和（maxsumBS）		&			&8.75							&\textendash					&					\\ \hline
+	総和（score\_sum）			&			&9.61							&5.92								&					\\
+	最良値（score\_max）		&5\%		&10.93						&7.49								&13,481			\\
+	線形和（maxsumBS）		&			&\textbf{12.92}				&\textbf{7.99}					&					\\ \hline
+	総和（score\_sum）			&			&12.41						&7.67								&					\\
+	最良値（score\_max）		&10\%		&11.85						&8.24								&25,289			\\
+	線形和（maxsumBS）		&			&\textbf{15.45}				&\textbf{10.00}					&					\\ \hline
+	\end{tabular}
+\end{table}
+
+\newpage
+
+また，提案手法をDUD-Eの全ターゲットである102種のデータセットを用いて評価すると，
+予測精度は簡易ドッキングシミュレーションであるGlide HTVSモードに比べ劣っているものの，
+計算速度は既存手法の約9倍の高速化を達成した（表\ref{table:conclusion_2}）．
 \begin{table}[h] \centering
 	\caption{提案手法の性能}
-	\label{table:conclusion_1}
-	\begin{tabular}{l|rrrrrr}
+	\label{table:conclusion_2}
+	\begin{tabular}{l|rrrrr|r}
 	\hline
-	\multicolumn{1}{c|}{\multirow{2}{*}{手法}}	&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c}{Enrichment Factor}	&平均計算時間	\\
+	\multicolumn{1}{c|}{\multirow{2}{*}{手法}}	&\multirow{2}{*}{ROC-AUC}	&\multicolumn{4}{c|}{Enrichment Factor}	&平均計算時間	\\
 										&						&EF(1\%)	&EF(2\%)	&EF(5\%)	&EF(10\%)	&[CPU sec.]		\\ \hline
 	\b{提案手法（maxsumBS, }	&&&&&& \\
 	\b{フラグメントドッキング：}				&0.679					&6.03	&5.03	&3.96	&3.00		&\b{1,673}		\\
@@ -21,11 +50,11 @@
 	\end{tabular}
 \end{table}
 
-また，フィルタリング後に行う通常のドッキングシミュレーションと組み合わせた場合の速度・精度の評価を行い，
-提案手法をフィルタリング手法として用いるべきユースケースを示した．
-\begin{table}[b] \centering
+最後に，フィルタリング後に行う通常のドッキングシミュレーションと組み合わせた場合の速度・精度の評価を行い，
+提案手法をフィルタリング手法として用いるべきユースケースを示した（表\ref{table:conclusion_3}）．
+\begin{table}[h] \centering
 	\caption{通常ドッキング（Glide SP）と組み合わせた速度・精度評価}
-	\label{table:conclusion_2}
+	\label{table:conclusion_3}
 	\begin{tabular}{l|rrr}
 	\hline
 												&\multirow{2}{*}{化合物数}	&上位1万化合物の		&推定計算時間	\\
@@ -33,7 +62,6 @@
 	提案手法で1\%フィルタリング		&1,000万											&\b{20.26 (EF 0.1\%)}		&\b{26.9}				\\
 	従来手法で10\%フィルタリング	&100万												&16.89 (EF 1\%)			&32.0				\\ \hline
 	\end{tabular}
-	\vspace{-0.5cm}
 \end{table}
 
 \newpage

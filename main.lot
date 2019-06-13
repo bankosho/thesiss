@@ -1,0 +1,38 @@
+\addvspace {10pt}
+\contentsline {table}{\numberline {1.1}{\ignorespaces 従来のフィルタリング手法と本研究で提案する手法との比較}}{3}
+\addvspace {10pt}
+\contentsline {table}{\numberline {2.1}{\ignorespaces 主なドッキングシミュレーションソフトウェア}}{5}
+\contentsline {table}{\numberline {2.2}{\ignorespaces ドッキングシミュレーションソフトウェアの計算速度}}{9}
+\addvspace {10pt}
+\addvspace {10pt}
+\contentsline {table}{\numberline {4.1}{\ignorespaces DUD-Eのターゲットの化合物数}}{22}
+\contentsline {table}{\numberline {4.2}{\ignorespaces 利用した計算環境}}{23}
+\contentsline {table}{\numberline {4.3}{\ignorespaces フラグメント分割を行った時のフラグメント１種類あたりの化合物数}}{25}
+\contentsline {table}{\numberline {4.4}{\ignorespaces ドッキング計算時間の比較（括弧内はGlide HTVSとの速度比）}}{26}
+\contentsline {table}{\numberline {4.5}{\ignorespaces 提案手法の予測精度}}{27}
+\contentsline {table}{\numberline {4.6}{\ignorespaces フィルタリング手法としての提案手法間の精度評価}}{29}
+\contentsline {table}{\numberline {4.7}{\ignorespaces フィルタリング手法としての提案手法と従来手法の比較}}{29}
+\addvspace {10pt}
+\contentsline {table}{\numberline {5.1}{\ignorespaces 小さなフラグメントを無視することによるscore\_sumの精度の変化}}{32}
+\contentsline {table}{\numberline {5.2}{\ignorespaces フラグメント数に対する線形ペナルティによるscore\_sumの精度の変化}}{32}
+\contentsline {table}{\numberline {5.3}{\ignorespaces 小さなフラグメントを無視することによるmaxsumBSの精度の変化}}{33}
+\contentsline {table}{\numberline {5.4}{\ignorespaces フラグメント数に対する線形ペナルティによるmaxsumBSの精度の変化}}{33}
+\contentsline {table}{\numberline {5.5}{\ignorespaces 提案手法が上手く行ったケース}}{34}
+\contentsline {table}{\numberline {5.6}{\ignorespaces 提案手法が得意なターゲットの性質}}{34}
+\contentsline {table}{\numberline {5.7}{\ignorespaces 化合物全体を評価するのに要する時間の比較}}{36}
+\contentsline {table}{\numberline {5.8}{\ignorespaces 総化合物数が1万以上存在するDUD-Eのターゲットに対する評価実験}}{37}
+\contentsline {table}{\numberline {5.9}{\ignorespaces 提案手法が従来手法に速度・精度ともに勝る例}}{38}
+\addvspace {10pt}
+\contentsline {table}{\numberline {6.1}{\ignorespaces 提案手法のフィルタリング利用時の精度}}{39}
+\contentsline {table}{\numberline {6.2}{\ignorespaces 提案手法の性能}}{40}
+\contentsline {table}{\numberline {6.3}{\ignorespaces 通常ドッキング（Glide SP）と組み合わせた速度・精度評価}}{40}
+\addvspace {10pt}
+\contentsline {table}{\numberline {A.1}{\ignorespaces DUD-Eの詳細(1)}}{49}
+\contentsline {table}{\numberline {A.2}{\ignorespaces DUD-Eの詳細(2)}}{50}
+\contentsline {table}{\numberline {A.3}{\ignorespaces DUD-Eの詳細(3)}}{51}
+\contentsline {table}{\numberline {A.4}{\ignorespaces DUD-Eの詳細(4)}}{52}
+\addvspace {10pt}
+\contentsline {table}{\numberline {B.1}{\ignorespaces 各手法単体性能AUC-ROC値(1)}}{71}
+\contentsline {table}{\numberline {B.2}{\ignorespaces 各手法単体性能AUC-ROC値(2)}}{72}
+\contentsline {table}{\numberline {B.3}{\ignorespaces 各手法単体性能AUC-ROC値(3)}}{73}
+\contentsline {table}{\numberline {B.4}{\ignorespaces 各手法単体性能AUC-ROC値(4)}}{74}

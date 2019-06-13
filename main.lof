@@ -1,0 +1,44 @@
+\addvspace {10pt}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces ドッキングシミュレーションのイメージ}}{5}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces ドッキングシミュレーションの探索空間}}{7}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Glideのワークフロー\cite {Friesner2004}}}{8}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces eHiTSのクリーク探索}}{9}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces AutoDockのGAで用いる変数群}}{9}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces 提案手法の速度の数値目標}}{12}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces フラグメント単位でのドッキング結果例}}{15}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces 提案手法の手順}}{16}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces 化合物のフラグメント分割アルゴリズム}}{17}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces ZINC ``drugs now'' 10,639,555化合物を分割した例}}{18}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces 複数のドッキング結果の出力例および最良構造の選択}}{19}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces score\_sum, score\_maxの算出}}{21}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces maxsumBSの算出}}{21}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces ROC-AUC計算例}}{24}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces EF計算例}}{24}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces DUD-Eターゲットにおける化合物数とフラグメント種類数の関係}}{25}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces EF（1\%），EF（2\%）算出までの流れ}}{28}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces ターゲットfntaの全ての化合物のうち重原子数32の化合物の単純加算スコア}}{31}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces 薬剤化合物の例：(a)ホルモテロール， (b)カンデサルタン}}{35}
+\addvspace {10pt}
+\addvspace {10pt}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {B.1}{\ignorespaces 各手法の単体性能ROC曲線(1)}}{54}
+\contentsline {figure}{\numberline {B.2}{\ignorespaces 各手法の単体性能ROC曲線(2)}}{55}
+\contentsline {figure}{\numberline {B.3}{\ignorespaces 各手法の単体性能ROC曲線(3)}}{56}
+\contentsline {figure}{\numberline {B.4}{\ignorespaces 各手法の単体性能ROC曲線(4)}}{57}
+\contentsline {figure}{\numberline {B.5}{\ignorespaces 各手法の単体性能ROC曲線(5)}}{58}
+\contentsline {figure}{\numberline {B.6}{\ignorespaces 各手法の単体性能ROC曲線(6)}}{59}
+\contentsline {figure}{\numberline {B.7}{\ignorespaces 各手法の単体性能ROC曲線(7)}}{60}
+\contentsline {figure}{\numberline {B.8}{\ignorespaces 各手法の単体性能ROC曲線(8)}}{61}
+\contentsline {figure}{\numberline {B.9}{\ignorespaces 各手法の単体性能ROC曲線(9)}}{62}
+\contentsline {figure}{\numberline {B.10}{\ignorespaces 各手法の単体性能ROC曲線(10)}}{63}
+\contentsline {figure}{\numberline {B.11}{\ignorespaces 各手法の単体性能ROC曲線(11)}}{64}
+\contentsline {figure}{\numberline {B.12}{\ignorespaces 各手法の単体性能ROC曲線(12)}}{65}
+\contentsline {figure}{\numberline {B.13}{\ignorespaces 各手法の単体性能ROC曲線(13)}}{66}
+\contentsline {figure}{\numberline {B.14}{\ignorespaces 各手法の単体性能ROC曲線(14)}}{67}
+\contentsline {figure}{\numberline {B.15}{\ignorespaces 各手法の単体性能ROC曲線(15)}}{68}
+\contentsline {figure}{\numberline {B.16}{\ignorespaces 各手法の単体性能ROC曲線(16)}}{69}
+\contentsline {figure}{\numberline {B.17}{\ignorespaces 各手法の単体性能ROC曲線(17)}}{70}
